@@ -1,0 +1,906 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qui sommes-nous — GREC Bénin</title>
+  <meta name="description"
+    content="Le GREC est le Groupe de Réflexion sur l'Entrepreneuriat et la Créativité au Bénin. Découvrez notre histoire, notre mission et notre équipe." />
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#C8893A',
+            'gold-light': '#E5A84B',
+            navy: '#0D1B2A',
+            'navy-mid': '#1A2E42',
+            cream: '#F2EDE3',
+            'off-white': '#F8F5EF',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <style>
+    .hero-about {
+      background:
+        linear-gradient(135deg, rgba(13, 27, 42, 0.92) 0%, rgba(13, 27, 42, 0.75) 100%),
+        url('../assets/images/hero.jpg') center/cover no-repeat;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-about {
+        background-attachment: scroll;
+      }
+    }
+
+    /* Timeline */
+    .timeline-item {
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 28px;
+      bottom: -20px;
+      width: 2px;
+      background: linear-gradient(to bottom, #C8893A, transparent);
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #C8893A;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 3px rgba(200, 137, 58, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Team card hover */
+    .team-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .team-card .photo-wrap {
+      overflow: hidden;
+    }
+
+    .team-card .photo-wrap img {
+      transition: transform 0.5s ease;
+    }
+
+    .team-card:hover .photo-wrap img {
+      transform: scale(1.05);
+    }
+
+    /* Valeurs icon */
+    .valeur-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(200, 137, 58, 0.1);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.25s ease;
+    }
+
+    .valeur-card:hover .valeur-icon {
+      background: rgba(200, 137, 58, 0.2);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb a {
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: #C8893A;
+    }
+  </style>
+</head>
+
+<body class="font-body bg-white text-navy">
+
+  <!-- ═══════════════════════════════════
+     NAVBAR
+════════════════════════════════════ -->
+  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="../index.html" class="brand-lockup flex items-center gap-3">
+        <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+        <div
+          class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
+          G</div>
+        <div class="hidden sm:block">
+          <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+          <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
+        </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
+        <a href="about.html" class="nav-link active text-sm font-medium">Qui sommes-nous ?</a>
+        <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Espace</a>
+        <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
+        <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
+        <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
+        <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
+        <button onclick="logout()"
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+      </div>
+      <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+        <a href="about.html" class="text-teal py-2 border-b border-slate-300/60 text-sm font-semibold">Qui
+          sommes-nous</a>
+        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Membres</a>
+        <a href="actualites.html"
+          class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+        <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+        <div class="pt-3 flex flex-col gap-2">
+          <a href="auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════
+     HERO
+════════════════════════════════════ -->
+  <section class="hero-about pt-32 pb-20 min-h-[420px] flex flex-col justify-center">
+    <div class="max-w-7xl mx-auto px-6 w-full">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb flex items-center gap-2 text-white/50 text-xs mb-6">
+        <a href="../index.html" class="hover:text-white">Accueil</a>
+        <span>/</span>
+        <span class="text-gold">Qui sommes-nous</span>
+      </nav>
+
+      <div class="section-label text-gold reveal">Notre identité</div>
+      <h1 class="font-display text-4xl md:text-5xl text-white font-semibold leading-tight max-w-2xl reveal mt-2">
+        Le <span class="text-gold-light italic">GREC</span>, un réseau<br />bâti pour durer
+      </h1>
+      <p class="text-white/60 mt-4 max-w-xl text-base leading-relaxed reveal">
+        Groupe de Réflexion sur l'Entrepreneuriat et la Créativité au Bénin — né en 2021, construit sur la confiance,
+        l'entraide et l'excellence.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+     INTRO — Définition du GREC
+════════════════════════════════════ -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Texte -->
+      <div class="reveal">
+        <div class="section-label">Le GREC, c'est quoi ?</div>
+        <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy mb-6 leading-tight">
+          Un pont entre<br /><span class="text-gold italic">local et diaspora</span>
+        </h2>
+        <div class="space-y-4 text-slate-600 text-[15px] leading-relaxed">
+          <p>
+            Le GREC est le <strong class="text-navy">Groupe de Réflexion sur l'Entrepreneuriat et la Créativité au
+              Bénin</strong>.
+            C'est un réseau d'entrepreneurs qui ont décidé de se mettre ensemble pour donner une nouvelle dimension à
+            leurs entreprises respectives.
+          </p>
+          <p>
+            Né à l'issue du <strong class="text-navy">Rendez-vous de la Diaspora</strong> en mars 2021, le GREC fédère
+            des chefs d'entreprises béninois
+            qu'ils soient sur le territoire national ou à l'international.
+          </p>
+          <p>
+            L'idée est simple : vous êtes souvent seul(e) face à vous-même, à gérer seul(e) vos problèmes quotidiens,
+            incapable d'accéder à certains marchés car votre offre est trop étroite.
+            <strong class="text-navy">Le GREC change cela.</strong>
+          </p>
+        </div>
+
+        <!-- Citation encadrée -->
+        <blockquote class="mt-8 border-l-4 border-gold pl-5 bg-cream rounded-r-xl py-4 pr-4">
+          <p class="text-navy font-display italic text-lg leading-snug">
+            « Le GREC est né pour servir de pont entre les entrepreneurs locaux et ceux de la diaspora. »
+          </p>
+          <footer class="mt-3 flex items-center gap-3">
+            <img src="../assets/images/djimadja_boris.jpg" alt="Boris Djimadja"
+              class="w-9 h-9 rounded-full object-cover object-top border-2 border-gold/30"
+              onerror="this.style.display='none'" />
+            <div>
+              <div class="text-gold font-semibold text-sm">Boris Djimadja</div>
+              <div class="text-slate-500 text-xs">Coordinateur général, GREC</div>
+            </div>
+          </footer>
+        </blockquote>
+      </div>
+
+      <!-- Image + badge -->
+      <div class="reveal relative">
+        <div class="absolute -top-4 -right-4 w-full h-full border-2 border-gold/20 rounded-2xl pointer-events-none">
+        </div>
+        <img src="../assets/images/hero.jpg" alt="Rendez-vous de la Diaspora — GREC Bénin"
+          class="relative z-10 w-full h-[440px] object-cover rounded-2xl shadow-2xl" />
+        <!-- Fondation badge -->
+        <div
+          class="absolute z-20 -bottom-5 left-6 bg-navy text-white rounded-xl px-5 py-3 shadow-xl flex items-center gap-3">
+          <div class="text-gold font-display font-bold text-3xl">2021</div>
+          <div>
+            <div class="text-white text-xs font-semibold">Année de fondation</div>
+            <div class="text-slate-500 text-xs">Cotonou, Bénin</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+     MISSION & RÉSEAU
+════════════════════════════════════ -->
+  <section class="py-20 bg-off-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <div class="section-label justify-center reveal">Ce qui nous guide</div>
+        <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy reveal">Mission & Réseau</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <!-- Mission -->
+        <div class="reveal bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+          <div class="valeur-icon mb-5">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+            </svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-navy mb-3">Notre Mission</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Créer et entretenir un réseau au sein duquel les membres accroissent leur développement personnel et
+            d'affaires
+            et échangent les expériences professionnelles.
+          </p>
+          <ul class="mt-5 space-y-3">
+            <li class="flex items-start gap-3 text-sm text-slate-600">
+              <span class="w-5 h-5 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold block"></span>
+              </span>
+              Mettre en lumière les projets d'entrepreneuriat de la Diaspora
+            </li>
+            <li class="flex items-start gap-3 text-sm text-slate-600">
+              <span class="w-5 h-5 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold block"></span>
+              </span>
+              Favoriser les rencontres entre entrepreneurs
+            </li>
+            <li class="flex items-start gap-3 text-sm text-slate-600">
+              <span class="w-5 h-5 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold block"></span>
+              </span>
+              Réussir ensemble en mutualisant les ressources
+            </li>
+            <li class="flex items-start gap-3 text-sm text-slate-600">
+              <span class="w-5 h-5 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold block"></span>
+              </span>
+              Favoriser l'entraide et les synergies pour des actions communes
+            </li>
+          </ul>
+        </div>
+
+        <!-- Réseau -->
+        <div class="reveal bg-navy rounded-2xl p-8 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253" />
+            </svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold text-white mb-3">Notre Réseau</h3>
+          <p class="text-white/65 text-sm leading-relaxed mb-6">
+            Un réseau qui met l'accent sur le développement personnel et d'affaires, avec plusieurs opportunités de
+            conférences et d'activités partagées.
+          </p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+              <div class="text-gold font-display font-bold text-2xl mb-1">6+</div>
+              <div class="text-slate-500 text-xs">Pays représentés</div>
+            </div>
+            <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+              <div class="text-gold font-display font-bold text-2xl mb-1">9</div>
+              <div class="text-slate-500 text-xs">Secteurs couverts</div>
+            </div>
+            <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+              <div class="text-gold font-display font-bold text-2xl mb-1">2021</div>
+              <div class="text-slate-500 text-xs">Année de création</div>
+            </div>
+            <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+              <div class="text-gold font-display font-bold text-2xl mb-1">∞</div>
+              <div class="text-slate-500 text-xs">Opportunités</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+     VALEURS
+════════════════════════════════════ -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <div class="section-label justify-center reveal">Ce en quoi nous croyons</div>
+        <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy reveal">Nos valeurs fondamentales</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <div
+          class="valeur-card reveal group p-6 rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-300">
+          <div class="valeur-icon mb-4">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-navy text-lg mb-2">Excellence</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            Nous visons l'excellence dans tout ce que nous faisons, en encourageant chaque membre à donner le meilleur
+            de lui-même.
+          </p>
+        </div>
+
+        <div
+          class="valeur-card reveal group p-6 rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-300">
+          <div class="valeur-icon mb-4">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-navy text-lg mb-2">Confiance</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            La confiance est le socle de notre réseau. Chaque membre adhère à un code d'éthique partagé qui garantit des
+            relations saines.
+          </p>
+        </div>
+
+        <div
+          class="valeur-card reveal group p-6 rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-300">
+          <div class="valeur-icon mb-4">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-navy text-lg mb-2">Innovation</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            Une commission dédiée à l'innovation stimule la créativité collective et encourage les membres à penser
+            différemment.
+          </p>
+        </div>
+
+        <div
+          class="valeur-card reveal group p-6 rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-300">
+          <div class="valeur-icon mb-4">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-navy text-lg mb-2">Entraide</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            Nous nous soutenons mutuellement. Le succès d'un membre est le succès de tous. La solidarité est notre
+            force.
+          </p>
+        </div>
+
+        <div
+          class="valeur-card reveal group p-6 rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-300">
+          <div class="valeur-icon mb-4">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-navy text-lg mb-2">Inclusion</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            Diaspora ou local, tous les entrepreneurs béninois ont leur place dans notre réseau, quels que soient leur
+            secteur ou leur taille.
+          </p>
+        </div>
+
+        <div
+          class="valeur-card reveal group p-6 rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-300">
+          <div class="valeur-icon mb-4">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-navy text-lg mb-2">Responsabilité</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">
+            Chaque membre est responsable de l'image et de la réputation du réseau. L'éthique professionnelle est non
+            négociable.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+     HISTOIRE — Timeline
+════════════════════════════════════ -->
+  <section class="py-20 bg-cream">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <div class="section-label justify-center reveal">Depuis le début</div>
+        <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy reveal">Notre histoire</h2>
+      </div>
+
+      <div class="space-y-10">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">
+            <span class="w-2 h-2 rounded-full bg-white block"></span>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 ml-2">
+            <div class="text-gold font-semibold text-xs uppercase tracking-widest mb-2">Mars 2021</div>
+            <h3 class="font-display font-semibold text-navy text-lg mb-2">Rendez-vous de la Diaspora</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              À l'issue du Rendez-vous de la Diaspora à Cotonou, un groupe d'entrepreneurs décide de créer une structure
+              pérenne
+              pour maintenir les liens et créer des synergies. Le GREC est officiellement fondé.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">
+            <span class="w-2 h-2 rounded-full bg-white block"></span>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 ml-2">
+            <div class="text-gold font-semibold text-xs uppercase tracking-widest mb-2">Juillet 2021</div>
+            <h3 class="font-display font-semibold text-navy text-lg mb-2">Première action sociale — Athiémé</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Les membres du GREC et du HCBE-MONDE se rendent au Centre d'Accueil et de Protection de l'Enfant (CAPE)
+              « La maison de joie » de CESORIA à Athiémé pour une action de solidarité. Le réseau affirme sa dimension
+              humaine.
+            </p>
+            <!-- Photo action sociale -->
+            <div class="mt-4 rounded-xl overflow-hidden">
+              <img src="../assets/images/action-sociale.jpg" alt="Action sociale Athiémé — GREC & HCBE-Monde"
+                class="w-full h-52 object-cover" onerror="this.style.display='none'" />
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">
+            <span class="w-2 h-2 rounded-full bg-white block"></span>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 ml-2">
+            <div class="text-gold font-semibold text-xs uppercase tracking-widest mb-2">Octobre 2021</div>
+            <h3 class="font-display font-semibold text-navy text-lg mb-2">Lancement du site & premières publications
+            </h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Le GREC lance sa plateforme web et commence à médiatiser les histoires de réussite de ses membres à
+              travers
+              des portraits d'entrepreneurs, dont Jocelyne Marina Duval, fondatrice de la marque de parfumerie APONIE.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">
+            <span class="w-2 h-2 rounded-full bg-white block"></span>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm bg-navy border-none ml-2" style="background:#0D1B2A">
+            <div class="text-gold font-semibold text-xs uppercase tracking-widest mb-2">2025 — Aujourd'hui</div>
+            <h3 class="font-display font-semibold text-white text-lg mb-2">Refonte & expansion</h3>
+            <p class="text-white/65 text-sm leading-relaxed">
+              Le GREC se dote d'une nouvelle plateforme numérique moderne, d'un annuaire membre enrichi et continue
+              de renforcer les liens entre entrepreneurs béninois à travers le monde.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+     ÉQUIPE DIRIGEANTE
+════════════════════════════════════ -->
+  <section id="equipe" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <div class="section-label justify-center reveal">Les visages du GREC</div>
+        <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy reveal">L'équipe dirigeante</h2>
+        <p class="text-slate-500 text-sm mt-3 max-w-lg mx-auto reveal">
+          Des femmes et hommes engagés au service du développement entrepreneurial béninois.
+        </p>
+      </div>
+
+      <!-- Coordinateurs (grande carte) -->
+      <div class="grid md:grid-cols-3 gap-8 mb-10">
+
+        <!-- Boris -->
+        <div class="team-card reveal bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100">
+          <div class="photo-wrap h-64 bg-cream relative">
+            <img src="../assets/images/djimadja_boris.jpg" alt="Boris Djimadja"
+              class="w-full h-full object-cover object-top"
+              onerror="this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-navy/10\'><span class=\'font-display text-4xl text-gold font-bold\'>BD</span></div>'" />
+            <div class="absolute top-3 right-3 bg-gold text-white text-xs font-semibold px-3 py-1 rounded-full">
+              Coordinateur général
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-semibold text-navy text-lg">Boris Djimadja</h3>
+            <p class="text-gold text-xs font-medium mt-0.5 mb-3">Coordinateur général</p>
+            <p class="text-slate-500 text-xs leading-relaxed">Fondateur du GREC, Boris coordonne l'ensemble du réseau et
+              porte la vision de l'association.</p>
+            <a href="mailto:d.boris@grec.group"
+              class="mt-3 inline-flex items-center gap-1.5 text-xs text-gold hover:underline">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              d.boris@grec.group
+            </a>
+          </div>
+        </div>
+
+        <!-- Brice -->
+        <div class="team-card reveal bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100">
+          <div class="photo-wrap h-64 bg-cream relative">
+            <img src="../assets/images/zohoun.jpeg" alt="Brice Zohoun" class="w-full h-full object-cover object-top"
+              onerror="this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-navy/10\'><span class=\'font-display text-4xl text-gold font-bold\'>BZ</span></div>'" />
+            <div class="absolute top-3 right-3 bg-navy text-white text-xs font-semibold px-3 py-1 rounded-full">
+              Coordinateur diaspora
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-semibold text-navy text-lg">Brice Zohoun</h3>
+            <p class="text-gold text-xs font-medium mt-0.5 mb-3">Coordinateur diaspora</p>
+            <p class="text-slate-500 text-xs leading-relaxed">Brice est le pont entre les entrepreneurs de la diaspora
+              et le réseau GREC au Bénin.</p>
+            <a href="mailto:z.brice@grec.group"
+              class="mt-3 inline-flex items-center gap-1.5 text-xs text-gold hover:underline">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              z.brice@grec.group
+            </a>
+          </div>
+        </div>
+
+        <!-- Appolinaire -->
+        <div class="team-card reveal bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100">
+          <div class="photo-wrap h-64 bg-cream relative">
+            <img src="../assets/images/AZONHIHO.jpg" alt="Appolinaire Azonhiho"
+              class="w-full h-full object-cover object-top"
+              onerror="this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-navy/10\'><span class=\'font-display text-4xl text-gold font-bold\'>DA</span></div>'" />
+            <div class="absolute top-3 right-3 bg-navy text-white text-xs font-semibold px-3 py-1 rounded-full">
+              Coordinateur local
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-semibold text-navy text-lg">Appolinaire D. Azonhiho</h3>
+            <p class="text-gold text-xs font-medium mt-0.5 mb-3">Coordinateur local</p>
+            <p class="text-slate-500 text-xs leading-relaxed">Appolinaire gère les relations avec les membres locaux et
+              coordonne les activités sur le terrain au Bénin.</p>
+            <a href="mailto:ad.appolinaire@grec.group"
+              class="mt-3 inline-flex items-center gap-1.5 text-xs text-gold hover:underline">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              ad.appolinaire@grec.group
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Autres membres de l'équipe (petites cartes) -->
+      <h3 class="font-display text-xl font-semibold text-navy mb-6 text-center reveal">Commissions & Secrétariat</h3>
+      <div class="grid md:grid-cols-3 gap-5">
+
+        <!-- Axelle -->
+        <div class="team-card reveal flex items-center gap-4 bg-off-white rounded-xl p-4 border border-slate-100">
+          <div class="photo-wrap w-16 h-16 rounded-full flex-shrink-0 overflow-hidden border-2 border-gold/25">
+            <img src="../assets/images/axelle.jpeg" alt="Axelle Prodjinotho"
+              class="w-full h-full object-cover object-top"
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gold/10\'><span class=\'text-gold font-bold text-sm\'>AP</span></div>'" />
+          </div>
+          <div>
+            <h4 class="font-semibold text-navy text-sm">Axelle Prodjinotho</h4>
+            <p class="text-gold text-xs mt-0.5">Secrétaire général</p>
+            <a href="mailto:p.axelle@grec.group"
+              class="text-slate-400 text-xs hover:text-gold transition-colors mt-1 block">p.axelle@grec.group</a>
+          </div>
+        </div>
+
+        <!-- Edison -->
+        <div class="team-card reveal flex items-center gap-4 bg-off-white rounded-xl p-4 border border-slate-100">
+          <div class="photo-wrap w-16 h-16 rounded-full flex-shrink-0 overflow-hidden border-2 border-gold/25">
+            <img src="../assets/images/adjovi.jpg" alt="Edison Adjovi" class="w-full h-full object-cover object-top"
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gold/10\'><span class=\'text-gold font-bold text-sm\'>EA</span></div>'" />
+          </div>
+          <div>
+            <h4 class="font-semibold text-navy text-sm">Edison Adjovi</h4>
+            <p class="text-gold text-xs mt-0.5">Commission Innovation</p>
+            <p class="text-slate-400 text-xs mt-1">Responsable de la commission créativité</p>
+          </div>
+        </div>
+
+        <!-- Ghislaine -->
+        <div class="team-card reveal flex items-center gap-4 bg-off-white rounded-xl p-4 border border-slate-100">
+          <div class="photo-wrap w-16 h-16 rounded-full flex-shrink-0 overflow-hidden border-2 border-gold/25">
+            <img src="../assets/images/Ghislaine.jpg" alt="Ghislaine Hodonou"
+              class="w-full h-full object-cover object-top"
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gold/10\'><span class=\'text-gold font-bold text-sm\'>GH</span></div>'" />
+          </div>
+          <div>
+            <h4 class="font-semibold text-navy text-sm">Ghislaine Hodonou</h4>
+            <p class="text-gold text-xs mt-0.5">Commission Renforcement</p>
+            <p class="text-slate-400 text-xs mt-1">Renforcement des capacités des membres</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+     ACTION SOCIALE
+════════════════════════════════════ -->
+  <section class="py-20 bg-navy relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-gold rounded-full filter blur-3xl"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+
+      <div class="reveal">
+        <div class="section-label text-gold">Engagement social</div>
+        <h2 class="font-display text-3xl md:text-4xl font-semibold text-white leading-tight mb-6">
+          Entrepreneurs responsables,<br /><span class="text-gold-light italic">citoyens engagés</span>
+        </h2>
+        <p class="text-white/65 text-[15px] leading-relaxed mb-6">
+          Le GREC ne se limite pas aux affaires. Nos membres sont des citoyens responsables qui s'engagent pour les
+          communautés
+          les plus vulnérables. L'action sociale fait partie intégrante de notre ADN.
+        </p>
+        <p class="text-white/65 text-[15px] leading-relaxed mb-8">
+          En juillet 2021, en partenariat avec le HCBE-Monde et le groupe Carrefour, nous avons mené une action
+          de solidarité à Athiémé auprès des enfants du CAPE « La maison de joie ».
+        </p>
+        <a href="actualites.html" class="btn btn-gold inline-flex">
+          Voir toutes nos actions →
+        </a>
+      </div>
+
+      <div class="reveal grid grid-cols-2 gap-4">
+        <img src="../assets/images/action-sociale.jpg" alt="Action sociale Athiémé"
+          class="rounded-2xl w-full h-52 object-cover shadow-lg col-span-2" onerror="this.style.display='none'" />
+        <!-- Photo uploadée par l'utilisateur -->
+        <img src="../assets/images/action-sociale.jpg" alt="GREC action sociale"
+          class="rounded-xl w-full h-36 object-cover shadow-md"
+          onerror="this.src='../assets/images/action-sociale.jpg'" />
+        <div
+          class="rounded-xl bg-gold/10 border border-gold/20 flex flex-col items-center justify-center p-4 text-center">
+          <div class="text-gold font-display font-bold text-3xl mb-1">❤️</div>
+          <div class="text-white text-xs font-semibold">Engagement</div>
+          <div class="text-slate-500 text-xs">solidaire</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+     CTA — Rejoindre
+════════════════════════════════════ -->
+  <section class="py-20 bg-cream">
+    <div class="max-w-2xl mx-auto px-6 text-center reveal">
+      <div class="section-label justify-center">Prêt à nous rejoindre ?</div>
+      <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy mt-2 mb-5">
+        Faites partie du réseau GREC
+      </h2>
+      <p class="text-slate-500 text-[15px] leading-relaxed mb-8">
+        Rejoignez une communauté d'entrepreneurs béninois qui se soutiennent, collaborent et grandissent ensemble.
+        L'admission est soumise à l'acceptation du code d'éthique du réseau.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="auth.html?tab=register" class="btn btn-gold px-8 py-3 text-base">
+          Devenir membre →
+        </a>
+        <a href="membres.html" class="btn btn-outline-gold px-8 py-3 text-base">
+          Voir les membres
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+  <footer class="bg-navy border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div class="md:col-span-1">
+        <img src="../assets/images/logo.png" alt="GREC" class="h-12 mb-4 object-contain"
+          onerror="this.style.display='none'" />
+        <p class="text-white/45 text-sm leading-relaxed mb-5">Groupe de Réflexion sur l'Entrepreneuriat et la Créativité
+          au Bénin.</p>
+        <div class="flex gap-3">
+          <a href="#" aria-label="Twitter"
+            class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-gold transition-colors">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook"
+            class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-gold transition-colors">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram"
+            class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-gold transition-colors">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Liens utiles</h3>
+        <ul class="space-y-3">
+          <li><a href="about.html" class="text-gold text-sm">Qui sommes-nous</a></li>
+          <li><a href="membres.html" class="text-white/50 hover:text-gold text-sm transition-colors">Membres</a></li>
+          <li><a href="actualites.html" class="text-white/50 hover:text-gold text-sm transition-colors">Actualités</a>
+          </li>
+          <li><a href="galerie.html" class="text-white/50 hover:text-gold text-sm transition-colors">Galerie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Espace membres</h3>
+        <ul class="space-y-3">
+          <li><a href="auth.html?tab=register" class="text-white/50 hover:text-gold text-sm transition-colors">Devenir
+              membre</a></li>
+          <li><a href="auth.html" class="text-white/50 hover:text-gold text-sm transition-colors">Connexion</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
+        <ul class="space-y-3">
+          <li><a href="mailto:p.axelle@grec.group"
+              class="text-white/50 hover:text-gold text-sm transition-colors flex items-center gap-2"><svg
+                class="w-3 h-3 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>p.axelle@grec.group</a></li>
+          <li><a href="mailto:ad.appolinaire@grec.group"
+              class="text-white/50 hover:text-gold text-sm transition-colors flex items-center gap-2"><svg
+                class="w-3 h-3 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>ad.appolinaire@grec.group</a></li>
+          <li><a href="mailto:d.boris@grec.group"
+              class="text-white/50 hover:text-gold text-sm transition-colors flex items-center gap-2"><svg
+                class="w-3 h-3 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>d.boris@grec.group</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 py-5 px-6">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+        <p class="text-white/30 text-xs">© 2025 GREC · Tous droits réservés</p>
+        <p class="text-white/20 text-xs">Fait avec ❤️ pour les entrepreneurs béninois</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/utils.js"></script>
+
+  <!-- Floating Chat Button -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="floating-chat-btn"
+      class="bg-gold hover:bg-gold-light text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-gold/30"
+      aria-label="Accéder au chat">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    // Floating chat button functionality
+    document.getElementById('floating-chat-btn').addEventListener('click', function () {
+      window.location.href = 'chat.html';
+    });
+  </script>
+</body>
+
+</html>

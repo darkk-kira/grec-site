@@ -1,0 +1,1077 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actualités — GREC Bénin</title>
+  <meta name="description"
+    content="Suivez les actualités, événements et nouvelles du réseau GREC — entrepreneurs béninois et diaspora." />
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#C8893A', 'gold-light': '#E5A84B',
+            navy: '#0D1B2A', 'navy-mid': '#1A2E42',
+            cream: '#F2EDE3', 'off-white': '#F8F5EF',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <style>
+    .hero-actualites {
+      background:
+        linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0.70) 100%),
+        url('../assets/images/hero.jpg') center/cover no-repeat;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-actualites {
+        background-attachment: fixed;
+      }
+    }
+
+    /* Article card */
+    .article-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      background: #fff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(13, 27, 42, 0.13);
+    }
+
+    .article-card .img-wrap {
+      overflow: hidden;
+      height: 220px;
+      background: #E2E8F0;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .article-card .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .article-card:hover .img-wrap img {
+      transform: scale(1.07);
+    }
+
+    /* Article featured (grand format) */
+    .article-featured {
+      display: grid;
+      grid-template-columns: 1fr;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      background: #fff;
+      margin-bottom: 40px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    @media (min-width: 768px) {
+      .article-featured {
+        grid-template-columns: 1.2fr 1fr;
+      }
+    }
+
+    .article-featured:hover {
+      box-shadow: 0 24px 60px rgba(13, 27, 42, 0.14);
+    }
+
+    .article-featured .img-wrap {
+      height: 320px;
+      background: #E2E8F0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .article-featured .img-wrap {
+        height: 100%;
+        min-height: 320px;
+      }
+    }
+
+    .article-featured .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .article-featured:hover .img-wrap img {
+      transform: scale(1.05);
+    }
+
+    /* Image placeholder */
+    .img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #E8E0D4, #D5C9B8);
+      color: #A0907A;
+    }
+
+    .img-placeholder svg {
+      opacity: 0.45;
+    }
+
+    .img-placeholder span {
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0.6;
+      letter-spacing: 0.05em;
+    }
+
+    /* Category badges */
+    .cat-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .cat-actualite {
+      background: rgba(200, 137, 58, 0.12);
+      color: #B8782A;
+    }
+
+    .cat-evenement {
+      background: rgba(39, 170, 109, 0.12);
+      color: #1E8A58;
+    }
+
+    .cat-opportunite {
+      background: rgba(59, 130, 246, 0.12);
+      color: #2563EB;
+    }
+
+    .cat-formation {
+      background: rgba(139, 92, 246, 0.12);
+      color: #7C3AED;
+    }
+
+    .cat-partenariat {
+      background: rgba(236, 72, 153, 0.12);
+      color: #BE185D;
+    }
+
+    /* Sidebar */
+    .sidebar-card {
+      background: var(--off-white, #F8F5EF);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+
+    .sidebar-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: #0D1B2A;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(200, 137, 58, 0.25);
+    }
+
+    /* Filtre chips */
+    .filter-chip {
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1.5px solid #E2E8F0;
+      color: #4A5568;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-chip:hover,
+    .filter-chip.active {
+      border-color: #C8893A;
+      color: #fff;
+      background: #C8893A;
+    }
+
+    /* Trending item */
+    .trending-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    }
+
+    .trending-item:last-child {
+      border-bottom: none;
+    }
+
+    .trending-num {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      color: rgba(200, 137, 58, 0.3);
+      flex-shrink: 0;
+      line-height: 1.1;
+      width: 24px;
+      text-align: right;
+    }
+
+    /* Newsletter sidebar */
+    .newsletter-sidebar {
+      background: linear-gradient(135deg, #0D1B2A, #1A2E42);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+
+    /* Search */
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .search-wrap input {
+      padding-left: 42px;
+    }
+
+    /* Pagination */
+    .pag-btn {
+      width: 38px;
+      height: 38px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #fff;
+      color: #4A5568;
+    }
+
+    .pag-btn:hover {
+      border-color: #C8893A;
+      color: #C8893A;
+    }
+
+    .pag-btn.active {
+      background: #C8893A;
+      border-color: #C8893A;
+      color: #fff;
+    }
+
+    /* Reading time badge */
+    .read-time {
+      font-size: 11px;
+      color: #A0AEC0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  </style>
+</head>
+
+<body class="font-body bg-white text-navy">
+
+  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="../index.html" class="brand-lockup flex items-center gap-3">
+        <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+        <div
+          class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
+          G</div>
+        <div class="hidden sm:block">
+          <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+          <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
+        </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
+        <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
+        <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Espace</a>
+        <a href="actualites.html" class="nav-link active text-sm font-medium">Actualités</a>
+        <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
+        <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
+        <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
+        <button onclick="logout()"
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+      </div>
+      <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+        <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
+          sommes-nous</a>
+        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Membres</a>
+        <a href="actualites.html"
+          class="text-teal py-2 border-b border-slate-300/60 text-sm font-semibold">Actualités</a>
+        <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+        <div class="pt-3 flex flex-col gap-2">
+          <a href="auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section class="hero-actualites min-h-[400px] pt-32 pb-16 flex items-center">
+    <div class="max-w-7xl mx-auto px-6 w-full">
+      <nav class="flex items-center gap-2 text-white/50 text-xs mb-5">
+        <a href="../index.html" class="hover:text-white transition-colors">Accueil</a>
+        <span>/</span>
+        <span class="text-gold">Actualités</span>
+      </nav>
+      <div class="reveal">
+        <div class="section-label text-gold">Blog & Événements</div>
+        <h1 class="font-display text-white text-4xl md:text-5xl font-semibold mb-4 leading-tight max-w-3xl">
+          Actualités du <span class="text-gold-light italic">réseau GREC</span>
+        </h1>
+        <p class="text-white/65 text-lg max-w-2xl leading-relaxed">
+          Restez informé des dernières nouvelles, événements, opportunités d'affaires et activités de notre réseau
+          d'entrepreneurs béninois.
+        </p>
+      </div>
+      <!-- Stats rapides -->
+      <div class="flex flex-wrap gap-8 mt-10 reveal">
+        <div>
+          <div class="text-2xl font-display font-semibold text-white" id="count-articles">48</div>
+          <div class="text-white/50 text-xs mt-1">Articles publiés</div>
+        </div>
+        <div class="w-px bg-white/15"></div>
+        <div>
+          <div class="text-2xl font-display font-semibold text-white">12</div>
+          <div class="text-white/50 text-xs mt-1">Événements à venir</div>
+        </div>
+        <div class="w-px bg-white/15"></div>
+        <div>
+          <div class="text-2xl font-display font-semibold text-white">6</div>
+          <div class="text-white/50 text-xs mt-1">Catégories</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FILTRES ═══════════════════ -->
+  <div class="sticky top-16 z-40 bg-white border-b border-slate-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3 overflow-x-auto">
+      <span class="text-xs text-slate-400 font-medium shrink-0">Filtrer :</span>
+      <button class="filter-chip active" onclick="filterCat(this,'all')">Tous</button>
+      <button class="filter-chip" onclick="filterCat(this,'actualite')">Actualités</button>
+      <button class="filter-chip" onclick="filterCat(this,'evenement')">Événements</button>
+      <button class="filter-chip" onclick="filterCat(this,'opportunite')">Opportunités</button>
+      <button class="filter-chip" onclick="filterCat(this,'formation')">Formations</button>
+      <button class="filter-chip" onclick="filterCat(this,'partenariat')">Partenariats</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CONTENU PRINCIPAL ═══════════════════ -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-3 gap-12">
+
+        <!-- ── Colonne articles (gauche) ── -->
+        <div class="lg:col-span-2">
+
+          <!-- Article à la une -->
+          <div class="mb-3">
+            <div class="section-label text-gold">À la une</div>
+          </div>
+          <article class="article-featured reveal" data-cat="evenement">
+            <div class="img-wrap">
+              <!-- IMAGE PLACEHOLDER — remplacer par une vraie image d'événement -->
+              <div class="img-placeholder">
+                <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>Image événement à placer</span>
+              </div>
+              <!-- <img src="../assets/images/evenement-principal.jpg" alt="Forum GREC 2025" /> -->
+              <div class="absolute top-4 left-4">
+                <span class="cat-badge cat-evenement">Événement</span>
+              </div>
+            </div>
+            <div class="p-8 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-3 mb-4 text-xs text-slate-400">
+                  <time>15 Avril 2025</time>
+                  <span>·</span>
+                  <span class="read-time">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    5 min de lecture
+                  </span>
+                </div>
+                <h2 class="font-display text-2xl font-semibold text-navy mb-3 leading-snug">
+                  Forum GREC 2025 : « L'entrepreneuriat béninois à l'ère du numérique »
+                </h2>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                  Le GREC organise son grand Forum annuel les 20 et 21 juin 2025 à Cotonou. Plus de 300 entrepreneurs
+                  attendus, 15 panels thématiques, des ateliers pratiques et une soirée de networking exclusive. Ce
+                  rendez-vous incontournable réunit membres locaux et diaspora autour des enjeux de la transformation
+                  numérique des PME béninoises.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-5">
+                  <span class="text-xs bg-slate-100 text-slate-500 px-3 py-1 rounded-full">Cotonou</span>
+                  <span class="text-xs bg-slate-100 text-slate-500 px-3 py-1 rounded-full">20–21 Juin 2025</span>
+                  <span class="text-xs bg-slate-100 text-slate-500 px-3 py-1 rounded-full">300+ participants</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div
+                    class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-semibold text-xs">
+                    CK</div>
+                  <div>
+                    <div class="text-xs font-medium text-navy">Comité GREC</div>
+                    <div class="text-xs text-slate-400">Équipe éditoriale</div>
+                  </div>
+                </div>
+                <a href="article.html" class="btn btn-gold text-sm py-2 px-5">Lire l'article →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Titre de section -->
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="font-display text-2xl font-semibold text-navy">Dernières publications</h2>
+            <span id="articles-count" class="text-sm text-slate-400">Affichage de 6 articles</span>
+          </div>
+
+          <!-- Grille d'articles statiques (remplacés dynamiquement par Firestore) -->
+          <div id="articles-container" class="grid md:grid-cols-2 gap-7">
+
+            <!-- Article 1 -->
+            <article class="article-card reveal" data-cat="opportunite">
+              <div class="img-wrap">
+                <div class="img-placeholder">
+                  <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>Image article</span>
+                </div>
+                <!-- <img src="../assets/images/article-export.jpg" alt="Export Bénin-France" /> -->
+                <div class="absolute top-3 left-3"><span class="cat-badge cat-opportunite">Opportunité</span></div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <div class="text-xs text-slate-400 mb-3 flex items-center gap-2">
+                  <time>10 Avril 2025</time><span>·</span><span>4 min</span>
+                </div>
+                <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
+                  <a href="article.html" class="hover:text-gold transition-colors">Programme d'export Bénin–France :
+                    nouvelles opportunités pour les PME</a>
+                </h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
+                  La chambre de commerce franco-béninoise ouvre ses candidatures pour le programme d'accompagnement à
+                  l'exportation. Quotas, critères d'éligibilité et accompagnement financier — tout ce que les membres
+                  GREC doivent savoir.
+                </p>
+                <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+                  <span>Par Adjobi Mensah</span>
+                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article 2 -->
+            <article class="article-card reveal" data-cat="formation">
+              <div class="img-wrap">
+                <div class="img-placeholder">
+                  <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>Image formation</span>
+                </div>
+                <!-- <img src="../assets/images/article-formation.jpg" alt="Formation Finance" /> -->
+                <div class="absolute top-3 left-3"><span class="cat-badge cat-formation">Formation</span></div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <div class="text-xs text-slate-400 mb-3 flex items-center gap-2">
+                  <time>3 Avril 2025</time><span>·</span><span>6 min</span>
+                </div>
+                <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
+                  <a href="article.html" class="hover:text-gold transition-colors">Masterclass Finance d'entreprise :
+                    lever des fonds en Afrique de l'Ouest</a>
+                </h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
+                  Formation intensive d'une journée animée par des experts en capital-risque africain. Au programme :
+                  présentation aux investisseurs, due diligence, négociation des termes et cas pratiques de startups
+                  béninoises financées.
+                </p>
+                <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+                  <span>Par Équipe GREC</span>
+                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article 3 -->
+            <article class="article-card reveal" data-cat="actualite">
+              <div class="img-wrap">
+                <div class="img-placeholder">
+                  <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2z" />
+                  </svg>
+                  <span>Image article</span>
+                </div>
+                <!-- <img src="../assets/images/article-incubation.jpg" alt="Incubation 2025" /> -->
+                <div class="absolute top-3 left-3"><span class="cat-badge cat-actualite">Actualité</span></div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <div class="text-xs text-slate-400 mb-3 flex items-center gap-2">
+                  <time>28 Mars 2025</time><span>·</span><span>3 min</span>
+                </div>
+                <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
+                  <a href="article.html" class="hover:text-gold transition-colors">Lancement du programme d'incubation
+                    GREC 2025 : 10 startups sélectionnées</a>
+                </h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
+                  Le GREC annonce la promotion 2025 de son programme d'incubation. Dix startups béninoises bénéficieront
+                  d'un accompagnement de six mois : mentorat, accès au réseau, bureaux partagés et introduction auprès
+                  d'investisseurs.
+                </p>
+                <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+                  <span>Par Directeur GREC</span>
+                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article 4 -->
+            <article class="article-card reveal" data-cat="partenariat">
+              <div class="img-wrap">
+                <div class="img-placeholder">
+                  <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2z" />
+                  </svg>
+                  <span>Image partenariat</span>
+                </div>
+                <!-- <img src="../assets/images/article-partenariat.jpg" alt="Partenariat BPI" /> -->
+                <div class="absolute top-3 left-3"><span class="cat-badge cat-partenariat">Partenariat</span></div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <div class="text-xs text-slate-400 mb-3 flex items-center gap-2">
+                  <time>20 Mars 2025</time><span>·</span><span>5 min</span>
+                </div>
+                <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
+                  <a href="article.html" class="hover:text-gold transition-colors">GREC × BPI France : un accord
+                    stratégique pour soutenir la diaspora entrepreneuriale</a>
+                </h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
+                  Un mémorandum d'entente signé entre le GREC et BPI France ouvre la voie à des financements et
+                  garanties de prêts pour les membres de la diaspora béninoise souhaitant investir au Bénin depuis la
+                  France.
+                </p>
+                <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+                  <span>Par Komlan Attiogbé</span>
+                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article 5 -->
+            <article class="article-card reveal" data-cat="evenement">
+              <div class="img-wrap">
+                <div class="img-placeholder">
+                  <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2z" />
+                  </svg>
+                  <span>Image événement</span>
+                </div>
+                <!-- <img src="../assets/images/article-networking.jpg" alt="Soirée réseau" /> -->
+                <div class="absolute top-3 left-3"><span class="cat-badge cat-evenement">Événement</span></div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <div class="text-xs text-slate-400 mb-3 flex items-center gap-2">
+                  <time>12 Mars 2025</time><span>·</span><span>2 min</span>
+                </div>
+                <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
+                  <a href="article.html" class="hover:text-gold transition-colors">Soirée networking GREC à Paris :
+                    retour sur une rencontre exceptionnelle</a>
+                </h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
+                  Plus de 80 membres ont participé à la soirée networking organisée à Paris en mars. Pitchs express,
+                  rencontres B2B et annonces de projets collaboratifs ont marqué cette soirée riche en échanges.
+                </p>
+                <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+                  <span>Par Marie-Claire Agossou</span>
+                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Article 6 -->
+            <article class="article-card reveal" data-cat="actualite">
+              <div class="img-wrap">
+                <div class="img-placeholder">
+                  <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z" />
+                  </svg>
+                  <span>Image article</span>
+                </div>
+                <!-- <img src="../assets/images/article-rapport.jpg" alt="Rapport annuel" /> -->
+                <div class="absolute top-3 left-3"><span class="cat-badge cat-actualite">Actualité</span></div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <div class="text-xs text-slate-400 mb-3 flex items-center gap-2">
+                  <time>5 Mars 2025</time><span>·</span><span>7 min</span>
+                </div>
+                <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
+                  <a href="article.html" class="hover:text-gold transition-colors">Rapport d'activité 2024 : une année
+                    de croissance pour le réseau GREC</a>
+                </h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
+                  Le bilan 2024 est positif : +35 nouveaux membres, 8 événements organisés, 3 accords de partenariat
+                  signés et plus de 200 mises en relation réussies. Retrouvez le rapport complet et les perspectives
+                  2025.
+                </p>
+                <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+                  <span>Par Bureau exécutif</span>
+                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                </div>
+              </div>
+            </article>
+
+          </div><!-- /articles-container -->
+
+          <!-- Pagination -->
+          <div class="flex justify-center items-center gap-2 mt-12">
+            <button class="pag-btn" onclick="changePage(-1)">←</button>
+            <button class="pag-btn active" id="pag-1" onclick="setPage(1)">1</button>
+            <button class="pag-btn" id="pag-2" onclick="setPage(2)">2</button>
+            <button class="pag-btn" id="pag-3" onclick="setPage(3)">3</button>
+            <span class="pag-btn cursor-default text-slate-300">…</span>
+            <button class="pag-btn">8</button>
+            <button class="pag-btn" onclick="changePage(1)">→</button>
+          </div>
+        </div>
+
+        <!-- ── Sidebar (droite) ── -->
+        <div class="lg:col-span-1">
+
+          <!-- Recherche -->
+          <div class="sidebar-card">
+            <h3>Rechercher</h3>
+            <div class="search-wrap">
+              <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input type="text" id="search-input" placeholder="Mot-clé, auteur, sujet…" class="form-input"
+                oninput="searchArticles(this.value)" />
+            </div>
+          </div>
+
+          <!-- Événements à venir -->
+          <div class="sidebar-card">
+            <h3>Événements à venir</h3>
+            <div class="space-y-4">
+              <div class="flex gap-3">
+                <div class="text-center bg-gold text-white rounded-lg px-3 py-2 min-w-[48px]">
+                  <div class="text-lg font-bold font-display leading-none">20</div>
+                  <div class="text-xs opacity-80 mt-0.5">Juin</div>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-navy">Forum GREC 2025</div>
+                  <div class="text-xs text-slate-400 mt-0.5">Cotonou · Hôtel Novotel</div>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-center bg-navy text-white rounded-lg px-3 py-2 min-w-[48px]">
+                  <div class="text-lg font-bold font-display leading-none">14</div>
+                  <div class="text-xs opacity-60 mt-0.5">Juil.</div>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-navy">Masterclass Digital Marketing</div>
+                  <div class="text-xs text-slate-400 mt-0.5">En ligne · Zoom</div>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-center bg-navy text-white rounded-lg px-3 py-2 min-w-[48px]">
+                  <div class="text-lg font-bold font-display leading-none">08</div>
+                  <div class="text-xs opacity-60 mt-0.5">Août</div>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-navy">Dîner diaspora – Paris</div>
+                  <div class="text-xs text-slate-400 mt-0.5">Paris · Salle privée</div>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-center bg-navy text-white rounded-lg px-3 py-2 min-w-[48px]">
+                  <div class="text-lg font-bold font-display leading-none">22</div>
+                  <div class="text-xs opacity-60 mt-0.5">Sept.</div>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-navy">Pitch Day Investisseurs</div>
+                  <div class="text-xs text-slate-400 mt-0.5">Cotonou · CCIB</div>
+                </div>
+              </div>
+            </div>
+            <a href="#" class="mt-4 block text-center text-gold text-sm font-medium hover:underline">Voir tous les
+              événements →</a>
+          </div>
+
+          <!-- Articles populaires -->
+          <div class="sidebar-card">
+            <h3>Articles populaires</h3>
+            <div class="trending-item">
+              <div class="trending-num">01</div>
+              <div>
+                <a href="article.html"
+                  class="text-sm font-medium text-navy hover:text-gold transition-colors leading-snug block">Forum GREC
+                  2025 : programme complet dévoilé</a>
+                <div class="text-xs text-slate-400 mt-1">15 Avril 2025</div>
+              </div>
+            </div>
+            <div class="trending-item">
+              <div class="trending-num">02</div>
+              <div>
+                <a href="article.html"
+                  class="text-sm font-medium text-navy hover:text-gold transition-colors leading-snug block">Programme
+                  d'export Bénin–France : les clés du succès</a>
+                <div class="text-xs text-slate-400 mt-1">10 Avril 2025</div>
+              </div>
+            </div>
+            <div class="trending-item">
+              <div class="trending-num">03</div>
+              <div>
+                <a href="article.html"
+                  class="text-sm font-medium text-navy hover:text-gold transition-colors leading-snug block">10 startups
+                  sélectionnées pour l'incubation GREC</a>
+                <div class="text-xs text-slate-400 mt-1">28 Mars 2025</div>
+              </div>
+            </div>
+            <div class="trending-item">
+              <div class="trending-num">04</div>
+              <div>
+                <a href="article.html"
+                  class="text-sm font-medium text-navy hover:text-gold transition-colors leading-snug block">GREC × BPI
+                  France : accord de financement diaspora</a>
+                <div class="text-xs text-slate-400 mt-1">20 Mars 2025</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="newsletter-sidebar">
+            <div class="text-gold text-xs font-semibold uppercase tracking-widest mb-2">Newsletter</div>
+            <h3 class="font-display text-white text-lg font-semibold mb-2 leading-snug">Ne manquez aucune actualité</h3>
+            <p class="text-white/55 text-sm mb-4 leading-relaxed">Recevez chaque semaine les meilleures opportunités et
+              nouvelles du réseau.</p>
+            <input type="email" placeholder="votre@email.com"
+              class="w-full mb-3 px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white text-sm placeholder-white/40 focus:outline-none focus:border-gold transition-colors" />
+            <button onclick="subscribeNewsletter()" class="w-full btn btn-gold text-sm py-2.5">S'abonner</button>
+            <p class="text-white/30 text-xs text-center mt-3">Pas de spam — désabonnement en 1 clic</p>
+          </div>
+
+          <!-- Tags -->
+          <div class="sidebar-card">
+            <h3>Tags</h3>
+            <div class="flex flex-wrap gap-2">
+              <a href="#"
+                class="text-xs px-3 py-1.5 bg-white border border-slate-200 text-slate-500 rounded-full hover:border-gold hover:text-gold transition-colors">#Entrepreneuriat</a>
+              <a href="#"
+                class="text-xs px-3 py-1.5 bg-white border border-slate-200 text-slate-500 rounded-full hover:border-gold hover:text-gold transition-colors">#Bénin</a>
+              <a href="#"
+                class="text-xs px-3 py-1.5 bg-white border border-slate-200 text-slate-500 rounded-full hover:border-gold hover:text-gold transition-colors">#Diaspora</a>
+              <a href="#"
+                class="text-xs px-3 py-1.5 bg-white border border-slate-200 text-slate-500 rounded-full hover:border-gold hover:text-gold transition-colors">#Finance</a>
+              <a href="#"
+                class="text-xs px-3 py-1.5 bg-white border border-slate-200 text-slate-500 rounded-full hover:border-gold hover:text-gold transition-colors">#Export</a>
+              <a href="#"
+                class="text-xs px-3 py-1.5 bg-white border border-slate-200 text-slate-500 rounded-full hover:border-gold hover:text-gold transition-colors">#Innovation</a>
+              <a href="#"
+                class="text-xs px-3 py-1.5 bg-white border border-slate-200 text-slate-500 rounded-full hover:border-gold hover:text-gold transition-colors">#PME</a>
+              <a href="#"
+                class="text-xs px-3 py-1.5 bg-white border border-slate-200 text-slate-500 rounded-full hover:border-gold hover:text-gold transition-colors">#Networking</a>
+              <a href="#"
+                class="text-xs px-3 py-1.5 bg-white border border-slate-200 text-slate-500 rounded-full hover:border-gold hover:text-gold transition-colors">#Afrique</a>
+            </div>
+          </div>
+
+        </div><!-- /sidebar -->
+      </div><!-- /grid -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════ CTA ═══════════════════ -->
+  <section class="py-20 bg-navy relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative max-w-2xl mx-auto px-6 text-center">
+      <div class="section-label text-gold justify-center">Rejoignez-nous</div>
+      <h2 class="font-display text-white text-3xl md:text-4xl font-semibold mb-5 leading-tight">
+        Accédez à toutes nos publications en avant-première
+      </h2>
+      <p class="text-white/55 mb-8 leading-relaxed">
+        Les membres GREC bénéficient d'un accès anticipé aux articles, aux invitations aux événements exclusifs et à
+        l'annuaire complet du réseau.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="auth.html?tab=register" class="btn btn-gold inline-flex">Devenir membre →</a>
+        <a href="auth.html" class="btn btn-outline inline-flex">Se connecter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="bg-navy border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div class="md:col-span-1">
+        <img src="../assets/images/logo.png" alt="GREC" class="h-12 mb-4 object-contain"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" />
+        <div class="hidden font-display text-white text-2xl font-bold mb-4">GREC</div>
+        <p class="text-white/45 text-sm leading-relaxed mb-5">Le réseau des entrepreneurs béninois et de la diaspora.
+        </p>
+        <div class="flex gap-3">
+          <a href="https://facebook.com"
+            class="w-8 h-8 bg-white/10 rounded flex items-center justify-center text-white hover:bg-gold transition-colors"
+            title="Facebook">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333H16V2.169C15.547 2.118 14.059 2 12.255 2 9.514 2 7.565 3.828 7.565 6.822V8z" />
+            </svg>
+          </a>
+          <a href="https://linkedin.com"
+            class="w-8 h-8 bg-white/10 rounded flex items-center justify-center text-white hover:bg-gold transition-colors"
+            title="LinkedIn">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.469v6.766z" />
+            </svg>
+          </a>
+          <a href="https://instagram.com"
+            class="w-8 h-8 bg-white/10 rounded flex items-center justify-center text-white hover:bg-gold transition-colors"
+            title="Instagram">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.646.069 4.85 0 3.204-.012 3.584-.07 4.85-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.85-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Liens utiles</h3>
+        <ul class="space-y-3">
+          <li><a href="about.html" class="text-white/45 hover:text-gold text-sm transition-colors">Qui sommes-nous</a>
+          </li>
+          <li><a href="membres.html" class="text-white/45 hover:text-gold text-sm transition-colors">Nos membres</a>
+          </li>
+          <li><a href="galerie.html" class="text-white/45 hover:text-gold text-sm transition-colors">Galerie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Espace membres</h3>
+        <ul class="space-y-3">
+          <li><a href="auth.html" class="text-white/45 hover:text-gold text-sm transition-colors">Connexion</a></li>
+          <li><a href="profil.html"
+              class="auth-member-link hidden text-white/45 hover:text-gold text-sm transition-colors">Mon profil</a>
+          </li>
+          <li><a href="auth.html?tab=register"
+              class="text-white/45 hover:text-gold text-sm transition-colors">S'inscrire</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
+        <ul class="space-y-3 text-white/45 text-sm">
+          <li>📧 <a href="mailto:info@grec.group" class="hover:text-gold transition-colors">info@grec.group</a></li>
+          <li>📱 +229 01 XX XX XX XX</li>
+          <li>📍 Cotonou, Bénin</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 py-5 px-6">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+        <p class="text-white/30 text-xs">© 2025 GREC · Tous droits réservés</p>
+        <p class="text-white/20 text-xs">Fait avec ❤️ pour les entrepreneurs béninois</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/utils.js"></script>
+
+  <script>
+    let currentPage = 1;
+    let currentCat = 'all';
+
+    // ── Filtre catégories ──
+    function filterCat(btn, cat) {
+      currentCat = cat;
+      document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const articles = document.querySelectorAll('#articles-container .article-card, .article-featured');
+      let visible = 0;
+      articles.forEach(a => {
+        const match = cat === 'all' || a.dataset.cat === cat;
+        a.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      document.getElementById('articles-count').textContent = `Affichage de ${visible} articles`;
+    }
+
+    // ── Pagination ──
+    function setPage(n) {
+      currentPage = n;
+      document.querySelectorAll('[id^="pag-"]').forEach(b => b.classList.remove('active'));
+      const el = document.getElementById('pag-' + n);
+      if (el) el.classList.add('active');
+      // En production : charger depuis Firestore avec pagination
+    }
+    function changePage(dir) { setPage(Math.max(1, currentPage + dir)); }
+
+    // ── Recherche ──
+    function searchArticles(q) {
+      const lower = q.toLowerCase();
+      document.querySelectorAll('#articles-container .article-card').forEach(a => {
+        const txt = a.textContent.toLowerCase();
+        a.style.display = txt.includes(lower) ? '' : 'none';
+      });
+    }
+
+    // ── Newsletter ──
+    function subscribeNewsletter() {
+      const input = document.querySelector('.newsletter-sidebar input');
+      const email = input?.value?.trim();
+      if (!email || !email.includes('@')) { showToast('Veuillez saisir un email valide', 'error'); return; }
+      // En production : db.collection('newsletter').add({email, createdAt: firebase.firestore.FieldValue.serverTimestamp()})
+      showToast('Inscription réussie ! Merci.', 'success');
+      if (input) input.value = '';
+    }
+
+    // ── Chargement Firestore (remplace les articles statiques en prod) ──
+    async function loadArticlesFromFirestore() {
+      try {
+        let q = db.collection(COLLECTIONS.ACTUALITES).where('publie', '==', true).orderBy('publishedAt', 'desc').limit(6);
+        const snap = await q.get();
+        if (snap.empty) return; // garder le contenu statique si Firestore est vide
+
+        const container = document.getElementById('articles-container');
+        container.innerHTML = '';
+        snap.docs.forEach(doc => {
+          const a = doc.data();
+          const date = a.publishedAt?.toDate ? a.publishedAt.toDate().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+          const cat = a.categorie || 'actualite';
+          const catLabel = { actualite: 'Actualité', evenement: 'Événement', opportunite: 'Opportunité', formation: 'Formation', partenariat: 'Partenariat' }[cat] || 'Actualité';
+          container.innerHTML += `
+            <article class="article-card reveal" data-cat="${cat}">
+              <div class="img-wrap">
+                ${a.imageURL ? `<img src="${a.imageURL}" alt="${a.titre}" loading="lazy" />` : `<div class="img-placeholder"><svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>Image à venir</span></div>`}
+                <div class="absolute top-3 left-3"><span class="cat-badge cat-${cat}">${catLabel}</span></div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow">
+                <div class="text-xs text-slate-400 mb-3">${date}</div>
+                <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
+                  <a href="article.html?id=${doc.id}" class="hover:text-gold transition-colors">${a.titre}</a>
+                </h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">${a.resume || ''}</p>
+                <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+                  <span>Par ${a.auteur || 'GREC'}</span>
+                  <a href="article.html?id=${doc.id}" class="text-gold hover:underline font-medium">Lire →</a>
+                </div>
+              </div>
+            </article>`;
+        });
+        initScrollReveal();
+      } catch (e) { console.log('Firestore non configuré — affichage du contenu statique'); }
+    }
+
+    // Init
+    initNavbar(); initMobileMenu(); initScrollReveal(); initAuthState();
+    loadArticlesFromFirestore();
+  </script>
+
+  <!-- Floating Chat Button -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="floating-chat-btn"
+      class="bg-gold hover:bg-gold-light text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-gold/30"
+      aria-label="Accéder au chat">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    // Floating chat button functionality
+    document.getElementById('floating-chat-btn').addEventListener('click', function () {
+      window.location.href = 'chat.html';
+    });
+  </script>
+</body>
+
+</html>

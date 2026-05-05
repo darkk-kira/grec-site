@@ -1,0 +1,1371 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Membres — GREC Bénin</title>
+  <meta name="description"
+    content="Découvrez les membres du réseau GREC — entrepreneurs béninois locaux et de la diaspora aux quatre coins du monde." />
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#C8893A', 'gold-light': '#E5A84B',
+            navy: '#0D1B2A', 'navy-mid': '#1A2E42',
+            cream: '#F2EDE3', 'off-white': '#F8F5EF',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <style>
+    .hero-membres {
+      background:
+        linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0.75) 100%),
+        url('../assets/images/hero.jpg') center/cover no-repeat;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-membres {
+        background-attachment: fixed;
+      }
+    }
+
+    /* Membre card */
+    .membre-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .membre-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 52px rgba(13, 27, 42, 0.13);
+    }
+
+    .membre-card .photo-wrap {
+      height: 200px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #E8E0D4, #D5C9B8);
+      position: relative;
+    }
+
+    .membre-card .photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.5s ease;
+    }
+
+    .membre-card:hover .photo-wrap img {
+      transform: scale(1.06);
+    }
+
+    /* Avatar placeholder */
+    .avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .avatar-initials {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(200, 137, 58, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #C8893A;
+    }
+
+    .avatar-placeholder span {
+      font-size: 11px;
+      color: #A0907A;
+    }
+
+    /* Pays flag badge */
+    .pays-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(13, 27, 42, 0.75);
+      backdrop-filter: blur(4px);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 12px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Secteur badge */
+    .secteur-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(200, 137, 58, 0.3);
+      color: #C8893A;
+      background: rgba(200, 137, 58, 0.08);
+    }
+
+    /* Statut badge */
+    .statut-actif {
+      background: rgba(39, 170, 109, 0.12);
+      color: #1E8A58;
+      border: 1px solid rgba(39, 170, 109, 0.25);
+    }
+
+    /* Filter chips */
+    .filter-chip {
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1.5px solid #E2E8F0;
+      color: #4A5568;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .filter-chip:hover {
+      border-color: #C8893A;
+      color: #C8893A;
+    }
+
+    .filter-chip.active {
+      background: #C8893A;
+      border-color: #C8893A;
+      color: #fff;
+    }
+
+    /* Search */
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .search-wrap input {
+      padding-left: 42px;
+    }
+
+    /* Stats bar (sur le hero) */
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-num {
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      color: #fff;
+    }
+
+    .hero-stat-sep {
+      width: 1px;
+      background: rgba(255, 255, 255, 0.15);
+      align-self: stretch;
+    }
+
+    /* Map visuelle pays */
+    .pays-map {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pays-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .pays-pill .count {
+      background: rgba(200, 137, 58, 0.4);
+      color: #E5A84B;
+      border-radius: 10px;
+      padding: 1px 6px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* Pagination */
+    .pag-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1.5px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #fff;
+      color: #4A5568;
+    }
+
+    .pag-btn:hover {
+      border-color: #C8893A;
+      color: #C8893A;
+    }
+
+    .pag-btn.active {
+      background: #C8893A;
+      border-color: #C8893A;
+      color: #fff;
+    }
+
+    /* Modal membre */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: rgba(13, 27, 42, 0.75);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      box-shadow: 0 32px 80px rgba(13, 27, 42, 0.25);
+      transform: translateY(24px);
+      transition: transform 0.3s;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: translateY(0);
+    }
+
+    .modal-photo-wrap {
+      height: 260px;
+      background: linear-gradient(135deg, #E8E0D4, #D5C9B8);
+      border-radius: 20px 20px 0 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    /* Vue toggle */
+    .vue-btn {
+      padding: 7px 10px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .vue-btn.active {
+      background: #C8893A;
+      color: #fff;
+    }
+
+    .vue-btn:not(.active) {
+      color: #718096;
+    }
+
+    .vue-btn:not(.active):hover {
+      background: #F8F5EF;
+    }
+
+    /* Mode liste */
+    .membre-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .membre-row:hover {
+      border-color: rgba(200, 137, 58, 0.35);
+      box-shadow: 0 4px 16px rgba(13, 27, 42, 0.08);
+    }
+
+    .membre-row-photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E8E0D4, #D5C9B8);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .membre-row-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .membre-row-initials {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(200, 137, 58, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #C8893A;
+      flex-shrink: 0;
+    }
+
+    /* Skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% center
+      }
+
+      100% {
+        background-position: -200% center
+      }
+    }
+  </style>
+</head>
+
+<body class="font-body bg-off-white text-navy">
+
+  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="../index.html" class="brand-lockup flex items-center gap-3">
+        <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+        <div
+          class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
+          G</div>
+        <div class="hidden sm:block">
+          <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+          <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
+        </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
+        <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous</a>
+        <a href="membres.html" class="nav-link active text-sm font-medium">Membres</a>
+        <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
+        <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
+        <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
+        <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
+        <button onclick="logout()"
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+      </div>
+      <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+        <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
+          sommes-nous</a>
+        <a href="membres.html" class="text-teal py-2 border-b border-slate-300/60 text-sm font-semibold">Membres</a>
+        <a href="actualites.html"
+          class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+        <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+        <div class="pt-3 flex flex-col gap-2">
+          <a href="auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section class="hero-membres pt-32 pb-16 min-h-[440px] flex flex-col justify-center">
+    <div class="max-w-7xl mx-auto px-6 w-full">
+      <nav class="flex items-center gap-2 text-white/50 text-xs mb-5">
+        <a href="../index.html" class="hover:text-white transition-colors">Accueil</a><span>/</span>
+        <span class="text-gold">Membres</span>
+      </nav>
+      <div class="reveal">
+        <div class="section-label text-gold">Annuaire du réseau</div>
+        <h1 class="font-display text-4xl md:text-5xl text-white font-semibold leading-tight max-w-2xl mt-2">
+          Les entrepreneurs<br /><span class="text-gold-light italic">du réseau GREC</span>
+        </h1>
+        <p class="text-white/60 mt-4 max-w-xl text-base leading-relaxed">
+          Des femmes et hommes d'affaires aux talents complémentaires, présents au Bénin et dans 15 pays de la diaspora,
+          unis par des valeurs communes d'excellence et de solidarité.
+        </p>
+      </div>
+
+      <!-- Statistiques réseau -->
+      <div class="flex flex-wrap items-center gap-6 md:gap-10 mt-10 reveal">
+        <div class="hero-stat">
+          <div class="hero-stat-num">180+</div>
+          <div class="text-white/50 text-xs mt-1">Membres actifs</div>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">15</div>
+          <div class="text-white/50 text-xs mt-1">Pays représentés</div>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">22</div>
+          <div class="text-white/50 text-xs mt-1">Secteurs d'activité</div>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">8</div>
+          <div class="text-white/50 text-xs mt-1">Ans d'existence</div>
+        </div>
+      </div>
+
+      <!-- Pays de présence -->
+      <div class="pays-map mt-8 reveal">
+        <div class="pays-pill">🇧🇯 Bénin <span class="count">85</span></div>
+        <div class="pays-pill">🇫🇷 France <span class="count">42</span></div>
+        <div class="pays-pill">🇨🇦 Canada <span class="count">18</span></div>
+        <div class="pays-pill">🇺🇸 États-Unis <span class="count">14</span></div>
+        <div class="pays-pill">🇩🇪 Allemagne <span class="count">8</span></div>
+        <div class="pays-pill">🇧🇪 Belgique <span class="count">7</span></div>
+        <div class="pays-pill">🇨🇮 Côte d'Ivoire <span class="count">6</span></div>
+        <div class="pays-pill">+ autres pays</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FILTRES & RECHERCHE ═══════════════════ -->
+  <div class="bg-white border-b border-slate-100 shadow-sm sticky top-16 z-40">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+
+        <!-- Recherche -->
+        <div class="search-wrap flex-1 max-w-sm">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input type="text" id="search-input" placeholder="Nom, secteur, pays…" class="form-input"
+            oninput="filterMembres()" />
+        </div>
+
+        <!-- Filtres secteur + vue -->
+        <div class="flex items-center gap-3 overflow-x-auto pb-1">
+          <span class="text-xs text-slate-400 shrink-0">Secteur :</span>
+          <button class="filter-chip active" onclick="setSecteur(this,'all')">Tous</button>
+          <button class="filter-chip" onclick="setSecteur(this,'tech')">Tech & Digital</button>
+          <button class="filter-chip" onclick="setSecteur(this,'agro')">Agroalimentaire</button>
+          <button class="filter-chip" onclick="setSecteur(this,'finance')">Finance</button>
+          <button class="filter-chip" onclick="setSecteur(this,'commerce')">Commerce</button>
+          <button class="filter-chip" onclick="setSecteur(this,'sante')">Santé</button>
+          <button class="filter-chip" onclick="setSecteur(this,'immobilier')">Immobilier</button>
+          <div class="flex border border-slate-200 rounded-lg overflow-hidden ml-2 shrink-0">
+            <button class="vue-btn active" id="vue-grid" onclick="setVue('grid')" title="Grille">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z" />
+              </svg>
+            </button>
+            <button class="vue-btn" id="vue-list" onclick="setVue('list')" title="Liste">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mt-2 text-xs text-slate-400" id="membres-count">Affichage de 12 membres sur 180+</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ GRILLE MEMBRES ═══════════════════ -->
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <!-- Vue grille -->
+      <div id="membres-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+        <!-- Membre 1 -->
+        <div class="membre-card reveal" data-nom="Kofi Adjovi" data-secteur="tech" data-pays="Bénin"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <!-- IMAGE PLACEHOLDER — remplacer par photoURL depuis Firestore -->
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">KA</div>
+              <span>Photo à placer</span>
+            </div>
+            <!-- <img src="../assets/membres/kofi-adjovi.jpg" alt="Kofi Adjovi" /> -->
+            <div class="pays-badge">🇧🇯 Cotonou</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Kofi Adjovi</h3>
+              <span class="secteur-badge">Tech</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">CEO · AfriTech Solutions</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Pionnier du e-commerce au Bénin, fondateur de
+              la première place de marché B2B francophone en Afrique de l'Ouest.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Actif
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2018</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 2 -->
+        <div class="membre-card reveal" data-nom="Aïssatou Kéïta" data-secteur="finance" data-pays="France"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">AK</div>
+              <span>Photo à placer</span>
+            </div>
+            <!-- <img src="../assets/membres/aissatou-keita.jpg" alt="Aïssatou Kéïta" /> -->
+            <div class="pays-badge">🇫🇷 Paris</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Aïssatou Kéïta</h3>
+              <span class="secteur-badge">Finance</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">Directrice · Invest Diaspora</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Spécialiste du financement diaspora-Afrique,
+              elle accompagne les investisseurs béninois de France dans leurs projets au pays.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Active
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2020</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 3 -->
+        <div class="membre-card reveal" data-nom="Rodrigue Dossou" data-secteur="agro" data-pays="Bénin"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">RD</div>
+              <span>Photo à placer</span>
+            </div>
+            <!-- <img src="../assets/membres/rodrigue-dossou.jpg" alt="Rodrigue Dossou" /> -->
+            <div class="pays-badge">🇧🇯 Parakou</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Rodrigue Dossou</h3>
+              <span class="secteur-badge">Agro</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">Directeur · AgroBénin Export</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Transformateur de produits agricoles locaux,
+              expert en chaîne de valeur ananas et karité, lauréat Prix National de l'Innovation agricole 2023.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Actif
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2019</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 4 -->
+        <div class="membre-card reveal" data-nom="Marie-Claire Agossou" data-secteur="commerce" data-pays="Canada"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">MA</div>
+              <span>Photo à placer</span>
+            </div>
+            <!-- <img src="../assets/membres/marie-claire-agossou.jpg" alt="Marie-Claire Agossou" /> -->
+            <div class="pays-badge">🇨🇦 Montréal</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Marie-Claire Agossou</h3>
+              <span class="secteur-badge">Commerce</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">Fondatrice · Artisans du Golfe</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Importatrice et distributrice d'artisanat
+              béninois premium au Canada, elle crée des ponts entre artisans locaux et marchés nord-américains.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Active
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2021</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 5 -->
+        <div class="membre-card reveal" data-nom="Sébastien Hounsou" data-secteur="immobilier" data-pays="Bénin"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">SH</div>
+              <span>Photo à placer</span>
+            </div>
+            <!-- <img src="../assets/membres/sebastien-hounsou.jpg" alt="Sébastien Hounsou" /> -->
+            <div class="pays-badge">🇧🇯 Cotonou</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Sébastien Hounsou</h3>
+              <span class="secteur-badge">Immobilier</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">Gérant · SH Promotions</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Promoteur immobilier spécialisé dans les
+              résidences pour la diaspora, avec plus de 120 logements livrés à Cotonou et Calavi depuis 2016.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Actif
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2017</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 6 -->
+        <div class="membre-card reveal" data-nom="Fatoumata Diallo" data-secteur="sante" data-pays="France"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">FD</div>
+              <span>Photo à placer</span>
+            </div>
+            <!-- <img src="../assets/membres/fatoumata-diallo.jpg" alt="Fatoumata Diallo" /> -->
+            <div class="pays-badge">🇫🇷 Lyon</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Fatoumata Diallo</h3>
+              <span class="secteur-badge">Santé</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">Docteure · PharmaDev Africa</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Pharmacienne et entrepreneuse, elle développe
+              une chaîne de pharmacies modernes au Bénin avec un modèle de franchise adapté au marché africain.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Active
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2022</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 7 -->
+        <div class="membre-card reveal" data-nom="Arnaud Gbeha" data-secteur="tech" data-pays="Allemagne"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">AG</div>
+              <span>Photo à placer</span>
+            </div>
+            <!-- <img src="../assets/membres/arnaud-gbeha.jpg" alt="Arnaud Gbeha" /> -->
+            <div class="pays-badge">🇩🇪 Berlin</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Arnaud Gbeha</h3>
+              <span class="secteur-badge">Tech</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">CTO · FinPay Africa</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Ingénieur fintech basé à Berlin, il développe
+              des solutions de paiement mobile adaptées aux besoins des marchés africains non bancarisés.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Actif
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 8 -->
+        <div class="membre-card reveal" data-nom="Claudine Azonsi" data-secteur="agro" data-pays="Bénin"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">CA</div>
+              <span>Photo à placer</span>
+            </div>
+            <!-- <img src="../assets/membres/claudine-azonsi.jpg" alt="Claudine Azonsi" /> -->
+            <div class="pays-badge">🇧🇯 Porto-Novo</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Claudine Azonsi</h3>
+              <span class="secteur-badge">Agro</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">PDG · NaturaBenin</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Pionnière dans la cosmétique naturelle à base
+              d'huile de karité et de noix de palme, ses produits sont exportés dans 8 pays d'Europe et du Moyen-Orient.
+            </p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Active
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2019</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 9 -->
+        <div class="membre-card reveal" data-nom="Pascal Kpossou" data-secteur="finance" data-pays="Bénin"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">PK</div>
+              <span>Photo à placer</span>
+            </div>
+            <div class="pays-badge">🇧🇯 Cotonou</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Pascal Kpossou</h3>
+              <span class="secteur-badge">Finance</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">Expert-Comptable · KP Audit</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Expert-comptable certifié OHADA, il
+              accompagne les PME béninoises dans leur mise en conformité et leur levée de fonds auprès des banques
+              régionales.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Actif
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2016</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 10 -->
+        <div class="membre-card reveal" data-nom="Eunice Toviho" data-secteur="commerce" data-pays="Belgique"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">ET</div>
+              <span>Photo à placer</span>
+            </div>
+            <div class="pays-badge">🇧🇪 Bruxelles</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Eunice Toviho</h3>
+              <span class="secteur-badge">Commerce</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">Directrice · AfroLux Brussels</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Spécialiste du commerce de produits
+              afro-caribéens en Europe, elle gère un réseau de 12 boutiques en Belgique et aux Pays-Bas.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Active
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2020</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 11 -->
+        <div class="membre-card reveal" data-nom="Théodore Assogba" data-secteur="immobilier" data-pays="États-Unis"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">TA</div>
+              <span>Photo à placer</span>
+            </div>
+            <div class="pays-badge">🇺🇸 Houston</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Théodore Assogba</h3>
+              <span class="secteur-badge">Immobilier</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">Investisseur · TAsset Group</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Investisseur immobilier américano-béninois,
+              il structure des fonds d'investissement pour aider la diaspora à construire un patrimoine durable au
+              Bénin.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Actif
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2021</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membre 12 -->
+        <div class="membre-card reveal" data-nom="Yolande Akpovi" data-secteur="sante" data-pays="Bénin"
+          onclick="openModal(this)">
+          <div class="photo-wrap">
+            <div class="avatar-placeholder">
+              <div class="avatar-initials">YA</div>
+              <span>Photo à placer</span>
+            </div>
+            <div class="pays-badge">🇧🇯 Abomey-Calavi</div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-1">
+              <h3 class="font-display font-semibold text-navy text-base leading-tight">Yolande Akpovi</h3>
+              <span class="secteur-badge">Santé</span>
+            </div>
+            <p class="text-slate-500 text-xs mb-2">Fondatrice · Clinique Sante+</p>
+            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2">Médecin-entrepreneur, elle a créé le premier
+              réseau de cliniques ambulatoires à tarification sociale au Bénin, avec 3 centres et plus de 15 000
+              patients suivis.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-green-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> Active
+              </span>
+              <span class="text-xs text-slate-400">Membre depuis 2020</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /membres-grid -->
+
+      <!-- Vue liste (cachée par défaut) -->
+      <div id="membres-list" class="hidden space-y-3">
+        <!-- Généré dynamiquement par JS -->
+      </div>
+
+      <!-- Message vide -->
+      <div id="membres-empty" class="hidden text-center py-16">
+        <div class="text-5xl mb-4">🔍</div>
+        <p class="text-slate-500 font-medium">Aucun membre trouvé pour cette recherche.</p>
+        <button onclick="resetFilter()" class="mt-4 btn btn-outline-gold text-sm">Réinitialiser les filtres</button>
+      </div>
+
+      <!-- Pagination dynamique: les boutons sont créés en JS selon les cartes visibles après recherche/filtre. -->
+      <div id="membres-pagination" class="flex flex-wrap justify-center items-center gap-2 mt-12"></div>
+      <div class="mt-3 text-center">
+        <p id="membres-page-count" class="text-xs text-slate-400"></p>
+        <p class="text-xs text-slate-400 mt-1">Les profils complets sont réservés aux membres connectés</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════ SECTION REJOINDRE ═══════════════════ -->
+  <section class="py-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="section-label text-gold">Rejoindre le réseau</div>
+          <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy mb-5 leading-tight">
+            Vous êtes entrepreneur béninois ?<br />Votre place est ici.
+          </h2>
+          <p class="text-slate-600 leading-relaxed mb-6">
+            Le GREC accueille les entrepreneures et entrepreneurs béninois du Bénin et de la diaspora qui partagent des
+            valeurs d'excellence, de solidarité et d'engagement pour le développement économique du Bénin.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 bg-gold rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                <svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <span class="text-slate-600 text-sm">Accès à l'annuaire complet de 180+ membres avec coordonnées</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 bg-gold rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                <svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <span class="text-slate-600 text-sm">Invitations aux événements exclusifs et sessions de networking</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 bg-gold rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                <svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <span class="text-slate-600 text-sm">Opportunités d'affaires et mises en relation ciblées</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-5 h-5 bg-gold rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                <svg class="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <span class="text-slate-600 text-sm">Formations, masterclasses et accès aux ressources du réseau</span>
+            </li>
+          </ul>
+          <a href="auth.html?tab=register" class="btn btn-gold inline-flex">Demander mon adhésion →</a>
+        </div>
+        <div class="grid grid-cols-2 gap-5">
+          <!-- Mosaïque réseau: images locales cohérentes avec l'activité GREC, avec fallback sur hero.jpg. -->
+          <figure class="relative rounded-2xl overflow-hidden aspect-square bg-slate-200 group">
+            <img src="../assets/images/WhatsApp Image 2026-04-27 at 11.55.10.jpeg"
+              alt="Rencontre réseau GREC sur le terrain"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onerror="this.src='../assets/images/hero.jpg'" />
+            <figcaption
+              class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 to-transparent px-4 pt-10 pb-3 text-white text-xs font-medium">
+              Photo réseau</figcaption>
+          </figure>
+          <figure class="relative rounded-2xl overflow-hidden aspect-square bg-amber-100 mt-6 group">
+            <img src="../assets/images/WhatsApp Image 2026-04-27 at 11.54.51.jpeg" alt="Panel entrepreneurial GREC"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onerror="this.src='../assets/images/hero.jpg'" />
+            <figcaption
+              class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 to-transparent px-4 pt-10 pb-3 text-white text-xs font-medium">
+              Photo événement</figcaption>
+          </figure>
+          <figure class="relative rounded-2xl overflow-hidden aspect-square bg-navy/10 -mt-6 group">
+            <img src="../assets/images/WhatsApp Image 2026-04-27 at 11.54.39.jpeg" alt="Rencontre de membres GREC"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onerror="this.src='../assets/images/hero.jpg'" />
+            <figcaption
+              class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 to-transparent px-4 pt-10 pb-3 text-white text-xs font-medium">
+              Photo bureau</figcaption>
+          </figure>
+          <figure class="relative rounded-2xl overflow-hidden aspect-square bg-green-50 group">
+            <img src="../assets/images/WhatsApp Image 2026-04-27 at 11.54.45.jpeg"
+              alt="Action collective et rencontre GREC"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onerror="this.src='../assets/images/hero.jpg'" />
+            <figcaption
+              class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 to-transparent px-4 pt-10 pb-3 text-white text-xs font-medium">
+              Photo meeting</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ MODAL MEMBRE ═══════════════════ -->
+  <div class="modal-overlay" id="membre-modal" onclick="closeModalOutside(event)">
+    <div class="modal-box" id="modal-content">
+      <div class="modal-photo-wrap" id="modal-photo">
+        <div class="avatar-placeholder" id="modal-avatar">
+          <div class="avatar-initials text-4xl" id="modal-initials" style="width:96px;height:96px">KA</div>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent"></div>
+        <button onclick="closeModal()"
+          class="absolute top-4 right-4 w-9 h-9 bg-white/20 hover:bg-white/30 backdrop-blur rounded-full flex items-center justify-center text-white transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="p-6 md:p-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h2 class="font-display text-2xl font-semibold text-navy" id="modal-nom">Kofi Adjovi</h2>
+            <p class="text-gold text-sm font-medium" id="modal-poste">CEO · AfriTech Solutions</p>
+          </div>
+          <span class="secteur-badge text-sm" id="modal-secteur">Tech</span>
+        </div>
+        <div class="flex flex-wrap gap-3 mb-5 text-xs text-slate-500">
+          <span id="modal-pays" class="flex items-center gap-1">📍 Cotonou, Bénin</span>
+          <span id="modal-depuis" class="flex items-center gap-1">🗓 Membre depuis 2018</span>
+          <span class="flex items-center gap-1 text-green-600">✅ Profil vérifié</span>
+        </div>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6" id="modal-bio">
+          Pionnier du e-commerce au Bénin, fondateur de la première place de marché B2B francophone en Afrique de
+          l'Ouest. AfriTech Solutions compte aujourd'hui 45 employés et sert plus de 800 PME béninoises.
+        </p>
+        <div class="grid grid-cols-3 gap-4 mb-6 text-center">
+          <div class="bg-off-white rounded-xl p-3">
+            <div class="font-display text-xl font-bold text-navy">45</div>
+            <div class="text-xs text-slate-400 mt-1">Employés</div>
+          </div>
+          <div class="bg-off-white rounded-xl p-3">
+            <div class="font-display text-xl font-bold text-navy">800+</div>
+            <div class="text-xs text-slate-400 mt-1">Clients PME</div>
+          </div>
+          <div class="bg-off-white rounded-xl p-3">
+            <div class="font-display text-xl font-bold text-navy">7</div>
+            <div class="text-xs text-slate-400 mt-1">Ans d'activité</div>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="#" class="btn btn-gold flex-1 text-center text-sm">Contacter ce membre</a>
+          <a href="#" class="btn btn-outline-gold flex-1 text-center text-sm">Voir le profil complet</a>
+        </div>
+        <p class="text-xs text-slate-400 text-center mt-3">Le contact direct est réservé aux membres connectés</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="bg-navy border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div class="md:col-span-1">
+        <img src="../assets/images/logo.png" alt="GREC" class="h-12 mb-4 object-contain"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" />
+        <div class="hidden font-display text-white text-2xl font-bold mb-4">GREC</div>
+        <p class="text-white/45 text-sm leading-relaxed mb-5">Le réseau des entrepreneurs béninois et de la diaspora.
+        </p>
+        <div class="flex gap-3">
+          <a href="https://facebook.com"
+            class="w-8 h-8 bg-white/10 rounded flex items-center justify-center text-white hover:bg-gold transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333H16V2.169C15.547 2.118 14.059 2 12.255 2 9.514 2 7.565 3.828 7.565 6.822V8z" />
+            </svg>
+          </a>
+          <a href="https://linkedin.com"
+            class="w-8 h-8 bg-white/10 rounded flex items-center justify-center text-white hover:bg-gold transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.469v6.766z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Navigation</h3>
+        <ul class="space-y-3">
+          <li><a href="about.html" class="text-white/45 hover:text-gold text-sm transition-colors">Qui sommes-nous</a>
+          </li>
+          <li><a href="actualites.html" class="text-white/45 hover:text-gold text-sm transition-colors">Actualités</a>
+          </li>
+          <li><a href="galerie.html" class="text-white/45 hover:text-gold text-sm transition-colors">Galerie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Espace membres</h3>
+        <ul class="space-y-3">
+          <li><a href="auth.html" class="text-white/45 hover:text-gold text-sm transition-colors">Connexion</a></li>
+          <li><a href="profil.html"
+              class="auth-member-link hidden text-white/45 hover:text-gold text-sm transition-colors">Mon profil</a>
+          </li>
+          <li><a href="auth.html?tab=register"
+              class="text-white/45 hover:text-gold text-sm transition-colors">S'inscrire</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
+        <ul class="space-y-3 text-white/45 text-sm">
+          <li>📧 <a href="mailto:info@grec.group" class="hover:text-gold transition-colors">info@grec.group</a></li>
+          <li>📱 +229 01 XX XX XX XX</li>
+          <li>📍 Cotonou, Bénin</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 py-5 px-6">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+        <p class="text-white/30 text-xs">© 2025 GREC · Tous droits réservés</p>
+        <p class="text-white/20 text-xs">Fait avec ❤️ pour les entrepreneurs béninois</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/utils.js"></script>
+
+  <script>
+    let currentSecteur = 'all';
+    let currentVue = 'grid';
+    let currentPage = 1;
+    const membresPerPage = 8;
+
+    // ── Filtre secteur: mémorise le chip actif puis relance recherche + pagination. ──
+    function setSecteur(btn, secteur) {
+      currentSecteur = secteur;
+      currentPage = 1;
+      document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterMembres();
+    }
+
+    // ── Recherche + filtre: marque les cartes compatibles, puis délègue l'affichage à la pagination. ──
+    function filterMembres() {
+      const q = document.getElementById('search-input').value.toLowerCase();
+      const cards = document.querySelectorAll('#membres-grid .membre-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const nom = card.dataset.nom?.toLowerCase() || '';
+        const secteur = card.dataset.secteur?.toLowerCase() || '';
+        const pays = card.dataset.pays?.toLowerCase() || '';
+        const txt = card.textContent.toLowerCase();
+        const matchSearch = !q || txt.includes(q) || nom.includes(q) || pays.includes(q);
+        const matchSecteur = currentSecteur === 'all' || secteur === currentSecteur;
+        const isMatch = matchSearch && matchSecteur;
+        card.dataset.match = isMatch ? 'true' : 'false';
+        if (isMatch) visible++;
+      });
+      document.getElementById('membres-empty').classList.toggle('hidden', visible > 0);
+      renderMembresPage();
+    }
+
+    // ── Reset filtres: revient au premier chip et à la première page. ──
+    function resetFilter() {
+      document.getElementById('search-input').value = '';
+      currentSecteur = 'all';
+      currentPage = 1;
+      document.querySelectorAll('.filter-chip').forEach((b, i) => b.classList.toggle('active', i === 0));
+      filterMembres();
+    }
+
+    // ── Vue grille / liste: garde la même page et reconstruit la liste depuis les cartes affichées. ──
+    function setVue(vue) {
+      currentVue = vue;
+      document.getElementById('vue-grid').classList.toggle('active', vue === 'grid');
+      document.getElementById('vue-list').classList.toggle('active', vue === 'list');
+      document.getElementById('membres-grid').classList.toggle('hidden', vue === 'list');
+      document.getElementById('membres-list').classList.toggle('hidden', vue === 'grid');
+      if (vue === 'list') buildListView();
+    }
+
+    // ── Pagination: affiche seulement les cartes de la page courante et régénère les boutons. ──
+    function renderMembresPage() {
+      const cards = [...document.querySelectorAll('#membres-grid .membre-card')];
+      const matchedCards = cards.filter(card => card.dataset.match !== 'false');
+      const totalPages = Math.max(1, Math.ceil(matchedCards.length / membresPerPage));
+      currentPage = Math.min(Math.max(currentPage, 1), totalPages);
+      const start = (currentPage - 1) * membresPerPage;
+      const end = start + membresPerPage;
+
+      cards.forEach(card => { card.style.display = 'none'; });
+      matchedCards.slice(start, end).forEach(card => { card.style.display = ''; });
+
+      renderPagination(totalPages, matchedCards.length);
+      updateMembresCount(matchedCards.length, start, end);
+      if (currentVue === 'list') buildListView();
+    }
+
+    // ── Boutons de pagination: évite les pages mortes et ajoute les ellipses quand nécessaire. ──
+    function renderPagination(totalPages, totalItems) {
+      const container = document.getElementById('membres-pagination');
+      container.innerHTML = '';
+      if (totalItems <= membresPerPage) return;
+
+      const pages = getPaginationPages(totalPages);
+      container.appendChild(createPageButton('←', currentPage - 1, currentPage === 1));
+      pages.forEach(page => {
+        if (page === '...') {
+          const span = document.createElement('span');
+          span.className = 'pag-btn cursor-default text-slate-300';
+          span.textContent = '…';
+          container.appendChild(span);
+          return;
+        }
+        container.appendChild(createPageButton(page, page, false, page === currentPage));
+      });
+      container.appendChild(createPageButton('→', currentPage + 1, currentPage === totalPages));
+    }
+
+    // ── Séquence de pages: compacte l'affichage pour rester propre sur mobile. ──
+    function getPaginationPages(totalPages) {
+      if (totalPages <= 5) return Array.from({ length: totalPages }, (_, i) => i + 1);
+      if (currentPage <= 3) return [1, 2, 3, '...', totalPages];
+      if (currentPage >= totalPages - 2) return [1, '...', totalPages - 2, totalPages - 1, totalPages];
+      return [1, '...', currentPage, '...', totalPages];
+    }
+
+    // ── Fabrique de bouton: centralise le comportement pour précédent, suivant et pages numérotées. ──
+    function createPageButton(label, page, disabled = false, active = false) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `pag-btn ${active ? 'active' : ''} ${disabled ? 'opacity-45 cursor-not-allowed' : ''}`;
+      btn.textContent = label;
+      btn.disabled = disabled;
+      btn.setAttribute('aria-label', `Page ${label}`);
+      btn.addEventListener('click', () => {
+        if (disabled) return;
+        currentPage = page;
+        renderMembresPage();
+        document.getElementById('membres-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      return btn;
+    }
+
+    // ── Compteurs d'affichage: garde le texte exact après recherche, filtre ou changement de page. ──
+    function updateMembresCount(totalItems, start, end) {
+      const visibleStart = totalItems ? start + 1 : 0;
+      const visibleEnd = Math.min(end, totalItems);
+      const label = totalItems > 1 ? 'membres' : 'membre';
+      const text = totalItems
+        ? `Affichage de ${visibleStart}-${visibleEnd} sur ${totalItems} ${label}`
+        : 'Aucun membre affiché';
+      document.getElementById('membres-count').textContent = text;
+      document.getElementById('membres-page-count').textContent = text;
+    }
+
+    // ── Construction de la vue liste: reprend les cartes visibles pour éviter un état différent de la grille. ──
+    function buildListView() {
+      const list = document.getElementById('membres-list');
+      list.innerHTML = '';
+      document.querySelectorAll('#membres-grid .membre-card').forEach(card => {
+        if (card.style.display === 'none') return;
+        const nom = card.dataset.nom;
+        const secteur = card.dataset.secteur;
+        const pays = card.dataset.pays;
+        const poste = card.querySelector('p')?.textContent || '';
+        const bio = card.querySelectorAll('p')[1]?.textContent || '';
+        const initials = nom.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+        list.innerHTML += `
+          <div class="membre-row" onclick="openModal(document.querySelector('[data-nom=\\'${nom}\\']'))">
+            <div class="membre-row-initials">${initials}</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-display font-semibold text-navy text-sm">${nom}</span>
+                <span class="secteur-badge text-xs">${secteur}</span>
+              </div>
+              <p class="text-slate-500 text-xs">${poste}</p>
+              <p class="text-slate-400 text-xs truncate">${bio}</p>
+            </div>
+            <div class="text-xs text-slate-400 text-right hidden md:block">
+              <div>${pays}</div>
+              <div class="text-green-500 mt-1">● Actif</div>
+            </div>
+          </div>`;
+      });
+    }
+
+    // ── Modal membre: extrait les infos depuis la carte cliquée sans changer les liens existants. ──
+    function openModal(card) {
+      if (!card) return;
+      const nom = card.dataset.nom;
+      const secteur = card.dataset.secteur;
+      const pays = card.dataset.pays;
+      const poste = card.querySelector('p.text-slate-500')?.textContent || '';
+      const bio = card.querySelectorAll('p')[1]?.textContent || card.querySelectorAll('p')[0]?.textContent || '';
+      const depuis = card.querySelector('.text-slate-400:last-of-type')?.textContent?.replace('Membre depuis ', '') || '2020';
+      const initials = nom.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+
+      document.getElementById('modal-nom').textContent = nom;
+      document.getElementById('modal-poste').textContent = poste;
+      document.getElementById('modal-secteur').textContent = secteur;
+      document.getElementById('modal-pays').textContent = '📍 ' + pays;
+      document.getElementById('modal-depuis').textContent = '🗓 Membre depuis ' + depuis;
+      document.getElementById('modal-bio').textContent = bio;
+      document.getElementById('modal-initials').textContent = initials;
+
+      document.getElementById('membre-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // ── Fermeture modal: restaure le scroll de page. ──
+    function closeModal() {
+      document.getElementById('membre-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeModalOutside(e) { if (e.target === document.getElementById('membre-modal')) closeModal(); }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── Chargement Firestore: garde les cartes statiques si la base est vide ou non configurée. ──
+    async function loadMembresFromFirestore() {
+      try {
+        const snap = await db.collection(COLLECTIONS.MEMBRES).where('statut', '==', 'actif').limit(12).get();
+        if (snap.empty) return; // garder le contenu statique si vide
+        // En prod : reconstruire la grille depuis les docs Firestore
+      } catch (e) { console.log('Firestore non configuré — contenu statique affiché'); }
+    }
+
+    // ── Init page: initialise les helpers globaux puis active le filtrage/pagination locale. ──
+    initNavbar(); initMobileMenu(); initScrollReveal(); initAuthState();
+    filterMembres();
+    loadMembresFromFirestore();
+  </script>
+
+  <!-- Floating Chat Button -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="floating-chat-btn"
+      class="bg-gold hover:bg-gold-light text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-gold/30"
+      aria-label="Accéder au chat">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    // Floating chat button functionality
+    document.getElementById('floating-chat-btn').addEventListener('click', function () {
+      window.location.href = 'chat.html';
+    });
+  </script>
+</body>
+
+</html>

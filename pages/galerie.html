@@ -1,0 +1,728 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galerie — GREC Bénin</title>
+    <meta name="description" content="Découvrez les moments partagés et événements du réseau GREC." />
+    <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#C8893A', 'gold-light': '#E5A84B',
+                        navy: '#0D1B2A', 'navy-mid': '#1A2E42',
+                        cream: '#F2EDE3', 'off-white': '#F8F5EF',
+                    },
+                    fontFamily: {
+                        display: ['"Playfair Display"', 'Georgia', 'serif'],
+                        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+        .hero-galerie {
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0.75) 100%),
+                url('../assets/images/hero.jpg') center/cover no-repeat;
+            background-attachment: fixed;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+            margin-top: 34px;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(6) {
+                grid-column: span 2;
+                aspect-ratio: 2.1 / 1;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(6) {
+                grid-column: span 2;
+                aspect-ratio: 1.75 / 1;
+            }
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            aspect-ratio: 1.18 / 1;
+            cursor: pointer;
+            background: #F7F4EE;
+            box-shadow: 0 18px 40px rgba(7, 25, 39, 0.11);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.12);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(7, 25, 39, 0.08), rgba(7, 25, 39, 0.78));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 16px;
+            transform: translateY(10px);
+            opacity: 0;
+            color: #fff;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-caption strong {
+            display: block;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        .gallery-caption span {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 12px;
+        }
+
+        .gallery-overlay a {
+            width: 40px;
+            height: 40px;
+            background: rgba(200, 137, 58, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: background 0.2s;
+        }
+
+        .gallery-overlay a:hover {
+            background: #C8893A;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: rgba(200, 137, 58, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .lightbox-close:hover {
+            background: #C8893A;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(200, 137, 58, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-nav:hover {
+            background: #C8893A;
+        }
+
+        .lightbox-nav.prev {
+            left: 0;
+        }
+
+        .lightbox-nav.next {
+            right: 0;
+        }
+
+        /* Filter buttons */
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            border: 1px solid transparent;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.2s;
+            color: #4A5A65;
+        }
+
+        .filter-btn:hover {
+            color: #071927;
+            background: rgba(185, 133, 59, 0.08);
+        }
+
+        .filter-btn.active {
+            background: transparent;
+            border-color: transparent;
+            color: #071927;
+            box-shadow: inset 0 -2px 0 #B9853B;
+        }
+    </style>
+</head>
+
+<body class="font-body bg-white text-navy">
+
+    <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="../index.html" class="brand-lockup flex items-center gap-3">
+                <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+                <div
+                    class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
+                    G</div>
+                <div class="hidden sm:block">
+                    <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+                    <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
+                </div>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
+                <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
+                <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Espace</a>
+                <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
+                <a href="galerie.html" class="nav-link active text-sm font-medium">Galerie</a>
+            </div>
+            <div class="hidden lg:flex items-center gap-3">
+                <a href="auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+                <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
+                <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
+                <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
+                <button onclick="logout()"
+                    class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+            </div>
+            <button id="mobile-menu-btn"
+                class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors" aria-label="Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-3">
+                <a href="../index.html"
+                    class="text-navy py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+                <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
+                    sommes-nous</a>
+                <a href="membres.html"
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Membres</a>
+                <a href="actualites.html"
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+                <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+                <div class="pt-3 flex flex-col gap-2">
+                    <a href="auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO HEADER -->
+    <section class="hero-galerie min-h-80 pt-32 pb-12 flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full">
+            <div class="reveal flex items-start justify-between">
+                <div>
+                    <div class="section-label text-gold">Nos Moments</div>
+                    <h1 class="font-display text-white text-4xl md:text-5xl font-semibold mb-4 leading-tight">Galerie
+                        photos
+                    </h1>
+                    <p class="text-white/65 text-lg max-w-2xl">Explorez les événements et rencontres marquantes du
+                        réseau
+                        GREC.</p>
+                </div>
+                <button id="add-photo-btn"
+                    class="auth-admin-link hidden bg-gold hover:bg-gold-light text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap">
+                    + Ajouter une photo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <!-- Modal Ajouter une photo -->
+            <div id="modal-add-photo"
+                class="hidden fixed inset-0 bg-black/50 z-[1001] flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg max-w-md w-full">
+                    <div class="p-6 border-b border-slate-200">
+                        <h2 class="font-display text-2xl font-semibold text-navy">Ajouter une photo</h2>
+                    </div>
+                    <form id="form-add-photo" class="p-6 space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-navy mb-2">Photo</label>
+                            <input type="file" id="photo-input" accept="image/*" required
+                                class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gold" />
+                            <p class="text-xs text-slate-500 mt-1">Max 10 MB (règle Storage)</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-navy mb-2">Titre</label>
+                            <input type="text" id="photo-title" placeholder="Ex: Réunion Q1 2024" required
+                                class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gold" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-navy mb-2">Description</label>
+                            <textarea id="photo-desc" placeholder="Décrivez cette photo..." rows="3"
+                                class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gold"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-navy mb-2">Catégorie</label>
+                            <select id="photo-category"
+                                class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gold">
+                                <option value="reunions">Rencontres</option>
+                                <option value="diaspora">RDV de la diaspora</option>
+                                <option value="plage">Plage</option>
+                                <option value="autres">Autres</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-3 pt-4">
+                            <button type="button" onclick="closeModalPhoto()"
+                                class="flex-1 px-4 py-2 border border-slate-300 rounded-lg text-navy font-medium hover:bg-slate-50 transition-colors">
+                                Annuler
+                            </button>
+                            <button type="submit"
+                                class="flex-1 px-4 py-2 bg-gold hover:bg-gold-light text-white rounded-lg font-medium transition-colors">
+                                Uploader
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Filtres -->
+            <div class="filter-buttons reveal">
+                <button class="filter-btn active" data-filter="all" onclick="filterGallery('all', event)">Toutes
+                    Photos</button>
+                <button class="filter-btn" data-filter="plage" onclick="filterGallery('plage', event)">Plage</button>
+                <button class="filter-btn" data-filter="diaspora" onclick="filterGallery('diaspora', event)">RDV de la
+                    diaspora</button>
+                <button class="filter-btn" data-filter="reunions"
+                    onclick="filterGallery('reunions', event)">Rencontres</button>
+            </div>
+
+            <!-- Galerie -->
+            <div id="gallery-container" class="gallery-grid">
+                <!-- Les images se chargeront ici -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA FOOTER -->
+    <section class="py-16 bg-navy relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold rounded-full blur-3xl"></div>
+        </div>
+        <div class="relative max-w-xl mx-auto px-6 text-center">
+            <h2 class="font-display text-white text-3xl font-semibold mb-4">Rejoignez nos événements</h2>
+            <p class="text-white/55 mb-8 text-sm">Participez à nos rencontres, formations et opportunités de networking.
+            </p>
+            <a href="auth.html?tab=register" class="btn btn-gold inline-flex">Devenir membre →</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="md:col-span-1">
+                <img src="../assets/images/logo.png" alt="GREC" class="h-12 mb-4 object-contain" />
+                <p class="text-white/45 text-sm leading-relaxed mb-5">Le réseau des entrepreneurs béninois et de la
+                    diaspora.</p>
+                <div class="flex gap-3">
+                    <a href="https://facebook.com"
+                        class="w-8 h-8 bg-white/10 rounded flex items-center justify-center text-white hover:bg-gold transition-colors"
+                        title="Facebook">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333H16V2.169C15.547 2.118 14.059 2 12.255 2 9.514 2 7.565 3.828 7.565 6.822V8z" />
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com"
+                        class="w-8 h-8 bg-white/10 rounded flex items-center justify-center text-white hover:bg-gold transition-colors"
+                        title="LinkedIn">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.469v6.766z" />
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com"
+                        class="w-8 h-8 bg-white/10 rounded flex items-center justify-center text-white hover:bg-gold transition-colors"
+                        title="Instagram">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.646.069 4.85 0 3.204-.012 3.584-.07 4.85-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.85-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Liens utiles</h3>
+                <ul class="space-y-3">
+                    <li><a href="about.html" class="text-white/45 hover:text-gold text-sm transition-colors">Qui
+                            sommes-nous</a></li>
+                    <li><a href="membres.html" class="text-white/45 hover:text-gold text-sm transition-colors">Nos
+                            membres</a></li>
+                    <li><a href="actualites.html"
+                            class="text-white/45 hover:text-gold text-sm transition-colors">Actualités</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Espace membres</h3>
+                <ul class="space-y-3">
+                    <li><a href="auth.html"
+                            class="text-white/45 hover:text-gold text-sm transition-colors">Connexion</a></li>
+                    <li><a href="profil.html"
+                            class="auth-member-link hidden text-white/45 hover:text-gold text-sm transition-colors">Mon
+                            profil</a></li>
+                    <li><a href="auth.html?tab=register"
+                            class="text-white/45 hover:text-gold text-sm transition-colors">S'inscrire</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
+                <ul class="space-y-3 text-white/45 text-sm">
+                    <li>📧 <a href="mailto:info@grec.group"
+                            class="hover:text-gold transition-colors">info@grec.group</a></li>
+                    <li>📱 +229 XXXX XXXX</li>
+                    <li>📍 Cotonou, Bénin</li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-white/10 py-5 px-6">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+                <p class="text-white/30 text-xs">© 2025 GREC · Tous droits réservés</p>
+                <p class="text-white/20 text-xs">Fait avec ❤️ pour les entrepreneurs béninois</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <button class="lightbox-nav prev" onclick="prevGallery()">‹</button>
+            <img id="lightbox-img" src="" alt="" />
+            <button class="lightbox-nav next" onclick="nextGallery()">›</button>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container"></div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/utils.js"></script>
+
+    <script>
+        let galleryImages = [];
+        let currentImageIndex = 0;
+        let currentFilter = 'all';
+        const localGalleryItems = [
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.53.30.jpeg', titre: 'Rencontre sur la plage', categorie: 'plage' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.02.jpeg', titre: 'Échanges terrain', categorie: 'plage' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.07.jpeg', titre: 'RDV de la diaspora', categorie: 'diaspora' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.14.jpeg', titre: 'Panel entrepreneurial', categorie: 'diaspora' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.20.jpeg', titre: 'Table ronde', categorie: 'diaspora' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.29.jpeg', titre: 'Moment réseau', categorie: 'reunions' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.39.jpeg', titre: 'Conférence GREC', categorie: 'diaspora' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.45.jpeg', titre: 'Rencontre membres', categorie: 'reunions' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.51.jpeg', titre: 'Session collective', categorie: 'reunions' },
+            { url: '../assets/images/WhatsApp Image 2026-04-28 at 18.18.13.jpeg', titre: 'Vie du réseau', categorie: 'reunions' }
+        ];
+
+        function renderGalleryItems(items) {
+            galleryImages = [];
+            const container = document.getElementById('gallery-container');
+            container.innerHTML = '';
+
+            items.forEach((g, idx) => {
+                galleryImages.push(g.url || '../assets/images/hero.jpg');
+
+                const img = document.createElement('div');
+                img.className = 'gallery-item reveal';
+                img.setAttribute('data-category', g.categorie || 'reunions');
+                img.innerHTML = `
+          <img src="${g.url || '../assets/images/hero.jpg'}" alt="${g.titre || 'Photo GREC'}" loading="lazy" />
+          <div class="gallery-overlay">
+            <a href="#" onclick="openLightbox(${idx}); return false;" title="Voir en grand">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </a>
+          </div>
+          <div class="gallery-caption">
+            <strong>${g.titre || 'Photo GREC'}</strong>
+            <span>${g.categorie === 'plage' ? 'Plage' : g.categorie === 'diaspora' ? 'RDV de la diaspora' : 'Rencontre'}</span>
+          </div>
+        `;
+                container.appendChild(img);
+            });
+
+            filterGallery(currentFilter);
+            initScrollReveal();
+        }
+
+        async function loadGallery() {
+            try {
+                const snap = await db.collection(COLLECTIONS.GALERIE).orderBy('uploadedAt', 'desc').get();
+                if (snap.empty) {
+                    renderGalleryItems(localGalleryItems);
+                    return;
+                }
+
+                renderGalleryItems(snap.docs.map(doc => doc.data()));
+            } catch (e) {
+                renderGalleryItems(localGalleryItems);
+            }
+        }
+
+        function filterGallery(category, evt) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = evt?.target || document.querySelector(`[data-filter="${category}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function openLightbox(idx) {
+            currentImageIndex = idx;
+            document.getElementById('lightbox').classList.add('active');
+            document.getElementById('lightbox-img').src = galleryImages[idx];
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function nextGallery() {
+            if (!galleryImages.length) return;
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            document.getElementById('lightbox-img').src = galleryImages[currentImageIndex];
+        }
+
+        function prevGallery() {
+            if (!galleryImages.length) return;
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            document.getElementById('lightbox-img').src = galleryImages[currentImageIndex];
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'ArrowRight') nextGallery();
+            if (e.key === 'ArrowLeft') prevGallery();
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        initAuthState();
+        initNavbar();
+        initMobileMenu();
+        loadGallery();
+
+        // ── Gestion du formulaire d'ajout de photo ──
+        document.getElementById('add-photo-btn').addEventListener('click', () => {
+            document.getElementById('modal-add-photo').classList.remove('hidden');
+        });
+
+        function closeModalPhoto() {
+            document.getElementById('modal-add-photo').classList.add('hidden');
+            document.getElementById('form-add-photo').reset();
+        }
+
+        document.getElementById('form-add-photo').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const file = document.getElementById('photo-input').files[0];
+            const title = document.getElementById('photo-title').value;
+            const desc = document.getElementById('photo-desc').value;
+            const category = document.getElementById('photo-category').value;
+
+            if (!file) {
+                showToast('Veuillez sélectionner une image', 'error');
+                return;
+            }
+
+            // Vérifier la taille (max 10 MB pour Storage)
+            if (file.size > 10 * 1024 * 1024) {
+                showToast('Image trop volumineuse (max 10 MB)', 'error');
+                return;
+            }
+
+            // Vérifier le type
+            if (!file.type.startsWith('image/')) {
+                showToast('Veuillez sélectionner une image valide', 'error');
+                return;
+            }
+
+            try {
+                // Montrer un loading
+                const submitBtn = document.querySelector('#form-add-photo button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Upload en cours...';
+                submitBtn.disabled = true;
+
+                // Uploader l'image à Storage
+                const url = await uploadFile(file, STORAGE_PATHS.GALERIE);
+
+                // Créer le document dans Firestore
+                await db.collection(COLLECTIONS.GALERIE).add({
+                    titre: title,
+                    description: desc,
+                    url: url,
+                    categorie: category,
+                    uploadedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                showToast('Photo uploadée avec succès !', 'success');
+                closeModalPhoto();
+
+                // Recharger la galerie
+                setTimeout(() => loadGallery(), 500);
+            } catch (err) {
+                console.error('Erreur upload:', err);
+                showToast('Erreur lors de l\'upload : ' + (err.message || 'Vérifiez vos règles Storage/Firestore'), 'error');
+            } finally {
+                const submitBtn = document.querySelector('#form-add-photo button[type="submit"]');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+
+    <!-- Floating Chat Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="floating-chat-btn"
+            class="bg-gold hover:bg-gold-light text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-gold/30"
+            aria-label="Accéder au chat">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // Floating chat button functionality
+        document.getElementById('floating-chat-btn').addEventListener('click', function () {
+            window.location.href = 'chat.html';
+        });
+    </script>
+</body>
+
+</html>

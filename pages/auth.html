@@ -1,0 +1,578 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion / Inscription — GREC Bénin</title>
+    <meta name="description" content="Connectez-vous ou inscrivez-vous au réseau GREC." />
+    <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#C8893A', 'gold-light': '#E5A84B',
+                        navy: '#0D1B2A', 'navy-mid': '#1A2E42',
+                        cream: '#F2EDE3', 'off-white': '#F8F5EF',
+                    },
+                    fontFamily: {
+                        display: ['"Playfair Display"', 'Georgia', 'serif'],
+                        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0D1B2A 0%, #1A2E42 100%);
+        }
+
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(13, 27, 42, 0.2);
+            width: 100%;
+            max-width: 420px;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            background: linear-gradient(135deg, #0D1B2A 0%, #1A2E42 100%);
+            padding: 40px 30px 30px;
+            text-align: center;
+        }
+
+        .auth-header h1 {
+            font-family: 'Playfair Display', serif;
+            color: #fff;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .auth-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+        }
+
+        .auth-body {
+            padding: 40px 30px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #E2E8F0;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #718096;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            margin-bottom: -2px;
+        }
+
+        .tab:hover {
+            color: #C8893A;
+        }
+
+        .tab.active {
+            color: #C8893A;
+            border-bottom-color: #C8893A;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #0D1B2A;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px 14px;
+            font-family: 'DM Sans', system-ui, sans-serif;
+            font-size: 14px;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 8px;
+            background: #fff;
+            color: #0D1B2A;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #C8893A;
+            box-shadow: 0 0 0 3px rgba(200, 137, 58, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #A0AEC0;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #4A5568;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group a {
+            color: #C8893A;
+            text-decoration: none;
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-auth {
+            width: 100%;
+            padding: 12px 20px;
+            background: #C8893A;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-auth:hover {
+            background: #B47A2C;
+            transform: translateY(-1px);
+        }
+
+        .btn-auth:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            font-size: 12px;
+            color: #A0AEC0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #E2E8F0;
+        }
+
+        .social-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border: 1.5px solid #E2E8F0;
+            background: #fff;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #0D1B2A;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-social:hover {
+            border-color: #C8893A;
+            color: #C8893A;
+            background: #F8F5EF;
+        }
+
+        .error-message {
+            color: #E53E3E;
+            font-size: 13px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .success-message {
+            color: #22863A;
+            font-size: 13px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="font-body">
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="auth-card reveal">
+
+            <!-- Header -->
+            <div class="auth-header">
+                <h1>GREC</h1>
+                <p>Le réseau des entrepreneurs béninois</p>
+            </div>
+
+            <!-- Body -->
+            <div class="auth-body">
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('login')">Connexion</button>
+                    <button class="tab" onclick="switchTab('register')">Inscription</button>
+                </div>
+
+                <!-- LOGIN TAB -->
+                <div id="login" class="tab-content active">
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="login-email" placeholder="votre@email.com" required />
+                            <div class="error-message" id="login-email-error"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mot de passe</label>
+                            <input type="password" id="login-password" placeholder="••••••••" required />
+                            <div class="error-message" id="login-password-error"></div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="login-remember" />
+                            <label for="login-remember">Se souvenir de moi</label>
+                        </div>
+
+                        <button type="submit" class="btn-auth" id="login-btn">Se connecter</button>
+
+                        <div class="divider">Ou</div>
+
+                        <div class="social-btns">
+                            <button type="button" class="btn-social" onclick="loginGoogle()">
+                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                    <path
+                                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                    <path
+                                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                    <path
+                                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                </svg>
+                                Google
+                            </button>
+                            <button type="button" class="btn-social" onclick="loginLinkedin()">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.469v6.766z" />
+                                </svg>
+                                LinkedIn
+                            </button>
+                        </div>
+
+                        <p style="text-align: center; font-size: 13px; color: #718096; margin-top: 20px;">
+                            Pas de compte ? <a href="#" onclick="switchTab('register'); return false;"
+                                style="color: #C8893A; font-weight: 600;">S'inscrire ici</a>
+                        </p>
+                    </form>
+                </div>
+
+                <!-- REGISTER TAB -->
+                <div id="register" class="tab-content">
+                    <form id="register-form" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label>Nom complet</label>
+                            <input type="text" id="register-name" placeholder="Jean Dupont" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="register-email" placeholder="votre@email.com" required />
+                            <div class="error-message" id="register-email-error"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Téléphone</label>
+                            <input type="tel" id="register-phone" placeholder="+229 XX XX XX XX" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Secteur d'activité</label>
+                            <select id="register-sector" required>
+                                <option value="">Sélectionner un secteur</option>
+                                <option>Commerce</option>
+                                <option>Technologie</option>
+                                <option>Services</option>
+                                <option>Santé</option>
+                                <option>Éducation</option>
+                                <option>Industrie</option>
+                                <option>Autre</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mot de passe</label>
+                            <input type="password" id="register-password" placeholder="••••••••" required />
+                            <div class="error-message" id="register-password-error"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confirmer le mot de passe</label>
+                            <input type="password" id="register-confirm" placeholder="••••••••" required />
+                            <div class="error-message" id="register-confirm-error"></div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="register-terms" required />
+                            <label for="register-terms">J'accepte les <a href="#">conditions d'utilisation</a></label>
+                        </div>
+
+                        <button type="submit" class="btn-auth" id="register-btn">Créer mon compte</button>
+
+                        <p style="text-align: center; font-size: 13px; color: #718096; margin-top: 20px;">
+                            Déjà membre ? <a href="#" onclick="switchTab('login'); return false;"
+                                style="color: #C8893A; font-weight: 600;">Se connecter ici</a>
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container"></div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/utils.js"></script>
+
+    <script>
+        // Detect tab from URL
+        function getTabFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('tab') === 'register' ? 'register' : 'login';
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            window.history.pushState({}, '', '?tab=' + tabName);
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const btn = document.getElementById('login-btn');
+
+            btn.disabled = true;
+            btn.innerHTML = '<div class="spinner"></div>';
+
+            try {
+                const result = await auth.signInWithEmailAndPassword(email, password);
+
+                // Vérifier si l'utilisateur est admin
+                const adminDoc = await db.collection(COLLECTIONS.ADMINS).doc(result.user.uid).get();
+                const redirectUrl = adminDoc.exists ? '../admin/index.html' : '../pages/profil.html';
+
+                showToast('Connexion réussie !', 'success');
+                setTimeout(() => window.location.href = redirectUrl, 1500);
+            } catch (err) {
+                showToast(err.message, 'error');
+                document.getElementById('login-email-error').textContent = err.message;
+                document.getElementById('login-email-error').style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Se connecter';
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const phone = document.getElementById('register-phone').value;
+            const sector = document.getElementById('register-sector').value;
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+            const btn = document.getElementById('register-btn');
+
+            if (password !== confirm) {
+                showToast('Les mots de passe ne correspondent pas.', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<div class="spinner"></div>';
+
+            try {
+                const result = await auth.createUserWithEmailAndPassword(email, password);
+
+                await db.collection(COLLECTIONS.MEMBRES).doc(result.user.uid).set({
+                    nom: name,
+                    email: email,
+                    telephone: phone,
+                    secteur: sector,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    statut: 'actif',
+                    role: ROLES.MEMBRE
+                });
+
+                showToast('Inscription réussie ! Bienvenue au GREC 🎉', 'success');
+                setTimeout(() => window.location.href = '../index.html', 1500);
+            } catch (err) {
+                showToast(err.message, 'error');
+                document.getElementById('register-email-error').textContent = err.message;
+                document.getElementById('register-email-error').style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Créer mon compte';
+            }
+        }
+
+        function loginGoogle() {
+            showToast('Fonctionnalité à venir', 'info');
+        }
+
+        function loginLinkedin() {
+            showToast('Fonctionnalité à venir', 'info');
+        }
+
+        // Check if user already logged in
+        auth.onAuthStateChanged(async user => {
+            if (user) {
+                // Vérifier si l'utilisateur est admin
+                try {
+                    const adminDoc = await db.collection(COLLECTIONS.ADMINS).doc(user.uid).get();
+                    const redirectUrl = adminDoc.exists ? '../admin/index.html' : '../pages/profil.html';
+                    window.location.href = redirectUrl;
+                } catch (e) {
+                    // En cas d'erreur, rediriger vers profil par défaut
+                    window.location.href = '../pages/profil.html';
+                }
+            }
+        });
+
+        // Initialize
+        const tab = getTabFromURL();
+        if (tab === 'register') switchTab('register');
+        initScrollReveal();
+    </script>
+
+    <!-- Floating Chat Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="floating-chat-btn"
+            class="bg-gold hover:bg-gold-light text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-gold/30"
+            aria-label="Accéder au chat">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // Floating chat button functionality
+        document.getElementById('floating-chat-btn').addEventListener('click', function () {
+            window.location.href = 'chat.html';
+        });
+    </script>
+</body>
+
+</html>

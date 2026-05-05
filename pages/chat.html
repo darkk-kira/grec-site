@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messagerie - GREC Bénin</title>
+  <meta name="description" content="Messagerie privée entre membres inscrits du réseau GREC." />
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    /* Ecran principal de chat: 3 colonnes desktop, pile verticale mobile */
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 300px 320px 1fr;
+      gap: 16px;
+      min-height: calc(100vh - 170px);
+    }
+
+    @media (max-width: 1024px) {
+      .chat-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cartes latérales et zone messages */
+    .chat-panel {
+      background: #fff;
+      border: 1px solid rgba(16, 32, 45, 0.08);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .chat-panel-title {
+      padding: 14px 16px;
+      font-weight: 700;
+      color: var(--navy);
+      border-bottom: 1px solid rgba(16, 32, 45, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .chat-scroll {
+      max-height: 68vh;
+      overflow-y: auto;
+    }
+
+    /* Boutons membre / conversation */
+    .chat-user-item,
+    .chat-conversation-item {
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(16, 32, 45, 0.06);
+    }
+
+    .chat-user-item:hover,
+    .chat-conversation-item:hover {
+      background: rgba(185, 133, 59, 0.08);
+    }
+
+    .chat-conversation-item.active {
+      background: rgba(31, 111, 115, 0.12);
+    }
+
+    .chat-user-name {
+      display: block;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .chat-user-meta {
+      display: block;
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .chat-user-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .chat-unread-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 9999px;
+      background: #C18D43;
+      box-shadow: 0 0 0 3px rgba(193, 141, 67, 0.18);
+      flex-shrink: 0;
+    }
+
+    .chat-unread-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      border-radius: 9999px;
+      background: #C18D43;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 0 6px;
+    }
+
+    .chat-search-wrap {
+      padding: 10px;
+      border-bottom: 1px solid rgba(16, 32, 45, 0.08);
+    }
+
+    .chat-search-input {
+      width: 100%;
+      border: 1px solid rgba(16, 32, 45, 0.16);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 13px;
+    }
+
+    /* Zone de messages */
+    .chat-messages {
+      padding: 14px;
+      height: 55vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #fff, #f9f7f2);
+    }
+
+    .chat-bubble {
+      max-width: 72%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .chat-bubble.mine {
+      margin-left: auto;
+      background: linear-gradient(135deg, #E3B467, #C18D43);
+      color: #0c1c2a;
+    }
+
+    .chat-bubble.other {
+      margin-right: auto;
+      background: #eef2f6;
+      color: #10202d;
+    }
+
+    .chat-bubble-time {
+      font-size: 11px;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+
+    .chat-muted {
+      padding: 14px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* Formulaire d'envoi */
+    .chat-send {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 12px;
+      border-top: 1px solid rgba(16, 32, 45, 0.08);
+    }
+  </style>
+</head>
+
+<body class="font-body bg-off-white text-navy">
+  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="../index.html" class="brand-lockup flex items-center gap-3">
+        <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+        <div
+          class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
+          G</div>
+        <div class="hidden sm:block">
+          <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+          <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
+        </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
+        <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
+        <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Espace</a>
+        <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
+        <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
+        <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
+        <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
+        <button onclick="logout()"
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+      </div>
+      <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+        <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
+          sommes-nous</a>
+        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Membres</a>
+        <a href="actualites.html"
+          class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+        <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+        <div class="pt-3 flex flex-col gap-2">
+          <a href="auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-6 pt-32 pb-10">
+    <section class="mb-6">
+      <h1 class="font-display text-3xl font-semibold text-navy">Messagerie privée</h1>
+      <p class="text-slate-600 text-sm mt-1">Compte actif: <span id="chat-current-user-name"
+          class="font-semibold">...</span></p>
+    </section>
+
+    <section class="chat-layout">
+      <aside class="chat-panel">
+        <div class="chat-panel-title">Membres</div>
+        <div class="chat-search-wrap">
+          <input id="chat-members-search" class="chat-search-input" placeholder="Rechercher un membre..." />
+        </div>
+        <div id="chat-members-list" class="chat-scroll"></div>
+      </aside>
+
+      <aside class="chat-panel">
+        <div class="chat-panel-title">
+          <span>Conversations</span>
+          <span id="chat-unread-total" class="chat-unread-badge hidden">0</span>
+        </div>
+        <div id="chat-conversations-list" class="chat-scroll"></div>
+      </aside>
+
+      <section class="chat-panel">
+        <div class="chat-panel-title">Messages</div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <form class="chat-send" onsubmit="chatSendMessage(event)">
+          <input id="chat-message-input" class="form-input" placeholder="Écris ton message..." disabled />
+          <button id="chat-send-btn" type="submit" class="btn btn-gold" disabled>Envoyer</button>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <div id="toast-container"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/chat.js"></script>
+</body>
+
+</html>

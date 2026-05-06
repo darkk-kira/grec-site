@@ -4,6 +4,7 @@
 
 // ── Toast Notifications ──────────────────────────────────────
 function showToast(message, type = 'info', duration = 4000) {
+  // Affiche une notification toast temporaire en bas de l'écran
   let container = document.getElementById('toast-container');
   if (!container) {
     container = document.createElement('div');
@@ -27,6 +28,7 @@ function showToast(message, type = 'info', duration = 4000) {
 
 // ── Scroll Reveal ────────────────────────────────────────────
 function initScrollReveal() {
+  // Observer pour révéler les éléments avec l'effet d'animation au scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -43,6 +45,7 @@ function initScrollReveal() {
 
 // ── Navbar Scroll Effect ─────────────────────────────────────
 function initNavbar() {
+  // Applique un style collant et contrasté sur la barre de navigation au scroll
   const navbar = document.getElementById('navbar');
   if (!navbar) return;
 
@@ -62,6 +65,7 @@ function initNavbar() {
 
 // ── Mobile Menu ───────────────────────────────────────────────
 function initMobileMenu() {
+  // Active le menu mobile et ferme automatiquement le panneau lorsque l'on clique sur un lien
   const btn   = document.getElementById('mobile-menu-btn');
   const menu  = document.getElementById('mobile-menu');
   if (!btn || !menu) return;
@@ -85,6 +89,7 @@ function initMobileMenu() {
 
 // ── Auth State Observer ───────────────────────────────────────
 function initAuthState() {
+  // Met à jour l'interface et les liens visibles selon l'état d'authentification
   auth.onAuthStateChanged(async (user) => {
     const loginLinks  = document.querySelectorAll('.auth-login-link');
     const logoutLinks = document.querySelectorAll('.auth-logout-link');
@@ -117,6 +122,7 @@ function initAuthState() {
 
 // ── Logout ───────────────────────────────────────────────────
 function logout() {
+  // Déconnecte l'utilisateur et redirige vers la page d'accueil
   auth.signOut().then(() => {
     showToast('Déconnexion réussie', 'success');
     setTimeout(() => window.location.href = '/index.html', 1000);
@@ -232,6 +238,7 @@ function initLazyLoad() {
 }
 
 async function uploadFile(file, path) {
+  // Upload un fichier vers Firebase Storage et retourne son URL publique
   const ref = storage.ref(path + Date.now() + '_' + file.name);
   const snap = await ref.put(file);
   return await snap.ref.getDownloadURL();

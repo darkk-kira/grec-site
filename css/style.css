@@ -59,6 +59,18 @@ body {
   color: var(--text-primary);
   background: #fff;
   line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img, picture, video, iframe, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button, input, textarea, select {
+  min-width: 0;
 }
 
 /* ── Typography ─────────────────────────────────────────────── */
@@ -151,6 +163,45 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
 
 #navbar.transparent {
   background: transparent;
+}
+
+#navbar .max-w-7xl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+#navbar .brand-lockup {
+  min-width: 0;
+}
+
+#mobile-menu {
+  padding-bottom: 1rem;
+}
+
+#mobile-menu a {
+  display: block;
+  width: 100%;
+}
+
+#mobile-menu .btn {
+  width: 100%;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead, tbody, tr, th, td {
+  word-break: break-word;
 }
 
 /* ── Section Labels ──────────────────────────────────────────── */
@@ -469,6 +520,30 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
   }
 
   section { padding: 24px 0; }
+}
+
+@media (max-width: 1024px) {
+  .hero-bg, .hero-about, .hero-actualites, .hero-membres, .hero-galerie {
+    background-attachment: scroll !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #navbar .max-w-7xl {
+    justify-content: space-between;
+  }
+
+  .btn, #mobile-menu .btn {
+    width: 100%;
+  }
+
+  .hero-bg h1, .hero-about h1, .hero-actualites h1, .hero-membres h1, .hero-galerie h1 {
+    font-size: clamp(2rem, 8vw, 2.6rem);
+  }
+
+  .card, .article-card, .gallery-item, .membre-card, .stat-box, .modal-box {
+    margin-inline: 0 !important;
+  }
 }
 
 /* Touch devices */

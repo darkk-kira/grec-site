@@ -83,6 +83,7 @@ async function chatLoadMembers() {
 }
 
 function chatRenderMembers(rows) {
+  // Rendre la liste des membres disponibles et activer l'ouverture de conversation
   const list = document.getElementById('chat-members-list');
   if (!rows.length) {
     list.innerHTML = '<p class="chat-muted">Aucun membre correspondant.</p>';
@@ -161,6 +162,7 @@ function chatListenConversations() {
    Creation / ouverture d'une conversation
    ============================================================ */
 async function chatOpenConversationWith(targetUid, targetName) {
+  // Créer ou reprendre une conversation existante entre deux membres
   const id = chatConversationId(chatCurrentUser.uid, targetUid);
   const ref = db.collection(COLLECTIONS.CHATS).doc(id);
   const currentName = document.getElementById('chat-current-user-name').textContent || chatCurrentUser.email;
@@ -184,6 +186,7 @@ async function chatOpenConversationWith(targetUid, targetName) {
 }
 
 function chatOpenConversation(conversationId) {
+  // Ouvrir la conversation sélectionnée et écouter les messages en temps réel
   activeConversationId = conversationId;
   document.getElementById('chat-send-btn').disabled = false;
   document.getElementById('chat-message-input').disabled = false;
@@ -238,6 +241,7 @@ function chatOpenConversation(conversationId) {
 async function chatSendMessage(event) {
   event.preventDefault();
 
+  // Envoi d'un message texte dans la conversation active
   if (!activeConversationId) {
     showToast('Choisis un membre ou une conversation.', 'info');
     return;

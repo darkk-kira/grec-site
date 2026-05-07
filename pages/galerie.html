@@ -172,8 +172,8 @@
 
         .lightbox-content {
             position: relative;
-            width: min(78vw, 820px);
-            height: min(66vh, 560px);
+            width: min(72vw, 760px);
+            height: min(70vh, 520px);
             max-width: 90%;
             max-height: 90%;
             border-radius: 12px;
@@ -185,31 +185,45 @@
         }
 
         .lightbox img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            width: min(100%, 560px);
+            height: min(100%, 440px);
+            object-fit: cover;
             object-position: center;
+            border-radius: 10px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.38);
         }
 
         @media (max-width: 768px) {
             .lightbox-content {
-                width: min(92vw, 520px);
-                height: min(58vh, 420px);
+                width: min(92vw, 460px);
+                height: min(62vh, 420px);
+                padding: 10px;
+            }
+
+            .lightbox img {
+                width: min(100%, 360px);
+                height: min(100%, 320px);
             }
         }
 
         .lightbox-close {
             position: absolute;
-            top: -40px;
-            right: 0;
-            width: 40px;
-            height: 40px;
+            top: 10px;
+            right: 10px;
+            width: 34px;
+            height: 34px;
             background: rgba(200, 137, 58, 0.9);
             border: none;
             border-radius: 50%;
             color: #fff;
             cursor: pointer;
             transition: background 0.2s;
+            z-index: 5;
+            font-size: 16px;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .lightbox-close:hover {
@@ -388,7 +402,7 @@
                             <label class="block text-sm font-medium text-navy mb-2">Photo</label>
                             <input type="file" id="photo-input" accept="image/*" required
                                 class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gold" />
-                            <p class="text-xs text-slate-500 mt-1">Max 10 MB (règle Storage)</p>
+                            <p class="text-xs text-slate-500 mt-1">Max 10 MB</p>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-navy mb-2">Titre</label>
@@ -560,6 +574,7 @@
         let galleryImages = [];
         let currentImageIndex = 0;
         let currentFilter = 'all';
+        let uploadedSessionItems = [];
         const localGalleryItems = [
             { url: '../assets/images/plage1.jpeg', titre: 'Rencontre sur la plage', categorie: 'plage' },
             { url: '../assets/images/plage2.jpeg', titre: 'Échanges terrain', categorie: 'plage' },
@@ -624,7 +639,7 @@
 
         async function loadGallery() {
             try {
-                renderGalleryItems(localGalleryItems.filter(isValidGalleryItem));
+                renderGalleryItems([...localGalleryItems.filter(isValidGalleryItem), ...uploadedSessionItems.filter(isValidGalleryItem)]);
                 const snap = await db.collection(COLLECTIONS.GALERIE).orderBy('uploadedAt', 'desc').get();
                 if (snap.empty) {
                     return;
@@ -632,10 +647,11 @@
 
                 const cleanedItems = snap.docs.map(doc => doc.data()).filter(isValidGalleryItem);
                 if (cleanedItems.length) {
-                    renderGalleryItems([...localGalleryItems.filter(isValidGalleryItem), ...cleanedItems]);
+                    renderGalleryItems([...localGalleryItems.filter(isValidGalleryItem), ...cleanedItems, ...uploadedSessionItems.filter(isValidGalleryItem)]);
                 }
             } catch (e) {
-                renderGalleryItems(localGalleryItems.filter(isValidGalleryItem));
+                console.warn('Lecture Firestore galerie impossible, fallback local:', e);
+                renderGalleryItems([...localGalleryItems.filter(isValidGalleryItem), ...uploadedSessionItems.filter(isValidGalleryItem)]);
             }
         }
 
@@ -711,7 +727,7 @@
                 return;
             }
 
-            // Vérifier la taille (max 10 MB pour Storage)
+            // Vérifier la taille (max 10 MB)
             if (file.size > 10 * 1024 * 1024) {
                 showToast('Image trop volumineuse (max 10 MB)', 'error');
                 return;
@@ -725,23 +741,39 @@
 
             let originalText = '';
             try {
+                if (!db) {
+                    throw new Error('Base de données Firebase non initialisée.');
+                }
+                const galerieCollection = (typeof COLLECTIONS !== 'undefined' && COLLECTIONS?.GALERIE)
+                    ? COLLECTIONS.GALERIE
+                    : 'galerie';
+
                 // Montrer un loading
                 const submitBtn = document.querySelector('#form-add-photo button[type="submit"]');
                 originalText = submitBtn.textContent;
                 submitBtn.textContent = 'Upload en cours...';
                 submitBtn.disabled = true;
 
-                // Uploader l'image à Storage
+                // Uploader l'image à Cloudinary
                 const url = await uploadFile(file, STORAGE_PATHS.GALERIE);
 
                 // Créer le document dans Firestore
-                await db.collection(COLLECTIONS.GALERIE).add({
+                await db.collection(galerieCollection).add({
                     titre: title,
                     description: desc,
                     url: url,
                     categorie: category,
                     uploadedAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
+
+                // Afficher immédiatement la photo dans la session, même si la lecture Firestore échoue.
+                uploadedSessionItems.unshift({
+                    titre: title,
+                    description: desc,
+                    url,
+                    categorie: category
+                });
+                renderGalleryItems([...localGalleryItems.filter(isValidGalleryItem), ...uploadedSessionItems.filter(isValidGalleryItem)]);
 
                 showToast('Photo uploadée avec succès !', 'success');
                 closeModalPhoto();
@@ -750,7 +782,7 @@
                 setTimeout(() => loadGallery(), 500);
             } catch (err) {
                 console.error('Erreur upload:', err);
-                showToast('Erreur lors de l\'upload : ' + (err.message || 'Vérifiez vos règles Storage/Firestore'), 'error');
+                showToast('Erreur lors de l\'upload : ' + (err.message || 'Vérifiez votre configuration Cloudinary/Firestore'), 'error');
             } finally {
                 const submitBtn = document.querySelector('#form-add-photo button[type="submit"]');
                 if (submitBtn) {

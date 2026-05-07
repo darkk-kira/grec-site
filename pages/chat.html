@@ -27,14 +27,23 @@
       .chat-layout {
         grid-template-columns: 1fr;
       }
+
+      .chat-panel[data-panel] {
+        display: none;
+      }
+
+      .chat-panel[data-panel].is-visible {
+        display: block;
+      }
     }
 
     /* Cartes latérales et zone messages */
     .chat-panel {
-      background: #fff;
-      border: 1px solid rgba(16, 32, 45, 0.08);
-      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(16, 32, 45, 0.1);
+      border-radius: 18px;
       overflow: hidden;
+      box-shadow: 0 18px 40px rgba(13, 27, 42, 0.08);
     }
 
     .chat-panel-title {
@@ -127,12 +136,45 @@
       font-size: 13px;
     }
 
+    .chat-filter-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .chat-search-suggestions {
+      border: 1px solid rgba(16, 32, 45, 0.12);
+      border-radius: 10px;
+      background: #fff;
+      overflow: hidden;
+      max-height: 180px;
+      overflow-y: auto;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .chat-search-suggestion {
+      width: 100%;
+      text-align: left;
+      padding: 8px 10px;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(16, 32, 45, 0.06);
+    }
+
+    .chat-search-suggestion:hover {
+      background: rgba(31, 111, 115, 0.08);
+    }
+
     /* Zone de messages */
     .chat-messages {
       padding: 14px;
       height: 55vh;
       overflow-y: auto;
-      background: linear-gradient(180deg, #fff, #f9f7f2);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(193, 141, 67, 0.12), transparent 34%),
+        radial-gradient(circle at 90% 90%, rgba(31, 111, 115, 0.1), transparent 36%),
+        linear-gradient(180deg, #fff, #f9f7f2);
     }
 
     .chat-bubble {
@@ -173,6 +215,42 @@
       gap: 10px;
       padding: 12px;
       border-top: 1px solid rgba(16, 32, 45, 0.08);
+    }
+
+    .chat-mobile-tabs {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .chat-mobile-tab {
+      border: 1px solid rgba(16, 32, 45, 0.12);
+      background: #fff;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a2e42;
+      padding: 9px 8px;
+    }
+
+    .chat-mobile-tab.active {
+      background: #1f6f73;
+      color: #fff;
+      border-color: #1f6f73;
+    }
+
+    @media (max-width: 1024px) {
+      .chat-mobile-tabs {
+        display: grid;
+      }
+
+      .chat-send {
+        position: sticky;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(8px);
+      }
     }
   </style>
 </head>
@@ -246,15 +324,34 @@
     </section>
 
     <section class="chat-layout">
-      <aside class="chat-panel">
+      <div class="chat-mobile-tabs" id="chat-mobile-tabs">
+        <button type="button" class="chat-mobile-tab active" data-target-panel="members">Membres</button>
+        <button type="button" class="chat-mobile-tab" data-target-panel="conversations">Conversations</button>
+        <button type="button" class="chat-mobile-tab" data-target-panel="messages">Messages</button>
+      </div>
+
+      <aside class="chat-panel is-visible" data-panel="members">
         <div class="chat-panel-title">Membres</div>
         <div class="chat-search-wrap">
           <input id="chat-members-search" class="chat-search-input" placeholder="Rechercher un membre..." />
+          <div id="chat-members-suggestions" class="chat-search-suggestions"></div>
+          <div class="chat-filter-row">
+            <select id="chat-members-sector-filter" class="chat-search-input">
+              <option value="">Tous les secteurs</option>
+              <option value="Commerce">Commerce</option>
+              <option value="Technologie">Technologie</option>
+              <option value="Services">Services</option>
+              <option value="Santé">Santé</option>
+              <option value="Éducation">Éducation</option>
+              <option value="Industrie">Industrie</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
         </div>
         <div id="chat-members-list" class="chat-scroll"></div>
       </aside>
 
-      <aside class="chat-panel">
+      <aside class="chat-panel is-visible" data-panel="conversations">
         <div class="chat-panel-title">
           <span>Conversations</span>
           <span id="chat-unread-total" class="chat-unread-badge hidden">0</span>
@@ -262,7 +359,7 @@
         <div id="chat-conversations-list" class="chat-scroll"></div>
       </aside>
 
-      <section class="chat-panel">
+      <section class="chat-panel is-visible" data-panel="messages">
         <div class="chat-panel-title">Messages</div>
         <div id="chat-messages" class="chat-messages"></div>
         <form class="chat-send" onsubmit="chatSendMessage(event)">

@@ -724,17 +724,7 @@
 
             try {
                 showToast('Upload en cours...', 'info');
-
-                const storageRef = storage.ref();
-                const avatarRef = storageRef.child(`${STORAGE_PATHS.MEMBRES}${activeUser.uid}/avatar.jpg`);
-
-                // Upload du fichier
-                const uploadPromise = avatarRef.put(file);
-                const timeoutPromise = new Promise((_, reject) => {
-                    setTimeout(() => reject(new Error('Timeout upload: aucune réponse du serveur Storage.')), 30000);
-                });
-                const snapshot = await Promise.race([uploadPromise, timeoutPromise]);
-                const downloadURL = await snapshot.ref.getDownloadURL();
+                const downloadURL = await uploadFile(file, `${STORAGE_PATHS.MEMBRES}${activeUser.uid}`);
 
                 // Mettre à jour Firestore
                 await db.collection(COLLECTIONS.MEMBRES).doc(activeUser.uid).set({
@@ -752,7 +742,7 @@
 
             } catch (error) {
                 console.error('Erreur upload:', error);
-                // Fallback si Storage échoue: avatar compressé stocké dans Firestore.
+                // Fallback si Cloudinary échoue: avatar compressé stocké dans Firestore.
                 try {
                     const dataUrl = await fileToDataUrlCompressed(file);
                     await db.collection(COLLECTIONS.MEMBRES).doc(activeUser.uid).set({
@@ -765,17 +755,7 @@
                     renderAvatar(dataUrl, initials);
                     showToast('Photo enregistrée via fallback profil.', 'success');
                 } catch (fallbackErr) {
-                    if (error.code === 'storage/unauthorized') {
-                        showToast('Upload refusé: vérifie les règles Storage et ton plan Firebase.', 'error');
-                    } else if (error.code === 'storage/unauthenticated') {
-                        showToast('Tu dois être connecté pour uploader une photo.', 'error');
-                    } else if (error.code === 'storage/quota-exceeded') {
-                        showToast('Quota Storage dépassé.', 'error');
-                    } else if (error.code === 'storage/retry-limit-exceeded') {
-                        showToast('Timeout upload: réessaie avec une meilleure connexion.', 'error');
-                    } else {
-                        showToast(`Erreur upload: ${error.message || error.code || 'inconnue'}`, 'error');
-                    }
+                    showToast(`Erreur upload: ${error.message || 'inconnue'}`, 'error');
                     console.error('Erreur fallback avatar:', fallbackErr);
                 }
             } finally {

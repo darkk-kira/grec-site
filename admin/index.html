@@ -329,6 +329,32 @@
             border-color: #C8893A;
             box-shadow: 0 0 0 3px rgba(200, 137, 58, 0.1);
         }
+
+        .recent-members-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 8px 20px rgba(13, 27, 42, 0.06);
+        }
+
+        .recent-members-title {
+            font-family: 'Playfair Display', serif;
+            color: #0D1B2A;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .recent-member-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .recent-member-item:last-child {
+            border-bottom: none;
+        }
     </style>
 </head>
 
@@ -415,6 +441,13 @@
                         <span class="label">Subscribers</span>
                     </div>
                 </div>
+
+                <section class="recent-members-card">
+                    <h3 class="recent-members-title">Nouveaux membres inscrits</h3>
+                    <div id="dashboard-recent-members">
+                        <p class="text-slate-500 text-sm">Chargement...</p>
+                    </div>
+                </section>
             </div>
 
             <!-- MEMBERS TAB -->
@@ -652,6 +685,43 @@
             }
         }
 
+        function openChatWithMember(uid) {
+            window.location.href = `../pages/chat.html?with=${encodeURIComponent(uid)}`;
+        }
+
+        function listenRecentMembers() {
+            const container = document.getElementById('dashboard-recent-members');
+            db.collection(COLLECTIONS.MEMBRES)
+                .orderBy('createdAt', 'desc')
+                .limit(12)
+                .onSnapshot((snap) => {
+                    if (snap.empty) {
+                        container.innerHTML = '<p class="text-slate-500 text-sm">Aucun inscrit pour le moment.</p>';
+                        return;
+                    }
+                    let html = '';
+                    snap.forEach((doc) => {
+                        const d = doc.data() || {};
+                        const date = d.createdAt?.toDate?.().toLocaleString?.('fr-FR') || 'Date inconnue';
+                        html += `
+                            <div class="recent-member-item">
+                                <div>
+                                    <p class="font-semibold text-[#0D1B2A] text-sm">${d.nom || 'Membre'}</p>
+                                    <p class="text-slate-600 text-xs">${d.email || '-'} · ${d.secteur || '-'}</p>
+                                    <p class="text-slate-500 text-xs">Inscrit le ${date}</p>
+                                </div>
+                                <div>
+                                    <button class="btn-small btn-edit" onclick="openChatWithMember('${doc.id}')">Écrire</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = html;
+                }, (e) => {
+                    container.innerHTML = `<p class="text-red-500 text-sm">Erreur de chargement: ${e.message}</p>`;
+                });
+        }
+
         async function loadArticles() {
             const list = document.getElementById('articles-list');
             list.innerHTML = '';
@@ -748,6 +818,7 @@
             loadMembers();
             loadArticles();
             loadGallery();
+            listenRecentMembers();
 
             db.collection(COLLECTIONS.NEWSLETTER).onSnapshot(snap => {
                 document.getElementById('stat-newsletter').textContent = snap.size;

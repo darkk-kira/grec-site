@@ -12,6 +12,7 @@ let activeConversationId = null;
 let chatUnsubscribeConversations = null;
 let chatUnsubscribeMessages = null;
 let chatMembersCache = [];
+let chatSearchState = { query: '', secteur: '' };
 
 /* ============================================================
    Utilitaires
@@ -98,6 +99,73 @@ function chatRenderMembers(rows) {
 
   list.querySelectorAll('.chat-user-item').forEach((btn) => {
     btn.addEventListener('click', () => chatOpenConversationWith(btn.dataset.uid, btn.dataset.name));
+  });
+}
+
+function chatGetFilteredMembers() {
+  const q = (chatSearchState.query || '').toLowerCase();
+  const secteur = (chatSearchState.secteur || '').trim();
+  return chatMembersCache.filter((m) => {
+    const bySecteur = !secteur || (m.secteur || '') === secteur;
+    const byName = !q || (m.nom || '').toLowerCase().includes(q);
+    return bySecteur && byName;
+  });
+}
+
+function chatRenderSuggestions() {
+  const box = document.getElementById('chat-members-suggestions');
+  if (!box) return;
+  const q = (chatSearchState.query || '').trim();
+  if (!q) {
+    box.style.display = 'none';
+    box.innerHTML = '';
+    return;
+  }
+  const suggestions = chatGetFilteredMembers().slice(0, 8);
+  if (!suggestions.length) {
+    box.style.display = 'none';
+    box.innerHTML = '';
+    return;
+  }
+  box.innerHTML = suggestions.map((m) => `
+    <button type="button" class="chat-search-suggestion" data-uid="${m.uid}" data-name="${chatEscapeHtml(m.nom)}">
+      ${chatEscapeHtml(m.nom)} <span class="chat-user-meta">· ${chatEscapeHtml(m.secteur || 'Membre')}</span>
+    </button>
+  `).join('');
+  box.style.display = 'block';
+  box.querySelectorAll('.chat-search-suggestion').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById('chat-members-search');
+      if (input) input.value = btn.dataset.name || '';
+      chatSearchState.query = (btn.dataset.name || '').trim();
+      box.style.display = 'none';
+      chatRenderMembers(chatGetFilteredMembers());
+      chatOpenConversationWith(btn.dataset.uid, btn.dataset.name);
+    });
+  });
+}
+
+function chatSetMobilePanel(panel) {
+  const tabs = document.querySelectorAll('.chat-mobile-tab');
+  const blocks = document.querySelectorAll('.chat-panel[data-panel]');
+  tabs.forEach((t) => t.classList.toggle('active', t.dataset.targetPanel === panel));
+  blocks.forEach((b) => b.classList.toggle('is-visible', b.dataset.panel === panel || window.innerWidth > 1024));
+}
+
+function chatInitMobileTabs() {
+  const tabs = document.querySelectorAll('.chat-mobile-tab');
+  if (!tabs.length) return;
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => chatSetMobilePanel(tab.dataset.targetPanel));
+  });
+  chatSetMobilePanel(window.innerWidth > 1024 ? 'members' : 'conversations');
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1024) {
+      document.querySelectorAll('.chat-panel[data-panel]').forEach((b) => b.classList.add('is-visible'));
+    } else {
+      const active = document.querySelector('.chat-mobile-tab.active');
+      chatSetMobilePanel(active ? active.dataset.targetPanel : 'conversations');
+    }
   });
 }
 
@@ -233,6 +301,7 @@ function chatOpenConversation(conversationId) {
   document.querySelectorAll('.chat-conversation-item').forEach((el) => {
     el.classList.toggle('active', el.dataset.conversationId === conversationId);
   });
+  if (window.innerWidth <= 1024) chatSetMobilePanel('messages');
 }
 
 /* ============================================================
@@ -287,15 +356,37 @@ auth.onAuthStateChanged(async (user) => {
   document.getElementById('chat-current-user-name').textContent = name;
 
   await chatLoadMembers();
+  chatInitMobileTabs();
   const searchInput = document.getElementById('chat-members-search');
+  const sectorFilter = document.getElementById('chat-members-sector-filter');
   if (searchInput) {
     searchInput.addEventListener('input', () => {
-      const q = (searchInput.value || '').trim().toLowerCase();
-      const filtered = !q
-        ? chatMembersCache
-        : chatMembersCache.filter((m) => (m.nom || '').toLowerCase().includes(q) || (m.secteur || '').toLowerCase().includes(q));
-      chatRenderMembers(filtered);
+      chatSearchState.query = (searchInput.value || '').trim();
+      chatRenderMembers(chatGetFilteredMembers());
+      chatRenderSuggestions();
     });
+  }
+  if (sectorFilter) {
+    sectorFilter.addEventListener('change', () => {
+      chatSearchState.secteur = (sectorFilter.value || '').trim();
+      chatRenderMembers(chatGetFilteredMembers());
+      chatRenderSuggestions();
+    });
+  }
+  document.addEventListener('click', (e) => {
+    const box = document.getElementById('chat-members-suggestions');
+    const searchWrap = document.querySelector('.chat-search-wrap');
+    if (!box || !searchWrap) return;
+    if (!searchWrap.contains(e.target)) {
+      box.style.display = 'none';
+    }
+  });
+  const targetUid = new URLSearchParams(window.location.search).get('with');
+  if (targetUid) {
+    const target = chatMembersCache.find((m) => m.uid === targetUid);
+    if (target) {
+      await chatOpenConversationWith(target.uid, target.nom);
+    }
   }
   chatListenConversations();
 });

@@ -280,10 +280,33 @@ function initLazyLoad() {
 }
 
 async function uploadFile(file, path) {
-  // Upload un fichier vers Firebase Storage et retourne son URL publique
-  const ref = storage.ref(path + Date.now() + '_' + file.name);
-  const snap = await ref.put(file);
-  return await snap.ref.getDownloadURL();
+  // Upload un fichier image vers Cloudinary et retourne son URL publique (secure_url)
+  if (!file) throw new Error('Aucun fichier sélectionné.');
+  if (!CLOUDINARY || !CLOUDINARY.UPLOAD_URL || !CLOUDINARY.UPLOAD_PRESET) {
+    throw new Error('Configuration Cloudinary manquante.');
+  }
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY.UPLOAD_PRESET);
+
+  // Optionnel: ranger par "dossier logique" basé sur le path historique Firebase
+  if (path) {
+    const folder = String(path).replace(/\/+$/, '');
+    if (folder) formData.append('folder', folder);
+  }
+
+  const response = await fetch(CLOUDINARY.UPLOAD_URL, {
+    method: 'POST',
+    body: formData
+  });
+
+  const data = await response.json();
+  if (!response.ok || !data.secure_url) {
+    const message = data?.error?.message || 'Upload Cloudinary échoué.';
+    throw new Error(message);
+  }
+  return data.secure_url;
 }
 
 // ── Counter Animation ─────────────────────────────────────────
@@ -304,4 +327,3 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initAuthState();
 });
-

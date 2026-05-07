@@ -19,7 +19,7 @@ firebase.initializeApp(firebaseConfig);
 // Services exportés (utilisés dans tout le site)
 const auth      = firebase.auth();
 const db        = firebase.firestore();
-const storage   = firebase.storage();
+const storage   = (firebase.storage && typeof firebase.storage === "function") ? firebase.storage() : null;
 
 // ── Firestore Settings ──────────────────────────────────────
 db.settings({ experimentalForceLongPolling: false });
@@ -46,6 +46,13 @@ const STORAGE_PATHS = {
   MEMBRES:    "membres/photos/",
   ACTUALITES: "actualites/images/",
   GALERIE:    "galerie/"
+};
+
+// ── Cloudinary (uploads images depuis le navigateur) ───────
+const CLOUDINARY = {
+  CLOUD_NAME: "dk5lhxtoh",
+  UPLOAD_PRESET: "grec-upload",
+  UPLOAD_URL: "https://api.cloudinary.com/v1_1/dk5lhxtoh/image/upload"
 };
 console.log("Firebase connecté :", firebase.app().name);
 

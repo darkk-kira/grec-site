@@ -152,7 +152,7 @@
   </style>
 </head>
 
-<body class="font-body bg-white text-navy">
+<body class="font-body bg-white text-navy homepage">
 
   <!-- PAGE START: Accueil -->
   <!-- HEADER / NAVBAR -->
@@ -178,7 +178,7 @@
         <a href="pages/galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
       </div>
       <div class="hidden lg:flex items-center gap-3">
-        <a href="pages/auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="pages/auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
         <a href="pages/profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
         <a href="pages/chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
         <a href="admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
@@ -202,7 +202,12 @@
           class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
         <a href="pages/galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
         <div class="pt-3 flex flex-col gap-2">
-          <a href="pages/auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+          <a href="pages/auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
+          <a href="pages/auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
+          <a href="pages/profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
+          <a href="pages/chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
+          <a href="admin/index.html" class="auth-admin-link hidden btn btn-gold text-center text-sm">Admin</a>
+          <button onclick="logout()" class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
         </div>
       </div>
     </div>
@@ -669,7 +674,7 @@
               À la découverte de cette française d'origine béninoise qui tutoie les grands noms de la parfumerie en
               Europe.
             </p>
-            <a href="pages/article.html?id=1"
+            <a href="pages/actualites.html"
               class="text-gold text-sm font-medium hover:underline inline-flex items-center gap-1">
               Lire l'article <span>→</span>
             </a>
@@ -695,7 +700,7 @@
               Le GREC est né pour servir de pont entre les entrepreneurs locaux et ceux de la diaspora. Depuis mars
               2021, ils ont décidé de se mettre ensemble.
             </p>
-            <a href="pages/article.html?id=2"
+            <a href="pages/actualites.html"
               class="text-gold text-sm font-medium hover:underline inline-flex items-center gap-1">
               Lire l'article <span>→</span>
             </a>
@@ -720,7 +725,7 @@
             <p class="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-3">
               Les pensionnaires du CAPE « La maison de joie » ont reçu la visite des membres du GREC et du HCBE-MONDE.
             </p>
-            <a href="pages/article.html?id=3"
+            <a href="pages/actualites.html"
               class="text-gold text-sm font-medium hover:underline inline-flex items-center gap-1">
               Lire l'article <span>→</span>
             </a>
@@ -914,7 +919,7 @@
 
   <div id="toast-container"></div>
 
-  FIREBASE SDKs
+  <!-- FIREBASE SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -1039,7 +1044,7 @@
               ${a.titre}
             </h3>
             <p class="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-3">${a.resume || ''}</p>
-            <a href="pages/article.html?id=${doc.id}" class="text-gold text-sm font-medium hover:underline inline-flex items-center gap-1">
+            <a href="pages/actualites.html" class="text-gold text-sm font-medium hover:underline inline-flex items-center gap-1">
               Lire l'article <span>→</span>
             </a>
           </div>
@@ -1144,3 +1149,5 @@
 </body>
 
 </html>
+
+

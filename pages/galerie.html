@@ -37,14 +37,14 @@
     <style>
         .hero-galerie {
             background: linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0.75) 100%),
-                url('../assets/images/hero.jpg') center/cover no-repeat;
+                url('../assets/images/galerie-1.jpeg') center/cover no-repeat;
             background-attachment: fixed;
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
             margin-top: 34px;
         }
 
@@ -76,7 +76,7 @@
             position: relative;
             overflow: hidden;
             border-radius: 14px;
-            aspect-ratio: 1.18 / 1;
+            aspect-ratio: 1.08 / 1;
             cursor: pointer;
             background: #F7F4EE;
             box-shadow: 0 18px 40px rgba(7, 25, 39, 0.11);
@@ -172,14 +172,30 @@
 
         .lightbox-content {
             position: relative;
+            width: min(78vw, 820px);
+            height: min(66vh, 560px);
             max-width: 90%;
             max-height: 90%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #0D1B2A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .lightbox img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            object-position: center;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-content {
+                width: min(92vw, 520px);
+                height: min(58vh, 420px);
+            }
         }
 
         .lightbox-close {
@@ -291,7 +307,8 @@
                 <a href="galerie.html" class="nav-link active text-sm font-medium">Galerie</a>
             </div>
             <div class="hidden lg:flex items-center gap-3">
-                <a href="auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+                <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
+                    membre</a>
                 <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
                 <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
                 <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
@@ -306,9 +323,9 @@
             </button>
         </div>
         <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
-            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-3">
+            <div class="px-6 py-4 flex flex-col gap-3">
                 <a href="../index.html"
-                    class="text-navy py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
                 <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
                     sommes-nous ?</a>
                 <a href="membres.html"
@@ -317,7 +334,17 @@
                     class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
                 <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
                 <div class="pt-3 flex flex-col gap-2">
-                    <a href="auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+                    <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se
+                        connecter</a>
+                    <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
+                        membre</a>
+                    <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon
+                        profil</a>
+                    <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
+                    <a href="../admin/index.html"
+                        class="auth-admin-link hidden btn btn-gold text-center text-sm">Admin</a>
+                    <button onclick="logout()"
+                        class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
                 </div>
             </div>
         </div>
@@ -434,7 +461,9 @@
     <footer class="bg-navy border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
             <div class="md:col-span-1">
-                <img src="../assets/images/logo.png" alt="GREC" class="h-12 mb-4 object-contain" />
+                <img src="../assets/images/logo.png" alt="GREC" class="h-12 mb-4 object-contain"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" />
+                <div class="hidden font-display text-white text-2xl font-bold mb-4">GREC</div>
                 <p class="text-white/45 text-sm leading-relaxed mb-5">Le réseau des entrepreneurs béninois et de la
                     diaspora.</p>
                 <div class="flex gap-3">
@@ -492,7 +521,7 @@
                 <ul class="space-y-3 text-white/45 text-sm">
                     <li>📧 <a href="mailto:info@grec.group"
                             class="hover:text-gold transition-colors">info@grec.group</a></li>
-                    <li>📱 +229 XXXX XXXX</li>
+                    <li>📱 01 XX XX XX XX</li>
                     <li>📍 Cotonou, Bénin</li>
                 </ul>
             </div>
@@ -532,17 +561,34 @@
         let currentImageIndex = 0;
         let currentFilter = 'all';
         const localGalleryItems = [
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.53.30.jpeg', titre: 'Rencontre sur la plage', categorie: 'plage' },
+            { url: '../assets/images/plage1.jpeg', titre: 'Rencontre sur la plage', categorie: 'plage' },
+            { url: '../assets/images/plage2.jpeg', titre: 'Échanges terrain', categorie: 'plage' },
+            { url: '../assets/images/hero.jpg', titre: 'RDV de la diaspora', categorie: 'diaspora' },
+            { url: '../assets/images/actualites-hero.jpg', titre: 'Panel entrepreneurial', categorie: 'diaspora' },
+            { url: '../assets/images/action-sociale.jpg', titre: 'Action sociale', categorie: 'diaspora' },
+            { url: '../assets/images/galerie-1.jpeg', titre: 'Moment réseau', categorie: 'reunions' },
+            { url: '../assets/images/Rencontres.jpeg', titre: 'Rencontre membres', categorie: 'reunions' },
+            { url: '../assets/images/Rencontres (2).jpeg', titre: 'Session collective', categorie: 'reunions' },
+            { url: '../assets/images/rencontre 4.jpeg', titre: 'Vie du réseau', categorie: 'reunions' },
             { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.02.jpeg', titre: 'Échanges terrain', categorie: 'plage' },
             { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.07.jpeg', titre: 'RDV de la diaspora', categorie: 'diaspora' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.14.jpeg', titre: 'Panel entrepreneurial', categorie: 'diaspora' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.20.jpeg', titre: 'Table ronde', categorie: 'diaspora' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.29.jpeg', titre: 'Moment réseau', categorie: 'reunions' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.39.jpeg', titre: 'Conférence GREC', categorie: 'diaspora' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.45.jpeg', titre: 'Rencontre membres', categorie: 'reunions' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.51.jpeg', titre: 'Session collective', categorie: 'reunions' },
-            { url: '../assets/images/WhatsApp Image 2026-04-28 at 18.18.13.jpeg', titre: 'Vie du réseau', categorie: 'reunions' }
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.14.jpeg', titre: 'Conférence', categorie: 'diaspora' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.20.jpeg', titre: 'Rencontre GREC', categorie: 'reunions' },
+            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.29.jpeg', titre: 'Table ronde', categorie: 'reunions' }
         ];
+
+        function isValidGalleryItem(item) {
+            const url = (item?.url || '').toLowerCase();
+            const titre = (item?.titre || '').toLowerCase();
+            const description = (item?.description || '').toLowerCase();
+            const txt = `${url} ${titre} ${description}`;
+
+            // Exclure explicitement les images indésirables (logo / captures de menu)
+            const blockedKeywords = ['logo', 'capture', 'screenshot', 'menu', 'navbar'];
+            const hasBlockedKeyword = blockedKeywords.some(k => txt.includes(k));
+            const isLogoAsset = url.includes('/logo.png') || url.endsWith('logo.png');
+            return !(hasBlockedKeyword || isLogoAsset);
+        }
 
         function renderGalleryItems(items) {
             galleryImages = [];
@@ -578,15 +624,18 @@
 
         async function loadGallery() {
             try {
+                renderGalleryItems(localGalleryItems.filter(isValidGalleryItem));
                 const snap = await db.collection(COLLECTIONS.GALERIE).orderBy('uploadedAt', 'desc').get();
                 if (snap.empty) {
-                    renderGalleryItems(localGalleryItems);
                     return;
                 }
 
-                renderGalleryItems(snap.docs.map(doc => doc.data()));
+                const cleanedItems = snap.docs.map(doc => doc.data()).filter(isValidGalleryItem);
+                if (cleanedItems.length) {
+                    renderGalleryItems([...localGalleryItems.filter(isValidGalleryItem), ...cleanedItems]);
+                }
             } catch (e) {
-                renderGalleryItems(localGalleryItems);
+                renderGalleryItems(localGalleryItems.filter(isValidGalleryItem));
             }
         }
 
@@ -674,10 +723,11 @@
                 return;
             }
 
+            let originalText = '';
             try {
                 // Montrer un loading
                 const submitBtn = document.querySelector('#form-add-photo button[type="submit"]');
-                const originalText = submitBtn.textContent;
+                originalText = submitBtn.textContent;
                 submitBtn.textContent = 'Upload en cours...';
                 submitBtn.disabled = true;
 
@@ -703,8 +753,10 @@
                 showToast('Erreur lors de l\'upload : ' + (err.message || 'Vérifiez vos règles Storage/Firestore'), 'error');
             } finally {
                 const submitBtn = document.querySelector('#form-add-photo button[type="submit"]');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
+                if (submitBtn) {
+                    submitBtn.textContent = originalText || 'Uploader';
+                    submitBtn.disabled = false;
+                }
             }
         });
     </script>

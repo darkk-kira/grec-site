@@ -534,6 +534,7 @@
 
             try {
                 const result = await auth.createUserWithEmailAndPassword(email, password);
+                await result.user.updateProfile({ displayName: name });
 
                 await db.collection(COLLECTIONS.MEMBRES).doc(result.user.uid).set({
                     nom: name,

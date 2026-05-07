@@ -533,7 +533,7 @@ thead, tbody, tr, th, td {
     justify-content: space-between;
   }
 
-  .btn, #mobile-menu .btn {
+  #mobile-menu .btn {
     width: 100%;
   }
 
@@ -543,6 +543,55 @@ thead, tbody, tr, th, td {
 
   .card, .article-card, .gallery-item, .membre-card, .stat-box, .modal-box {
     margin-inline: 0 !important;
+  }
+}
+
+/* Homepage-only mobile fixes */
+@media (max-width: 768px) {
+  body.homepage section {
+    padding-top: 3.25rem !important;
+    padding-bottom: 3.25rem !important;
+  }
+
+  body.homepage .hero-bg {
+    min-height: 100svh;
+  }
+
+  body.homepage .hero-bg .max-w-7xl {
+    padding-top: 7.5rem;
+    padding-bottom: 4rem;
+  }
+
+  body.homepage .hero-bg h1 {
+    font-size: clamp(2rem, 8.2vw, 2.7rem);
+    line-height: 1.15;
+  }
+
+  body.homepage .hero-bg p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  body.homepage .hero-bg .btn {
+    width: 100%;
+  }
+
+  body.homepage .scroll-indicator {
+    bottom: 1rem;
+  }
+
+  body.homepage .grid.grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.homepage .grid.grid-cols-2.md\:grid-cols-4,
+  body.homepage .grid.grid-cols-2.md\:grid-cols-3,
+  body.homepage .grid.grid-cols-2.md\:grid-cols-6 {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.homepage footer .btn {
+    width: auto;
   }
 }
 
@@ -1214,5 +1263,13 @@ footer a:hover {
 #navbar .hidden.lg\:flex.items-center.gap-8 {
   gap: clamp(1rem, 1.6vw, 1.9rem) !important;
   min-width: 0;
+}
+
+.auth-member-link.hidden,
+.auth-chat-link.hidden,
+.auth-admin-link.hidden,
+.auth-login-link.hidden,
+.auth-register-link.hidden {
+  display: none !important;
 }
 

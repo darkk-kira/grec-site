@@ -96,26 +96,68 @@ function initAuthState() {
     const memberLinks = document.querySelectorAll('.auth-member-link');
     const adminLinks  = document.querySelectorAll('.auth-admin-link');
     const chatLinks   = document.querySelectorAll('.auth-chat-link');
+    const registerLinks = document.querySelectorAll('.auth-register-link');
+    const show = (links) => links.forEach(el => el.classList.remove('hidden'));
+    const hide = (links) => links.forEach(el => el.classList.add('hidden'));
 
-    if (user) {
-      loginLinks.forEach(el => el.classList.add('hidden'));
-      logoutLinks.forEach(el => el.classList.remove('hidden'));
-      memberLinks.forEach(el => el.classList.remove('hidden'));
-      chatLinks.forEach(el => el.classList.remove('hidden'));
+    const setVisitorView = () => {
+      show(loginLinks);
+      show(registerLinks);
+      hide(memberLinks);
+      hide(chatLinks);
+      hide(adminLinks);
+      hide(logoutLinks);
+    };
 
-      // Vérifier si admin
-      try {
-        const adminDoc = await db.collection(COLLECTIONS.ADMINS).doc(user.uid).get();
-        if (adminDoc.exists) {
-          adminLinks.forEach(el => el.classList.remove('hidden'));
-        }
-      } catch (e) { /* pas admin */ }
-    } else {
-      loginLinks.forEach(el => el.classList.remove('hidden'));
-      logoutLinks.forEach(el => el.classList.add('hidden'));
-      memberLinks.forEach(el => el.classList.add('hidden'));
-      chatLinks.forEach(el => el.classList.add('hidden'));
-      adminLinks.forEach(el => el.classList.add('hidden'));
+    const setMemberView = () => {
+      hide(loginLinks);
+      hide(registerLinks);
+      show(memberLinks);
+      show(chatLinks);
+      hide(adminLinks);
+      show(logoutLinks);
+    };
+
+    const setAdminView = () => {
+      hide(loginLinks);
+      hide(registerLinks);
+      show(memberLinks);
+      show(chatLinks);
+      show(adminLinks);
+      show(logoutLinks);
+    };
+
+    if (!user) {
+      setVisitorView();
+      return;
+    }
+
+    // Utilisateur connecté : masquer immédiatement les liens de visiteur
+    hide(loginLinks);
+    hide(registerLinks);
+    hide(adminLinks);
+
+    // Base : utilisateur connecté standard
+    setMemberView();
+
+    // Afficher le prénom dans "Mon profil"
+    try {
+      const membreDoc = await db.collection(COLLECTIONS.MEMBRES).doc(user.uid).get();
+      const nomComplet = membreDoc.exists ? (membreDoc.data().nom || '').trim() : '';
+      const prenom = nomComplet ? nomComplet.split(' ')[0] : '';
+      memberLinks.forEach(el => {
+        el.textContent = prenom ? `Profil (${prenom})` : 'Mon profil';
+      });
+    } catch (e) {
+      memberLinks.forEach(el => { el.textContent = 'Mon profil'; });
+    }
+
+    // Upgrade en vue admin si l'utilisateur est admin
+    try {
+      const adminDoc = await db.collection(COLLECTIONS.ADMINS).doc(user.uid).get();
+      if (adminDoc.exists) setAdminView();
+    } catch (e) {
+      setMemberView();
     }
   });
 }
@@ -262,5 +304,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initAuthState();
 });
-
 

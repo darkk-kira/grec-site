@@ -39,7 +39,7 @@
     .hero-actualites {
       background:
         linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0.70) 100%),
-        url('../assets/images/hero.jpg') center/cover no-repeat;
+        url('../assets/images/actualites-hero.jpg') center/cover no-repeat;
     }
 
     @media (min-width: 1024px) {
@@ -321,7 +321,7 @@
   <!-- PAGE START: Actualités -->
   <!-- HEADER / NAVBAR -->
 
-  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <!-- ------------------- NAVBAR ------------------- -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="../index.html" class="brand-lockup flex items-center gap-3">
@@ -343,7 +343,7 @@
         <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
       </div>
       <div class="hidden lg:flex items-center gap-3">
-        <a href="auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
         <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
         <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
         <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
@@ -366,13 +366,20 @@
           class="text-teal py-2 border-b border-slate-300/60 text-sm font-semibold">Actualités</a>
         <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
         <div class="pt-3 flex flex-col gap-2">
-          <a href="auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+          <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
+          <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
+            membre</a>
+          <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
+          <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
+          <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-center text-sm">Admin</a>
+          <button onclick="logout()"
+            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <!-- ------------------- HERO ------------------- -->
   <!-- HERO SECTION -->
   <section class="hero-actualites min-h-[400px] pt-32 pb-16 flex items-center">
     <div class="max-w-7xl mx-auto px-6 w-full">
@@ -411,7 +418,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ FILTRES ═══════════════════ -->
+  <!-- ------------------- FILTRES ------------------- -->
   <div class="sticky top-16 z-40 bg-white border-b border-slate-100 shadow-sm">
     <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3 overflow-x-auto">
       <span class="text-xs text-slate-400 font-medium shrink-0">Filtrer :</span>
@@ -424,12 +431,12 @@
     </div>
   </div>
 
-  <!-- ═══════════════════ CONTENU PRINCIPAL ═══════════════════ -->
+  <!-- ------------------- CONTENU PRINCIPAL ------------------- -->
   <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid lg:grid-cols-3 gap-12">
 
-        <!-- ── Colonne articles (gauche) ── -->
+        <!-- -- Colonne articles (gauche) -- -->
         <div class="lg:col-span-2">
 
           <!-- Article à la une -->
@@ -489,7 +496,7 @@
                     <div class="text-xs text-slate-400">Équipe éditoriale</div>
                   </div>
                 </div>
-                <a href="article.html" class="btn btn-gold text-sm py-2 px-5">Lire l'article →</a>
+                <a href="actualites.html" class="btn btn-gold text-sm py-2 px-5">Lire l'article -></a>
               </div>
             </div>
           </article>
@@ -521,7 +528,7 @@
                   <time>10 Avril 2025</time><span>·</span><span>4 min</span>
                 </div>
                 <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
-                  <a href="article.html" class="hover:text-gold transition-colors">Programme d'export Bénin–France :
+                  <a href="actualites.html" class="hover:text-gold transition-colors">Programme d'export Bénin–France :
                     nouvelles opportunités pour les PME</a>
                 </h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
@@ -531,7 +538,7 @@
                 </p>
                 <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
                   <span>Par Adjobi Mensah</span>
-                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                  <a href="actualites.html" class="text-gold hover:underline font-medium">Lire -></a>
                 </div>
               </div>
             </article>
@@ -554,7 +561,7 @@
                   <time>3 Avril 2025</time><span>·</span><span>6 min</span>
                 </div>
                 <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
-                  <a href="article.html" class="hover:text-gold transition-colors">Masterclass Finance d'entreprise :
+                  <a href="actualites.html" class="hover:text-gold transition-colors">Masterclass Finance d'entreprise :
                     lever des fonds en Afrique de l'Ouest</a>
                 </h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
@@ -564,7 +571,7 @@
                 </p>
                 <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
                   <span>Par Équipe GREC</span>
-                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                  <a href="actualites.html" class="text-gold hover:underline font-medium">Lire -></a>
                 </div>
               </div>
             </article>
@@ -587,7 +594,8 @@
                   <time>28 Mars 2025</time><span>·</span><span>3 min</span>
                 </div>
                 <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
-                  <a href="article.html" class="hover:text-gold transition-colors">Lancement du programme d'incubation
+                  <a href="actualites.html" class="hover:text-gold transition-colors">Lancement du programme
+                    d'incubation
                     GREC 2025 : 10 startups sélectionnées</a>
                 </h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
@@ -597,7 +605,7 @@
                 </p>
                 <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
                   <span>Par Directeur GREC</span>
-                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                  <a href="actualites.html" class="text-gold hover:underline font-medium">Lire -></a>
                 </div>
               </div>
             </article>
@@ -620,7 +628,7 @@
                   <time>20 Mars 2025</time><span>·</span><span>5 min</span>
                 </div>
                 <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
-                  <a href="article.html" class="hover:text-gold transition-colors">GREC × BPI France : un accord
+                  <a href="actualites.html" class="hover:text-gold transition-colors">GREC × BPI France : un accord
                     stratégique pour soutenir la diaspora entrepreneuriale</a>
                 </h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
@@ -630,7 +638,7 @@
                 </p>
                 <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
                   <span>Par Komlan Attiogbé</span>
-                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                  <a href="actualites.html" class="text-gold hover:underline font-medium">Lire -></a>
                 </div>
               </div>
             </article>
@@ -653,7 +661,7 @@
                   <time>12 Mars 2025</time><span>·</span><span>2 min</span>
                 </div>
                 <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
-                  <a href="article.html" class="hover:text-gold transition-colors">Soirée networking GREC à Paris :
+                  <a href="actualites.html" class="hover:text-gold transition-colors">Soirée networking GREC à Paris :
                     retour sur une rencontre exceptionnelle</a>
                 </h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
@@ -662,7 +670,7 @@
                 </p>
                 <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
                   <span>Par Marie-Claire Agossou</span>
-                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                  <a href="actualites.html" class="text-gold hover:underline font-medium">Lire -></a>
                 </div>
               </div>
             </article>
@@ -685,7 +693,8 @@
                   <time>5 Mars 2025</time><span>·</span><span>7 min</span>
                 </div>
                 <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
-                  <a href="article.html" class="hover:text-gold transition-colors">Rapport d'activité 2024 : une année
+                  <a href="actualites.html" class="hover:text-gold transition-colors">Rapport d'activité 2024 : une
+                    année
                     de croissance pour le réseau GREC</a>
                 </h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
@@ -695,7 +704,7 @@
                 </p>
                 <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
                   <span>Par Bureau exécutif</span>
-                  <a href="article.html" class="text-gold hover:underline font-medium">Lire →</a>
+                  <a href="actualites.html" class="text-gold hover:underline font-medium">Lire -></a>
                 </div>
               </div>
             </article>
@@ -714,7 +723,7 @@
           </div>
         </div>
 
-        <!-- ── Sidebar (droite) ── -->
+        <!-- -- Sidebar (droite) -- -->
         <div class="lg:col-span-1">
 
           <!-- Recherche -->
@@ -785,7 +794,7 @@
             <div class="trending-item">
               <div class="trending-num">01</div>
               <div>
-                <a href="article.html"
+                <a href="actualites.html"
                   class="text-sm font-medium text-navy hover:text-gold transition-colors leading-snug block">Forum GREC
                   2025 : programme complet dévoilé</a>
                 <div class="text-xs text-slate-400 mt-1">15 Avril 2025</div>
@@ -794,7 +803,7 @@
             <div class="trending-item">
               <div class="trending-num">02</div>
               <div>
-                <a href="article.html"
+                <a href="actualites.html"
                   class="text-sm font-medium text-navy hover:text-gold transition-colors leading-snug block">Programme
                   d'export Bénin–France : les clés du succès</a>
                 <div class="text-xs text-slate-400 mt-1">10 Avril 2025</div>
@@ -803,7 +812,7 @@
             <div class="trending-item">
               <div class="trending-num">03</div>
               <div>
-                <a href="article.html"
+                <a href="actualites.html"
                   class="text-sm font-medium text-navy hover:text-gold transition-colors leading-snug block">10 startups
                   sélectionnées pour l'incubation GREC</a>
                 <div class="text-xs text-slate-400 mt-1">28 Mars 2025</div>
@@ -812,7 +821,7 @@
             <div class="trending-item">
               <div class="trending-num">04</div>
               <div>
-                <a href="article.html"
+                <a href="actualites.html"
                   class="text-sm font-medium text-navy hover:text-gold transition-colors leading-snug block">GREC × BPI
                   France : accord de financement diaspora</a>
                 <div class="text-xs text-slate-400 mt-1">20 Mars 2025</div>
@@ -862,7 +871,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ CTA ═══════════════════ -->
+  <!-- ------------------- CTA ------------------- -->
   <section class="py-20 bg-navy relative overflow-hidden">
     <div class="absolute inset-0 opacity-5">
       <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold rounded-full blur-3xl"></div>
@@ -884,7 +893,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <!-- ------------------- FOOTER ------------------- -->
   <footer class="bg-navy border-t border-white/10">
     <div class="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
       <div class="md:col-span-1">
@@ -944,16 +953,16 @@
       <div>
         <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
         <ul class="space-y-3 text-white/45 text-sm">
-          <li>📧 <a href="mailto:info@grec.group" class="hover:text-gold transition-colors">info@grec.group</a></li>
-          <li>📱 +229 01 XX XX XX XX</li>
-          <li>📍 Cotonou, Bénin</li>
+          <li>?? <a href="mailto:info@grec.group" class="hover:text-gold transition-colors">info@grec.group</a></li>
+          <li>📱 01 XX XX XX XX</li>
+          <li>?? Cotonou, Bénin</li>
         </ul>
       </div>
     </div>
     <div class="border-t border-white/10 py-5 px-6">
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
         <p class="text-white/30 text-xs">© 2025 GREC · Tous droits réservés</p>
-        <p class="text-white/20 text-xs">Fait avec ❤️ pour les entrepreneurs béninois</p>
+        <p class="text-white/20 text-xs">Fait avec ?? pour les entrepreneurs béninois</p>
       </div>
     </div>
   </footer>
@@ -971,7 +980,7 @@
     let currentPage = 1;
     let currentCat = 'all';
 
-    // ── Filtre catégories ──
+    // -- Filtre catégories --
     function filterCat(btn, cat) {
       currentCat = cat;
       document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
@@ -987,7 +996,7 @@
       document.getElementById('articles-count').textContent = `Affichage de ${visible} articles`;
     }
 
-    // ── Pagination ──
+    // -- Pagination --
     function setPage(n) {
       currentPage = n;
       document.querySelectorAll('[id^="pag-"]').forEach(b => b.classList.remove('active'));
@@ -997,7 +1006,7 @@
     }
     function changePage(dir) { setPage(Math.max(1, currentPage + dir)); }
 
-    // ── Recherche ──
+    // -- Recherche --
     function searchArticles(q) {
       const lower = q.toLowerCase();
       document.querySelectorAll('#articles-container .article-card').forEach(a => {
@@ -1006,7 +1015,7 @@
       });
     }
 
-    // ── Newsletter ──
+    // -- Newsletter --
     function subscribeNewsletter() {
       const input = document.querySelector('.newsletter-sidebar input');
       const email = input?.value?.trim();
@@ -1016,7 +1025,7 @@
       if (input) input.value = '';
     }
 
-    // ── Chargement Firestore (remplace les articles statiques en prod) ──
+    // -- Chargement Firestore (remplace les articles statiques en prod) --
     async function loadArticlesFromFirestore() {
       try {
         let q = db.collection(COLLECTIONS.ACTUALITES).where('publie', '==', true).orderBy('publishedAt', 'desc').limit(6);
@@ -1039,12 +1048,12 @@
               <div class="p-5 flex flex-col flex-grow">
                 <div class="text-xs text-slate-400 mb-3">${date}</div>
                 <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
-                  <a href="article.html?id=${doc.id}" class="hover:text-gold transition-colors">${a.titre}</a>
+                  <a href="actualites.html" class="hover:text-gold transition-colors">${a.titre}</a>
                 </h3>
                 <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">${a.resume || ''}</p>
                 <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
                   <span>Par ${a.auteur || 'GREC'}</span>
-                  <a href="article.html?id=${doc.id}" class="text-gold hover:underline font-medium">Lire →</a>
+                  <a href="actualites.html" class="text-gold hover:underline font-medium">Lire -></a>
                 </div>
               </div>
             </article>`;

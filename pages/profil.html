@@ -45,6 +45,15 @@
             .profile-container {
                 grid-template-columns: 1fr;
             }
+
+            .profile-sidebar {
+                position: static;
+                top: auto;
+            }
+
+            .profile-sidebar .stat-card {
+                display: none;
+            }
         }
 
         .profile-sidebar {
@@ -314,7 +323,7 @@
                 <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
             </div>
             <div class="hidden lg:flex items-center gap-3">
-                <a href="auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+                <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
                 <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
                 <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
                 <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
@@ -340,7 +349,12 @@
                     class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
                 <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
                 <div class="pt-3 flex flex-col gap-2">
-                    <a href="auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+                    <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
+                    <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
+                    <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
+                    <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
+                    <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-center text-sm">Admin</a>
+                    <button onclick="logout()" class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
                 </div>
             </div>
         </div>
@@ -459,6 +473,17 @@
                                 </div>
                             </div>
 
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Pays</label>
+                                    <input type="text" id="field-pays" />
+                                </div>
+                                <div class="form-group">
+                                    <label>LinkedIn</label>
+                                    <input type="url" id="field-linkedin" placeholder="https://linkedin.com/in/..." />
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label>Biographie</label>
                                 <textarea id="field-bio" rows="5"
@@ -532,6 +557,57 @@
 
     <script>
         let currentUser = null;
+        let isPublicMemberView = false;
+
+        function getMemberFromQuery() {
+            const params = new URLSearchParams(window.location.search);
+            const name = params.get('name');
+            if (!name) return null;
+            return {
+                member: params.get('member') || '',
+                nom: name,
+                secteur: params.get('secteur') || '',
+                pays: params.get('pays') || '',
+                poste: params.get('poste') || '',
+                bio: params.get('bio') || '',
+                depuis: params.get('depuis') || '',
+            };
+        }
+
+        function setFieldSafe(id, value) {
+            const el = document.getElementById(id);
+            if (el) el.value = value || '';
+        }
+
+        function renderPublicMemberProfile(member) {
+            isPublicMemberView = true;
+            const initials = (member.nom || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+            document.getElementById('profile-name').textContent = member.nom;
+            document.querySelector('.profile-sidebar .role').textContent = member.poste || 'Membre du réseau';
+            document.getElementById('profile-avatar').textContent = initials;
+            setFieldSafe('field-nom', member.nom);
+            setFieldSafe('field-email', '');
+            setFieldSafe('field-telephone', '');
+            setFieldSafe('field-secteur', member.secteur);
+            setFieldSafe('field-entreprise', '');
+            setFieldSafe('field-poste', member.poste);
+            setFieldSafe('field-pays', member.pays);
+            setFieldSafe('field-linkedin', '');
+            setFieldSafe('field-bio', member.bio);
+            document.getElementById('stat-events').textContent = member.depuis ? '1' : '0';
+            document.getElementById('stat-connections').textContent = member.pays ? '1' : '0';
+
+            const emailField = document.getElementById('field-email');
+            if (emailField) emailField.placeholder = 'Non communiqué';
+
+            // En mode consultation membre, on bloque l'édition.
+            document.querySelectorAll('#info-form input, #info-form select, #info-form textarea').forEach(el => {
+                el.setAttribute('readonly', 'readonly');
+                el.setAttribute('disabled', 'disabled');
+            });
+            const saveBtn = document.querySelector('#info-form .btn-save');
+            if (saveBtn) saveBtn.style.display = 'none';
+        }
 
         function switchSection(event, sectionName) {
             event.preventDefault();
@@ -541,9 +617,48 @@
             document.getElementById(sectionName).classList.add('active');
             const clickedLink = event.target.closest('a');
             if (clickedLink) clickedLink.classList.add('active');
+
+            // Sur mobile, amener directement l'utilisateur vers la section sélectionnée.
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                const section = document.getElementById(sectionName);
+                if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
-        async function loadProfile() {
+        function renderAvatar(photoURL, initials = 'U') {
+            const avatarEl = document.getElementById('profile-avatar');
+            if (!avatarEl) return;
+            if (photoURL) {
+                const sep = photoURL.includes('?') ? '&' : '?';
+                const bust = `${photoURL}${sep}v=${Date.now()}`;
+                avatarEl.innerHTML = `
+                    <img src="${bust}" alt="Avatar" />
+                    <div class="avatar-upload-overlay">
+                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                        Changer
+                    </div>
+                `;
+            } else {
+                avatarEl.textContent = initials;
+            }
+        }
+
+        async function fileToDataUrlCompressed(file, maxSize = 420) {
+            const imageBitmap = await createImageBitmap(file);
+            const ratio = Math.min(1, maxSize / Math.max(imageBitmap.width, imageBitmap.height));
+            const w = Math.max(1, Math.round(imageBitmap.width * ratio));
+            const h = Math.max(1, Math.round(imageBitmap.height * ratio));
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(imageBitmap, 0, 0, w, h);
+            return canvas.toDataURL('image/jpeg', 0.82);
+        }
+
+        async function loadProfile(forceServer = false) {
             try {
                 const user = auth.currentUser;
                 if (!user) {
@@ -552,26 +667,15 @@
                 }
 
                 currentUser = user;
-                const docSnap = await db.collection(COLLECTIONS.MEMBRES).doc(user.uid).get();
+                const docRef = db.collection(COLLECTIONS.MEMBRES).doc(user.uid);
+                const docSnap = forceServer ? await docRef.get({ source: 'server' }) : await docRef.get();
 
                 if (docSnap.exists) {
                     const data = docSnap.data();
                     const initials = (data.nom || 'U').split(' ').map(n => n[0]).join('').toUpperCase();
 
                     // Afficher l'avatar
-                    if (data.photoURL) {
-                        document.getElementById('profile-avatar').innerHTML = `
-                            <img src="${data.photoURL}" alt="Avatar" />
-                            <div class="avatar-upload-overlay">
-                                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                                </svg>
-                                Changer
-                            </div>
-                        `;
-                    } else {
-                        document.getElementById('profile-avatar').textContent = initials;
-                    }
+                    renderAvatar(data.photoURL || data.photoDataURL, initials);
 
                     document.getElementById('profile-name').textContent = data.nom || 'Sans nom';
                     document.getElementById('field-nom').value = data.nom || '';
@@ -583,6 +687,13 @@
                     document.getElementById('field-pays').value = data.pays || '';
                     document.getElementById('field-linkedin').value = data.linkedIn || '';
                     document.getElementById('field-bio').value = data.bio || '';
+                } else {
+                    const fallbackName = user.displayName || user.email?.split('@')[0] || 'Sans nom';
+                    const initials = fallbackName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                    document.getElementById('profile-name').textContent = fallbackName;
+                    renderAvatar('', initials);
+                    document.getElementById('field-nom').value = fallbackName;
+                    document.getElementById('field-email').value = user.email || '';
                 }
             } catch (e) {
                 console.error('Erreur:', e);
@@ -593,6 +704,11 @@
         async function uploadAvatar(event) {
             const file = event.target.files[0];
             if (!file) return;
+            const activeUser = currentUser || auth.currentUser;
+            if (!activeUser) {
+                showToast('Session expirée: reconnecte-toi puis réessaie.', 'error');
+                return;
+            }
 
             // Vérifier la taille (max 5MB)
             if (file.size > 5 * 1024 * 1024) {
@@ -610,30 +726,67 @@
                 showToast('Upload en cours...', 'info');
 
                 const storageRef = storage.ref();
-                const avatarRef = storageRef.child(`${STORAGE_PATHS.MEMBRES}${currentUser.uid}/avatar.jpg`);
+                const avatarRef = storageRef.child(`${STORAGE_PATHS.MEMBRES}${activeUser.uid}/avatar.jpg`);
 
                 // Upload du fichier
-                const snapshot = await avatarRef.put(file);
+                const uploadPromise = avatarRef.put(file);
+                const timeoutPromise = new Promise((_, reject) => {
+                    setTimeout(() => reject(new Error('Timeout upload: aucune réponse du serveur Storage.')), 30000);
+                });
+                const snapshot = await Promise.race([uploadPromise, timeoutPromise]);
                 const downloadURL = await snapshot.ref.getDownloadURL();
 
                 // Mettre à jour Firestore
-                await db.collection(COLLECTIONS.MEMBRES).doc(currentUser.uid).update({
+                await db.collection(COLLECTIONS.MEMBRES).doc(activeUser.uid).set({
                     photoURL: downloadURL,
+                    photoDataURL: '',
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
+                }, { merge: true });
 
+                // Affichage immédiat local, même si la lecture Firestore est en retard/cachée.
+                const nomCourant = document.getElementById('field-nom')?.value || document.getElementById('profile-name')?.textContent || 'U';
+                const initials = nomCourant.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                renderAvatar(downloadURL, initials);
                 showToast('Photo de profil mise à jour !', 'success');
-                loadProfile(); // Recharger pour afficher la nouvelle image
+                loadProfile(true); // Recharger depuis le serveur pour confirmer l'état final
 
             } catch (error) {
                 console.error('Erreur upload:', error);
-                showToast('Erreur lors de l\'upload', 'error');
+                // Fallback si Storage échoue: avatar compressé stocké dans Firestore.
+                try {
+                    const dataUrl = await fileToDataUrlCompressed(file);
+                    await db.collection(COLLECTIONS.MEMBRES).doc(activeUser.uid).set({
+                        photoDataURL: dataUrl,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+
+                    const nomCourant = document.getElementById('field-nom')?.value || document.getElementById('profile-name')?.textContent || 'U';
+                    const initials = nomCourant.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                    renderAvatar(dataUrl, initials);
+                    showToast('Photo enregistrée via fallback profil.', 'success');
+                } catch (fallbackErr) {
+                    if (error.code === 'storage/unauthorized') {
+                        showToast('Upload refusé: vérifie les règles Storage et ton plan Firebase.', 'error');
+                    } else if (error.code === 'storage/unauthenticated') {
+                        showToast('Tu dois être connecté pour uploader une photo.', 'error');
+                    } else if (error.code === 'storage/quota-exceeded') {
+                        showToast('Quota Storage dépassé.', 'error');
+                    } else if (error.code === 'storage/retry-limit-exceeded') {
+                        showToast('Timeout upload: réessaie avec une meilleure connexion.', 'error');
+                    } else {
+                        showToast(`Erreur upload: ${error.message || error.code || 'inconnue'}`, 'error');
+                    }
+                    console.error('Erreur fallback avatar:', fallbackErr);
+                }
+            } finally {
+                if (event && event.target) event.target.value = '';
             }
         }
 
         async function saveProfile(e) {
             e.preventDefault();
             if (!currentUser) return;
+            if (isPublicMemberView) return;
 
             const btn = e.target.querySelector('.btn-save');
             const originalText = btn.textContent;
@@ -643,15 +796,25 @@
             try {
                 const newEmail = document.getElementById('field-email').value.trim();
                 const currentEmail = currentUser.email;
+                let emailUpdated = true;
 
                 // Si l'email a changé, mettre à jour dans Firebase Auth
                 if (newEmail !== currentEmail) {
-                    await currentUser.updateEmail(newEmail);
-                    showToast('Email mis à jour ! Vérifiez votre boîte mail pour confirmer.', 'success');
+                    try {
+                        await currentUser.updateEmail(newEmail);
+                        showToast('Email mis à jour ! Vérifiez votre boîte mail pour confirmer.', 'success');
+                    } catch (emailErr) {
+                        emailUpdated = false;
+                        if (emailErr.code === 'auth/requires-recent-login') {
+                            showToast('Email non modifié: reconnectez-vous puis réessayez.', 'error');
+                        } else {
+                            showToast('Email non modifié: ' + emailErr.message, 'error');
+                        }
+                    }
                 }
 
                 // Mettre à jour les autres informations dans Firestore
-                await db.collection(COLLECTIONS.MEMBRES).doc(currentUser.uid).update({
+                await db.collection(COLLECTIONS.MEMBRES).doc(currentUser.uid).set({
                     nom: document.getElementById('field-nom').value.trim(),
                     telephone: document.getElementById('field-telephone').value.trim(),
                     secteur: document.getElementById('field-secteur').value,
@@ -660,18 +823,19 @@
                     pays: document.getElementById('field-pays').value.trim(),
                     linkedIn: document.getElementById('field-linkedin').value.trim(),
                     bio: document.getElementById('field-bio').value.trim(),
+                    email: newEmail || currentEmail,
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
+                }, { merge: true });
 
-                showToast('Profil mis à jour avec succès !', 'success');
+                if (emailUpdated) {
+                    showToast('Profil mis à jour avec succès !', 'success');
+                } else {
+                    showToast('Profil enregistré (sauf email).', 'info');
+                }
                 loadProfile(); // Recharger pour mettre à jour l'affichage
             } catch (err) {
                 console.error('Erreur:', err);
-                if (err.code === 'auth/requires-recent-login') {
-                    showToast('Veuillez vous reconnecter pour changer votre email', 'error');
-                } else {
-                    showToast('Erreur lors de la mise à jour: ' + err.message, 'error');
-                }
+                showToast('Erreur lors de la mise à jour: ' + err.message, 'error');
             } finally {
                 btn.disabled = false;
                 btn.textContent = originalText;
@@ -698,13 +862,18 @@
                 .catch(err => showToast(err.message, 'error'));
         }
 
-        auth.onAuthStateChanged(user => {
-            if (!user) {
-                window.location.href = 'auth.html';
-            } else {
-                loadProfile();
-            }
-        });
+        const memberFromQuery = getMemberFromQuery();
+        if (memberFromQuery) {
+            renderPublicMemberProfile(memberFromQuery);
+        } else {
+            auth.onAuthStateChanged(user => {
+                if (!user) {
+                    window.location.href = 'auth.html';
+                } else {
+                    loadProfile();
+                }
+            });
+        }
 
         initNavbar();
         initMobileMenu();
@@ -731,3 +900,4 @@
 </body>
 
 </html>
+

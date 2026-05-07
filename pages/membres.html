@@ -39,7 +39,7 @@
     .hero-membres {
       background:
         linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0.75) 100%),
-        url('../assets/images/hero.jpg') center/cover no-repeat;
+        url('../assets/images/action-sociale.jpg') center/cover no-repeat;
     }
 
     @media (min-width: 1024px) {
@@ -430,7 +430,7 @@
         <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
       </div>
       <div class="hidden lg:flex items-center gap-3">
-        <a href="auth.html?tab=register" class="btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
         <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
         <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
         <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
@@ -447,13 +447,20 @@
       <div class="px-6 py-4 flex flex-col gap-3">
         <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
         <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
-          sommes-nous</a>
-        <a href="membres.html" class="text-teal py-2 border-b border-slate-300/60 text-sm font-semibold">Membres</a>
+          sommes-nous ?</a>
+        <a href="membres.html" class="text-teal py-2 border-b border-slate-300/60 text-sm font-semibold">Espace</a>
         <a href="actualites.html"
           class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
         <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
         <div class="pt-3 flex flex-col gap-2">
-          <a href="auth.html?tab=register" class="btn btn-gold text-center text-sm">Devenir membre</a>
+          <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
+          <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
+            membre</a>
+          <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
+          <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
+          <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-center text-sm">Admin</a>
+          <button onclick="logout()"
+            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
         </div>
       </div>
     </div>
@@ -977,8 +984,7 @@
         <div class="grid grid-cols-2 gap-5">
           <!-- Mosaïque réseau: images locales cohérentes avec l'activité GREC, avec fallback sur hero.jpg. -->
           <figure class="relative rounded-2xl overflow-hidden aspect-square bg-slate-200 group">
-            <img src="../assets/images/WhatsApp Image 2026-04-27 at 11.55.10.jpeg"
-              alt="Rencontre réseau GREC sur le terrain"
+            <img src="../assets/images/Rencontres.jpeg" alt="Rencontre réseau GREC sur le terrain"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               onerror="this.src='../assets/images/hero.jpg'" />
             <figcaption
@@ -986,7 +992,7 @@
               Photo réseau</figcaption>
           </figure>
           <figure class="relative rounded-2xl overflow-hidden aspect-square bg-amber-100 mt-6 group">
-            <img src="../assets/images/WhatsApp Image 2026-04-27 at 11.54.51.jpeg" alt="Panel entrepreneurial GREC"
+            <img src="../assets/images/actualites-hero.jpg" alt="Panel entrepreneurial GREC"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               onerror="this.src='../assets/images/hero.jpg'" />
             <figcaption
@@ -994,7 +1000,7 @@
               Photo événement</figcaption>
           </figure>
           <figure class="relative rounded-2xl overflow-hidden aspect-square bg-navy/10 -mt-6 group">
-            <img src="../assets/images/WhatsApp Image 2026-04-27 at 11.54.39.jpeg" alt="Rencontre de membres GREC"
+            <img src="../assets/images/djimadja_boris.jpg" alt="Portrait dirigeant GREC"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               onerror="this.src='../assets/images/hero.jpg'" />
             <figcaption
@@ -1002,8 +1008,7 @@
               Photo bureau</figcaption>
           </figure>
           <figure class="relative rounded-2xl overflow-hidden aspect-square bg-green-50 group">
-            <img src="../assets/images/WhatsApp Image 2026-04-27 at 11.54.45.jpeg"
-              alt="Action collective et rencontre GREC"
+            <img src="../assets/images/action-sociale.jpg" alt="Action collective et rencontre GREC"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               onerror="this.src='../assets/images/hero.jpg'" />
             <figcaption
@@ -1062,8 +1067,10 @@
           </div>
         </div>
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="#" class="btn btn-gold flex-1 text-center text-sm">Contacter ce membre</a>
-          <a href="#" class="btn btn-outline-gold flex-1 text-center text-sm">Voir le profil complet</a>
+          <a href="auth.html" id="modal-contact-link" class="btn btn-gold flex-1 text-center text-sm">Contacter ce
+            membre</a>
+          <a href="profil.html" id="modal-profile-link" class="btn btn-outline-gold flex-1 text-center text-sm">Voir le
+            profil complet</a>
         </div>
         <p class="text-xs text-slate-400 text-center mt-3">Le contact direct est réservé aux membres connectés</p>
       </div>
@@ -1121,7 +1128,7 @@
         <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
         <ul class="space-y-3 text-white/45 text-sm">
           <li>📧 <a href="mailto:info@grec.group" class="hover:text-gold transition-colors">info@grec.group</a></li>
-          <li>📱 +229 01 XX XX XX XX</li>
+          <li>📱 01 XX XX XX XX</li>
           <li>📍 Cotonou, Bénin</li>
         </ul>
       </div>
@@ -1321,6 +1328,11 @@
       document.getElementById('modal-depuis').textContent = '🗓 Membre depuis ' + depuis;
       document.getElementById('modal-bio').textContent = bio;
       document.getElementById('modal-initials').textContent = initials;
+      const profileLink = document.getElementById('modal-profile-link');
+      const contactLink = document.getElementById('modal-contact-link');
+      const profilQuery = `?member=${encodeURIComponent(slugify(nom))}&name=${encodeURIComponent(nom)}&secteur=${encodeURIComponent(secteur)}&pays=${encodeURIComponent(pays)}&poste=${encodeURIComponent(poste)}&bio=${encodeURIComponent(bio)}&depuis=${encodeURIComponent(depuis)}`;
+      profileLink.href = `profil.html${profilQuery}`;
+      contactLink.href = `auth.html?tab=login&redirect=${encodeURIComponent(`profil.html${profilQuery}`)}`;
 
       document.getElementById('membre-modal').classList.add('open');
       document.body.style.overflow = 'hidden';

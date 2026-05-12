@@ -40,7 +40,7 @@ function chatFormatRelativeTime(ts) {
 }
 
 function chatEscapeHtml(str = '') {
-  return str
+  return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -54,6 +54,28 @@ function chatTsToMillis(ts) {
   if (typeof ts.seconds === 'number') return ts.seconds * 1000;
   const d = new Date(ts);
   return Number.isNaN(d.getTime()) ? 0 : d.getTime();
+}
+
+function chatInitials(name = 'Membre') {
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join('') || 'M';
+}
+
+function chatAvatarMarkup(name = 'Membre', photoURL = '') {
+  const safeName = chatEscapeHtml(name);
+  const safePhoto = chatEscapeHtml(photoURL || '');
+  if (safePhoto) {
+    return `<span class="chat-avatar"><img src="${safePhoto}" alt="${safeName}" loading="lazy" /></span>`;
+  }
+  return `<span class="chat-avatar" aria-hidden="true">${chatEscapeHtml(chatInitials(name))}</span>`;
+}
+
+function chatMemberByUid(uid) {
+  return chatMembersCache.find((m) => m.uid === uid) || null;
 }
 
 /* ============================================================
@@ -75,7 +97,8 @@ async function chatLoadMembers() {
     const d = doc.data() || {};
     const nom = d.nom || 'Membre GREC';
     const secteur = d.secteur || 'Membre';
-    rows.push({ uid: doc.id, nom, secteur });
+    const photoURL = d.photoURL || d.photoDataURL || '';
+    rows.push({ uid: doc.id, nom, secteur, photoURL });
   });
 
   rows.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
@@ -92,8 +115,11 @@ function chatRenderMembers(rows) {
   }
   list.innerHTML = rows.map((m) => `
     <button type="button" class="chat-user-item" data-uid="${m.uid}" data-name="${chatEscapeHtml(m.nom)}">
-      <span class="chat-user-name">${chatEscapeHtml(m.nom)}</span>
-      <span class="chat-user-meta">${chatEscapeHtml(m.secteur)}</span>
+      ${chatAvatarMarkup(m.nom, m.photoURL)}
+      <span class="chat-list-copy">
+        <span class="chat-user-name">${chatEscapeHtml(m.nom)}</span>
+        <span class="chat-user-meta">${chatEscapeHtml(m.secteur)}</span>
+      </span>
     </button>
   `).join('');
 
@@ -175,55 +201,85 @@ function chatInitMobileTabs() {
 function chatListenConversations() {
   const list = document.getElementById('chat-conversations-list');
   const unreadTotalEl = document.getElementById('chat-unread-total');
+  const renderConversations = (docs = []) => {
+    let unreadTotal = 0;
+    if (!docs.length) {
+      list.innerHTML = '<p class="chat-muted">Aucune conversation pour le moment.</p>';
+      unreadTotalEl.classList.add('hidden');
+      return;
+    }
 
-  chatUnsubscribeConversations = db.collection(COLLECTIONS.CHATS)
-    .where('participants', 'array-contains', chatCurrentUser.uid)
-    .orderBy('updatedAt', 'desc')
-    .onSnapshot((snap) => {
-      let unreadTotal = 0;
-      if (snap.empty) {
-        list.innerHTML = '<p class="chat-muted">Aucune conversation pour le moment.</p>';
-        unreadTotalEl.classList.add('hidden');
-        return;
-      }
+    const html = [];
+    docs.forEach((doc) => {
+      const data = doc.data() || {};
+      const names = data.participantNames || {};
+      const otherId = (data.participants || []).find((id) => id !== chatCurrentUser.uid);
+      const otherMember = chatMemberByUid(otherId);
+      const otherName = names[otherId] || 'Membre';
+      const otherPhoto = (data.participantPhotos && data.participantPhotos[otherId]) || otherMember?.photoURL || '';
+      const preview = data.lastMessageText || 'Discussion demarree';
+      const updatedAt = data.updatedAt || data.lastMessageAt || null;
+      const timeLabel = chatFormatRelativeTime(updatedAt);
+      const lastReadAt = data.lastReadBy && data.lastReadBy[chatCurrentUser.uid];
+      const isUnread = !!(otherId && updatedAt && (chatTsToMillis(updatedAt) > chatTsToMillis(lastReadAt))) && doc.id !== activeConversationId;
+      if (isUnread) unreadTotal += 1;
 
-      const html = [];
-      snap.forEach((doc) => {
-        const data = doc.data() || {};
-        const names = data.participantNames || {};
-        const otherId = (data.participants || []).find((id) => id !== chatCurrentUser.uid);
-        const otherName = names[otherId] || 'Membre';
-        const preview = data.lastMessageText || 'Discussion demarree';
-        const updatedAt = data.updatedAt || data.lastMessageAt || null;
-        const lastReadAt = data.lastReadBy && data.lastReadBy[chatCurrentUser.uid];
-        const isUnread = !!(otherId && updatedAt && (chatTsToMillis(updatedAt) > chatTsToMillis(lastReadAt))) && doc.id !== activeConversationId;
-        if (isUnread) unreadTotal += 1;
-
-        html.push(`
-          <button type="button" class="chat-conversation-item ${doc.id === activeConversationId ? 'active' : ''}" data-conversation-id="${doc.id}">
+      html.push(`
+        <button type="button" class="chat-conversation-item ${doc.id === activeConversationId ? 'active' : ''}" data-conversation-id="${doc.id}">
+          ${chatAvatarMarkup(otherName, otherPhoto)}
+          <span class="chat-list-copy">
             <span class="chat-user-row">
               <span class="chat-user-name">${chatEscapeHtml(otherName)}</span>
               ${isUnread ? '<span class="chat-unread-dot" title="Non lu"></span>' : ''}
             </span>
             <span class="chat-user-meta">${chatEscapeHtml(preview)}</span>
-            <span class="chat-user-meta">${chatEscapeHtml(chatFormatRelativeTime(updatedAt))}</span>
-          </button>
-        `);
-      });
-
-      list.innerHTML = html.join('');
-      list.querySelectorAll('.chat-conversation-item').forEach((btn) => {
-        btn.addEventListener('click', () => chatOpenConversation(btn.dataset.conversationId));
-      });
-      if (unreadTotal > 0) {
-        unreadTotalEl.textContent = unreadTotal > 99 ? '99+' : String(unreadTotal);
-        unreadTotalEl.classList.remove('hidden');
-      } else {
-        unreadTotalEl.classList.add('hidden');
-      }
-    }, (err) => {
-      list.innerHTML = `<p class="chat-muted">Erreur chargement conversations: ${chatEscapeHtml(err.message)}</p>`;
+          </span>
+          <span class="chat-conversation-time">${chatEscapeHtml(timeLabel)}</span>
+        </button>
+      `);
     });
+
+    list.innerHTML = html.join('');
+    list.querySelectorAll('.chat-conversation-item').forEach((btn) => {
+      btn.addEventListener('click', () => chatOpenConversation(btn.dataset.conversationId));
+    });
+    if (unreadTotal > 0) {
+      unreadTotalEl.textContent = unreadTotal > 99 ? '99+' : String(unreadTotal);
+      unreadTotalEl.classList.remove('hidden');
+    } else {
+      unreadTotalEl.classList.add('hidden');
+    }
+  };
+
+  const startPrimaryListener = () => db.collection(COLLECTIONS.CHATS)
+    .where('participants', 'array-contains', chatCurrentUser.uid)
+    .orderBy('updatedAt', 'desc')
+    .onSnapshot((snap) => {
+      renderConversations(snap.docs || []);
+    }, (err) => {
+      const needsIndex = /requires an index|failed-precondition/i.test(err?.message || '');
+      if (!needsIndex) {
+        list.innerHTML = `<p class="chat-muted">Erreur chargement conversations: ${chatEscapeHtml(err.message)}</p>`;
+        return;
+      }
+
+      // Fallback sans index composite: on lit puis on trie côté client.
+      if (chatUnsubscribeConversations) chatUnsubscribeConversations();
+      chatUnsubscribeConversations = db.collection(COLLECTIONS.CHATS)
+        .where('participants', 'array-contains', chatCurrentUser.uid)
+        .onSnapshot((fallbackSnap) => {
+          const docs = (fallbackSnap.docs || []).slice().sort((a, b) => {
+            const aTs = chatTsToMillis((a.data() || {}).updatedAt || (a.data() || {}).lastMessageAt);
+            const bTs = chatTsToMillis((b.data() || {}).updatedAt || (b.data() || {}).lastMessageAt);
+            return bTs - aTs;
+          });
+          renderConversations(docs);
+        }, (fallbackErr) => {
+          list.innerHTML = `<p class="chat-muted">Erreur chargement conversations: ${chatEscapeHtml(fallbackErr.message)}</p>`;
+        });
+    });
+
+  chatUnsubscribeConversations = startPrimaryListener();
 }
 
 /* ============================================================

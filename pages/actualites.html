@@ -74,6 +74,8 @@
     }
 
     .article-card .img-wrap img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -121,6 +123,8 @@
     }
 
     .article-featured .img-wrap img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -229,6 +233,19 @@
       background: #C8893A;
     }
 
+    .filter-bar {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+    }
+
+    .filter-bar .filter-chip,
+    .filter-bar span {
+      flex: 0 0 auto;
+      min-width: max-content;
+    }
+
     /* Trending item */
     .trending-item {
       display: flex;
@@ -312,6 +329,67 @@
       display: flex;
       align-items: center;
       gap: 4px;
+    }
+
+    .article-detail-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(13, 27, 42, 0.72);
+      backdrop-filter: blur(8px);
+    }
+
+    .article-detail-modal.active {
+      display: flex;
+    }
+
+    .article-detail-panel {
+      width: min(920px, 100%);
+      max-height: min(86vh, 900px);
+      overflow: auto;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 32px 90px rgba(0, 0, 0, 0.28);
+    }
+
+    .article-detail-image {
+      height: 280px;
+      background: #E2E8F0;
+    }
+
+    .article-detail-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .article-detail-body {
+      padding: 32px;
+    }
+
+    .article-detail-content {
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.85;
+      white-space: pre-line;
+    }
+
+    @media (max-width: 640px) {
+      .article-detail-modal {
+        padding: 12px;
+      }
+
+      .article-detail-image {
+        height: 190px;
+      }
+
+      .article-detail-body {
+        padding: 22px;
+      }
     }
   </style>
 </head>
@@ -420,7 +498,7 @@
 
   <!-- ------------------- FILTRES ------------------- -->
   <div class="sticky top-16 z-40 bg-white border-b border-slate-100 shadow-sm">
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3 overflow-x-auto">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3 overflow-x-auto filter-bar">
       <span class="text-xs text-slate-400 font-medium shrink-0">Filtrer :</span>
       <button class="filter-chip active" onclick="filterCat(this,'all')">Tous</button>
       <button class="filter-chip" onclick="filterCat(this,'actualite')">Actualités</button>
@@ -443,7 +521,7 @@
           <div class="mb-3">
             <div class="section-label text-gold">À la une</div>
           </div>
-          <article class="article-featured reveal" data-cat="evenement">
+          <article id="featured-article" class="article-featured reveal" data-cat="evenement">
             <div class="img-wrap">
               <!-- IMAGE PLACEHOLDER — remplacer par une vraie image d'événement -->
               <div class="img-placeholder">
@@ -453,7 +531,8 @@
                 </svg>
                 <span>Image événement à placer</span>
               </div>
-              <!-- <img src="../assets/images/evenement-principal.jpg" alt="Forum GREC 2025" /> -->
+              <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80"
+                alt="Participants à un forum d'entrepreneuriat et de networking" />
               <div class="absolute top-4 left-4">
                 <span class="cat-badge cat-evenement">Événement</span>
               </div>
@@ -520,7 +599,8 @@
                   </svg>
                   <span>Image article</span>
                 </div>
-                <!-- <img src="../assets/images/article-export.jpg" alt="Export Bénin-France" /> -->
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80"
+                  alt="Partenaires examinant des documents pour un projet export" />
                 <div class="absolute top-3 left-3"><span class="cat-badge cat-opportunite">Opportunité</span></div>
               </div>
               <div class="p-5 flex flex-col flex-grow">
@@ -553,7 +633,8 @@
                   </svg>
                   <span>Image formation</span>
                 </div>
-                <!-- <img src="../assets/images/article-formation.jpg" alt="Formation Finance" /> -->
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=900&q=80"
+                  alt="Table avec documents financiers et formation en finance" />
                 <div class="absolute top-3 left-3"><span class="cat-badge cat-formation">Formation</span></div>
               </div>
               <div class="p-5 flex flex-col flex-grow">
@@ -586,7 +667,8 @@
                   </svg>
                   <span>Image article</span>
                 </div>
-                <!-- <img src="../assets/images/article-incubation.jpg" alt="Incubation 2025" /> -->
+                <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=900&q=80"
+                  alt="Equipe startup en incubation" />
                 <div class="absolute top-3 left-3"><span class="cat-badge cat-actualite">Actualité</span></div>
               </div>
               <div class="p-5 flex flex-col flex-grow">
@@ -620,7 +702,8 @@
                   </svg>
                   <span>Image partenariat</span>
                 </div>
-                <!-- <img src="../assets/images/article-partenariat.jpg" alt="Partenariat BPI" /> -->
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80"
+                  alt="Réunion de partenariat stratégique" />
                 <div class="absolute top-3 left-3"><span class="cat-badge cat-partenariat">Partenariat</span></div>
               </div>
               <div class="p-5 flex flex-col flex-grow">
@@ -653,7 +736,8 @@
                   </svg>
                   <span>Image événement</span>
                 </div>
-                <!-- <img src="../assets/images/article-networking.jpg" alt="Soirée réseau" /> -->
+                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80"
+                  alt="Soirée networking professionnelle" />
                 <div class="absolute top-3 left-3"><span class="cat-badge cat-evenement">Événement</span></div>
               </div>
               <div class="p-5 flex flex-col flex-grow">
@@ -685,7 +769,8 @@
                   </svg>
                   <span>Image article</span>
                 </div>
-                <!-- <img src="../assets/images/article-rapport.jpg" alt="Rapport annuel" /> -->
+                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80"
+                  alt="Documents professionnels et rapport d'activité" />
                 <div class="absolute top-3 left-3"><span class="cat-badge cat-actualite">Actualité</span></div>
               </div>
               <div class="p-5 flex flex-col flex-grow">
@@ -713,13 +798,13 @@
 
           <!-- Pagination -->
           <div class="flex justify-center items-center gap-2 mt-12">
-            <button class="pag-btn" onclick="changePage(-1)">←</button>
+            <button class="pag-btn" onclick="changePage(-1)">‹</button>
             <button class="pag-btn active" id="pag-1" onclick="setPage(1)">1</button>
             <button class="pag-btn" id="pag-2" onclick="setPage(2)">2</button>
             <button class="pag-btn" id="pag-3" onclick="setPage(3)">3</button>
             <span class="pag-btn cursor-default text-slate-300">…</span>
             <button class="pag-btn">8</button>
-            <button class="pag-btn" onclick="changePage(1)">→</button>
+            <button class="pag-btn" onclick="changePage(1)">›</button>
           </div>
         </div>
 
@@ -742,7 +827,7 @@
           <!-- Événements à venir -->
           <div class="sidebar-card">
             <h3>Événements à venir</h3>
-            <div class="space-y-4">
+            <div id="upcoming-events-list" class="space-y-4">
               <div class="flex gap-3">
                 <div class="text-center bg-gold text-white rounded-lg px-3 py-2 min-w-[48px]">
                   <div class="text-lg font-bold font-display leading-none">20</div>
@@ -785,7 +870,7 @@
               </div>
             </div>
             <a href="#" class="mt-4 block text-center text-gold text-sm font-medium hover:underline">Voir tous les
-              événements →</a>
+              événements ?</a>
           </div>
 
           <!-- Articles populaires -->
@@ -887,7 +972,7 @@
         l'annuaire complet du réseau.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="auth.html?tab=register" class="btn btn-gold inline-flex">Devenir membre →</a>
+        <a href="auth.html?tab=register" class="btn btn-gold inline-flex">Devenir membre ?</a>
         <a href="auth.html" class="btn btn-outline inline-flex">Se connecter</a>
       </div>
     </div>
@@ -953,21 +1038,43 @@
       <div>
         <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
         <ul class="space-y-3 text-white/45 text-sm">
-          <li>?? <a href="mailto:info@grec.group" class="hover:text-gold transition-colors">info@grec.group</a></li>
-          <li>📱 01 XX XX XX XX</li>
-          <li>?? Cotonou, Bénin</li>
+          <li>Email: <a href="mailto:d.boris@grec.group"
+              class="hover:text-gold transition-colors">d.boris@grec.group</a></li>
         </ul>
       </div>
     </div>
     <div class="border-t border-white/10 py-5 px-6">
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
         <p class="text-white/30 text-xs">© 2025 GREC · Tous droits réservés</p>
-        <p class="text-white/20 text-xs">Fait avec ?? pour les entrepreneurs béninois</p>
+        <p class="text-white/20 text-xs">Fait avec passion pour les entrepreneurs béninois</p>
       </div>
     </div>
   </footer>
 
   <div id="toast-container"></div>
+
+  <div id="article-detail-modal" class="article-detail-modal" role="dialog" aria-modal="true"
+    aria-labelledby="article-detail-title">
+    <div class="article-detail-panel">
+      <div id="article-detail-image" class="article-detail-image"></div>
+      <div class="article-detail-body">
+        <div class="flex items-start justify-between gap-4 mb-5">
+          <div>
+            <span id="article-detail-category" class="cat-badge cat-actualite">Actualité</span>
+            <h2 id="article-detail-title" class="font-display text-3xl md:text-4xl font-semibold text-navy mt-4 mb-3">
+            </h2>
+            <div id="article-detail-meta" class="text-sm text-slate-400"></div>
+          </div>
+          <button type="button" onclick="closeArticleDetail()"
+            class="shrink-0 w-10 h-10 rounded-full border border-slate-200 text-slate-500 hover:text-navy hover:border-gold transition-colors"
+            aria-label="Fermer le détail de l'article">×</button>
+        </div>
+        <p id="article-detail-summary" class="text-slate-600 text-base leading-relaxed mb-5"></p>
+        <div id="article-detail-tags" class="flex flex-wrap gap-2 mb-6"></div>
+        <div id="article-detail-content" class="article-detail-content"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -979,40 +1086,211 @@
   <script>
     let currentPage = 1;
     let currentCat = 'all';
+    let allArticlesData = [];
+    const ARTICLES_PER_PAGE = 6;
+    let currentSearch = '';
+    let featuredArticleData = null;
+
+    const staticArticleDetails = {
+      "Forum GREC 2025 : « L'entrepreneuriat béninois à l'ère du numérique »": {
+        content: "Le Forum GREC 2025 se tiendra les 20 et 21 juin 2025 à Cotonou. Il réunira entrepreneurs, investisseurs, experts de la transformation numérique et membres de la diaspora autour des enjeux concrets des PME béninoises.\n\nAu programme : 15 panels thématiques, des ateliers pratiques, des sessions de mentorat, des rendez-vous B2B et une soirée de networking. Les discussions porteront notamment sur la digitalisation des services, l'accès au financement, l'export, la structuration des entreprises et les opportunités de collaboration entre le Bénin et la diaspora.\n\nL'objectif est de donner aux participants des outils directement applicables, de créer des mises en relation utiles et de faire émerger des projets communs à fort impact."
+      },
+      "Programme d'export Bénin–France : nouvelles opportunités pour les PME": {
+        content: "Le programme accompagne les PME béninoises qui souhaitent tester ou renforcer leur présence sur le marché français. Il couvre l'analyse du potentiel export, la préparation des dossiers, l'adaptation de l'offre, la prospection commerciale et la mise en relation avec des partenaires.\n\nLes entreprises éligibles devront présenter une activité formalisée, une capacité de production claire et un projet export réaliste. Les membres du GREC bénéficieront d'un accompagnement prioritaire pour comprendre les critères, préparer leur candidature et identifier les points à améliorer avant dépôt."
+      },
+      "Masterclass Finance d'entreprise : lever des fonds en Afrique de l'Ouest": {
+        content: "Cette masterclass d'une journée est conçue pour aider les entrepreneurs à mieux préparer une levée de fonds. Les modules abordent la construction d'un pitch deck, la valorisation, la lecture des attentes investisseurs, la due diligence et la négociation des termes.\n\nDes cas pratiques de startups béninoises seront étudiés afin de montrer les erreurs fréquentes, les bons réflexes financiers et les documents à préparer avant de contacter des investisseurs."
+      },
+      "Lancement du programme d'incubation GREC 2025 : 10 startups sélectionnées": {
+        content: "La promotion 2025 du programme d'incubation GREC accompagnera dix startups pendant six mois. Les projets sélectionnés bénéficieront de mentorat, d'ateliers business, d'un accès au réseau de membres, de séances de revue stratégique et d'introductions auprès de partenaires financiers.\n\nLe programme mettra l'accent sur la validation du modèle économique, la structuration commerciale, la clarté financière et la préparation aux premières discussions avec des investisseurs ou grands comptes."
+      },
+      "GREC × BPI France : un accord stratégique pour soutenir la diaspora entrepreneuriale": {
+        content: "L'accord vise à faciliter l'accès à l'information, aux dispositifs d'accompagnement et aux mécanismes de financement pour les entrepreneurs de la diaspora souhaitant investir au Bénin.\n\nIl ouvre la voie à des ateliers d'information, des sessions d'orientation, des mises en relation ciblées et un meilleur accompagnement des porteurs de projets installés en France mais actifs sur le marché béninois."
+      },
+      "Soirée networking GREC à Paris : retour sur une rencontre exceptionnelle": {
+        content: "La soirée networking organisée à Paris a réuni plus de 80 membres et partenaires autour de pitchs express, de rencontres B2B et de présentations de projets collaboratifs.\n\nCette rencontre a permis de consolider les liens entre membres locaux et diaspora, d'identifier des opportunités de partenariat et de faire émerger plusieurs pistes de collaboration dans la tech, le commerce, la finance et l'agro."
+      },
+      "Rapport d'activité 2024 : une année de croissance pour le réseau GREC": {
+        content: "L'année 2024 marque une progression importante pour le réseau GREC : 35 nouveaux membres, 8 événements organisés, 3 accords de partenariat et plus de 200 mises en relation.\n\nLe rapport met en avant les actions menées pour renforcer l'annuaire membre, améliorer la visibilité des entrepreneurs, développer les événements de networking et préparer les priorités de 2025 : formation, financement, export et collaboration diaspora-Bénin."
+      }
+    };
+
+    function escapeHTML(value) {
+      return String(value || '').replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[char]));
+    }
+
+    function normalizeTitle(value) {
+      return String(value || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function getArticleDataFromElement(articleEl) {
+      if (!articleEl) return null;
+      if (articleEl.id === 'featured-article' && featuredArticleData) return featuredArticleData;
+
+      const title = normalizeTitle(articleEl.querySelector('h2, h3')?.textContent);
+      const detail = staticArticleDetails[title] || {};
+      const categoryEl = articleEl.querySelector('.cat-badge');
+      const categoryClass = [...(categoryEl?.classList || [])].find((c) => c.startsWith('cat-') && c !== 'cat-badge');
+      const img = articleEl.querySelector('.img-wrap img')?.getAttribute('src') || '';
+      const tags = [...articleEl.querySelectorAll('.rounded-full')].map((el) => normalizeTitle(el.textContent)).filter(Boolean);
+      const metaText = normalizeTitle(articleEl.querySelector('time')?.textContent || '');
+      const footerAuthor = [...articleEl.querySelectorAll('.border-t span')].map((el) => normalizeTitle(el.textContent)).find((txt) => /^Par\s+/i.test(txt));
+      const featuredAuthor = normalizeTitle(articleEl.querySelector('.text-xs.font-medium.text-navy')?.textContent || '');
+      const authorText = footerAuthor || featuredAuthor;
+
+      return {
+        titre: title,
+        resume: normalizeTitle(articleEl.querySelector('p')?.textContent),
+        auteur: authorText.replace(/^Par\s+/i, '') || 'GREC',
+        date: metaText,
+        cat: (categoryClass || 'cat-actualite').replace('cat-', ''),
+        catLabel: normalizeTitle(categoryEl?.textContent) || 'Actualité',
+        img,
+        tags,
+        content: detail.content || normalizeTitle(articleEl.querySelector('p')?.textContent)
+      };
+    }
+
+    function collectStaticArticles() {
+      const staticArticles = [];
+      document.querySelectorAll('#articles-container .article-card').forEach((articleEl) => {
+        const data = getArticleDataFromElement(articleEl);
+        if (data) staticArticles.push(data);
+      });
+      return staticArticles;
+    }
+
+    function openArticleDetail(article) {
+      if (!article) return;
+      const modal = document.getElementById('article-detail-modal');
+      const imageWrap = document.getElementById('article-detail-image');
+      const category = document.getElementById('article-detail-category');
+      const tags = Array.isArray(article.tags) ? article.tags : [];
+      const meta = [article.date, article.readTime ? `${article.readTime} min de lecture` : '', article.auteur ? `Par ${article.auteur}` : '']
+        .filter(Boolean).join(' · ');
+
+      imageWrap.innerHTML = article.img
+        ? `<img src="${escapeHTML(article.img)}" alt="${escapeHTML(article.titre || 'Article')}" />`
+        : `<div class="img-placeholder"><span>Image à venir</span></div>`;
+      category.className = `cat-badge cat-${escapeHTML(article.cat || 'actualite')}`;
+      category.textContent = article.catLabel || 'Actualité';
+      document.getElementById('article-detail-title').textContent = article.titre || 'Article';
+      document.getElementById('article-detail-meta').textContent = meta;
+      document.getElementById('article-detail-summary').textContent = article.resume || '';
+      document.getElementById('article-detail-tags').innerHTML = tags.map((tag) =>
+        `<span class="text-xs bg-slate-100 text-slate-500 px-3 py-1 rounded-full">${escapeHTML(tag)}</span>`
+      ).join('');
+      document.getElementById('article-detail-content').textContent = article.content || article.contenu || article.details || article.resume || '';
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeArticleDetail() {
+      document.getElementById('article-detail-modal')?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', (event) => {
+      const closeOnBackdrop = event.target?.id === 'article-detail-modal';
+      if (closeOnBackdrop) closeArticleDetail();
+
+      const link = event.target.closest('a');
+      const articleEl = event.target.closest('.article-card, .article-featured');
+      if (!link || !articleEl) return;
+
+      const linkText = normalizeTitle(link.textContent).toLowerCase();
+      if (!linkText.includes('lire') && !articleEl.contains(link)) return;
+      event.preventDefault();
+      const idx = link.dataset.articleIndex;
+      openArticleDetail(idx !== undefined ? allArticlesData[Number(idx)] : getArticleDataFromElement(articleEl));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeArticleDetail();
+    });
 
     // -- Filtre catégories --
     function filterCat(btn, cat) {
       currentCat = cat;
+      currentPage = 1;
       document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      const articles = document.querySelectorAll('#articles-container .article-card, .article-featured');
-      let visible = 0;
-      articles.forEach(a => {
-        const match = cat === 'all' || a.dataset.cat === cat;
-        a.style.display = match ? '' : 'none';
-        if (match) visible++;
-      });
-      document.getElementById('articles-count').textContent = `Affichage de ${visible} articles`;
+      renderArticlesPage();
     }
 
     // -- Pagination --
     function setPage(n) {
-      currentPage = n;
-      document.querySelectorAll('[id^="pag-"]').forEach(b => b.classList.remove('active'));
-      const el = document.getElementById('pag-' + n);
-      if (el) el.classList.add('active');
-      // En production : charger depuis Firestore avec pagination
+      const total = Math.max(1, Math.ceil(getFilteredArticles().length / ARTICLES_PER_PAGE));
+      currentPage = Math.max(1, Math.min(n, total));
+      renderArticlesPage();
     }
-    function changePage(dir) { setPage(Math.max(1, currentPage + dir)); }
+    function changePage(dir) { setPage(currentPage + dir); }
 
     // -- Recherche --
     function searchArticles(q) {
-      const lower = q.toLowerCase();
-      document.querySelectorAll('#articles-container .article-card').forEach(a => {
-        const txt = a.textContent.toLowerCase();
-        a.style.display = txt.includes(lower) ? '' : 'none';
+      currentSearch = (q || '').toLowerCase().trim();
+      currentPage = 1;
+      renderArticlesPage();
+    }
+
+    function getFilteredArticles() {
+      return allArticlesData.filter((a) => {
+        const byCat = currentCat === 'all' || a.cat === currentCat;
+        if (!byCat) return false;
+        if (!currentSearch) return true;
+        const txt = `${a.titre || ''} ${a.resume || ''} ${a.auteur || ''}`.toLowerCase();
+        return txt.includes(currentSearch);
       });
+    }
+
+    function renderPagination(totalItems) {
+      const totalPages = Math.max(1, Math.ceil(totalItems / ARTICLES_PER_PAGE));
+      const host = document.querySelector('.flex.justify-center.items-center.gap-2.mt-12');
+      if (!host) return;
+      let html = `<button class="pag-btn" onclick="changePage(-1)">‹</button>`;
+      for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="pag-btn ${i === currentPage ? 'active' : ''}" onclick="setPage(${i})">${i}</button>`;
+      }
+      html += `<button class="pag-btn" onclick="changePage(1)">›</button>`;
+      host.innerHTML = html;
+    }
+
+    function renderArticlesPage() {
+      const filtered = getFilteredArticles();
+      const total = filtered.length;
+      const start = (currentPage - 1) * ARTICLES_PER_PAGE;
+      const pageItems = filtered.slice(start, start + ARTICLES_PER_PAGE);
+      const container = document.getElementById('articles-container');
+      if (!container) return;
+      container.innerHTML = '';
+      pageItems.forEach((a) => {
+        const articleIndex = allArticlesData.indexOf(a);
+        container.innerHTML += `
+          <article class="article-card reveal" data-cat="${a.cat}">
+            <div class="img-wrap">
+              ${a.img ? `<img src="${escapeHTML(a.img)}" alt="${escapeHTML(a.titre)}" loading="lazy" />` : `<div class="img-placeholder"><span>Image à venir</span></div>`}
+              <div class="absolute top-3 left-3"><span class="cat-badge cat-${a.cat}">${a.catLabel}</span></div>
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+              <div class="text-xs text-slate-400 mb-3 flex items-center gap-2">
+                <time>${a.date || ''}</time><span>·</span><span>${a.readTime || 5} min</span>
+              </div>
+              <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
+                <a href="#article-${articleIndex}" data-article-index="${articleIndex}" class="hover:text-gold transition-colors">${a.titre || ''}</a>
+              </h3>
+              <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">${a.resume || ''}</p>
+              <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+                <span>Par ${a.auteur || 'GREC'}</span>
+                <a href="#article-${articleIndex}" data-article-index="${articleIndex}" class="text-gold hover:underline font-medium">Lire -></a>
+              </div>
+            </div>
+          </article>`;
+      });
+      document.getElementById('articles-count').textContent = `Affichage de ${total} articles`;
+      renderPagination(total);
+      initScrollReveal();
     }
 
     // -- Newsletter --
@@ -1028,43 +1306,114 @@
     // -- Chargement Firestore (remplace les articles statiques en prod) --
     async function loadArticlesFromFirestore() {
       try {
-        let q = db.collection(COLLECTIONS.ACTUALITES).where('publie', '==', true).orderBy('publishedAt', 'desc').limit(6);
+        let q = db.collection(COLLECTIONS.ACTUALITES).where('publie', '==', true).orderBy('publishedAt', 'desc').limit(12);
         const snap = await q.get();
         if (snap.empty) return; // garder le contenu statique si Firestore est vide
 
-        const container = document.getElementById('articles-container');
-        container.innerHTML = '';
-        snap.docs.forEach(doc => {
-          const a = doc.data();
+        const featuredEl = document.getElementById('featured-article');
+
+        const normalizeCategory = (value) => {
+          const raw = (value || '').toLowerCase();
+          const map = { news: 'actualite', event: 'evenement', update: 'actualite' };
+          return map[raw] || raw || 'actualite';
+        };
+
+        const docs = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const featured = docs.find((a) => a.isFeatured) || docs[0];
+
+        if (featured && featuredEl) {
+          const fCat = normalizeCategory(featured.categorie);
+          const fCatLabel = { actualite: 'Actualité', evenement: 'Événement', opportunite: 'Opportunité', formation: 'Formation', partenariat: 'Partenariat' }[fCat] || 'Actualité';
+          const fDate = featured.publishedAt?.toDate ? featured.publishedAt.toDate().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+          const fImg = featured.imageURL || featured.image || '';
+          featuredArticleData = {
+            titre: featured.titre,
+            resume: featured.description || featured.resume || '',
+            auteur: featured.auteur || 'GREC',
+            readTime: featured.readTime || 5,
+            date: fDate,
+            cat: fCat,
+            catLabel: fCatLabel,
+            img: fImg,
+            tags: featured.tags || featured.motsCles || [],
+            content: featured.contenu || featured.content || featured.details || featured.description || featured.resume || ''
+          };
+          featuredEl.dataset.cat = fCat;
+          featuredEl.innerHTML = `
+            <div class="img-wrap">
+              ${fImg ? `<img src="${fImg}" alt="${featured.titre || 'Actualité'}" loading="lazy" />` : `<div class="img-placeholder"><span>Image événement à placer</span></div>`}
+              <div class="absolute top-4 left-4"><span class="cat-badge cat-${fCat}">${fCatLabel}</span></div>
+            </div>
+            <div class="p-8 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-3 mb-4 text-xs text-slate-400"><time>${fDate}</time></div>
+                <h2 class="font-display text-2xl font-semibold text-navy mb-3 leading-snug">${featured.titre || ''}</h2>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">${featured.description || featured.resume || ''}</p>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="text-xs text-slate-400">Par ${featured.auteur || 'GREC'}</div>
+                <a href="#article-featured" class="btn btn-gold text-sm py-2 px-5">Lire l'article -></a>
+              </div>
+            </div>`;
+        }
+
+        allArticlesData = docs.filter((a) => a !== featured).map((a) => {
           const date = a.publishedAt?.toDate ? a.publishedAt.toDate().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
-          const cat = a.categorie || 'actualite';
+          const cat = normalizeCategory(a.categorie);
           const catLabel = { actualite: 'Actualité', evenement: 'Événement', opportunite: 'Opportunité', formation: 'Formation', partenariat: 'Partenariat' }[cat] || 'Actualité';
-          container.innerHTML += `
-            <article class="article-card reveal" data-cat="${cat}">
-              <div class="img-wrap">
-                ${a.imageURL ? `<img src="${a.imageURL}" alt="${a.titre}" loading="lazy" />` : `<div class="img-placeholder"><svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>Image à venir</span></div>`}
-                <div class="absolute top-3 left-3"><span class="cat-badge cat-${cat}">${catLabel}</span></div>
-              </div>
-              <div class="p-5 flex flex-col flex-grow">
-                <div class="text-xs text-slate-400 mb-3">${date}</div>
-                <h3 class="font-display text-lg font-semibold text-navy mb-2 leading-snug">
-                  <a href="actualites.html" class="hover:text-gold transition-colors">${a.titre}</a>
-                </h3>
-                <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">${a.resume || ''}</p>
-                <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
-                  <span>Par ${a.auteur || 'GREC'}</span>
-                  <a href="actualites.html" class="text-gold hover:underline font-medium">Lire -></a>
-                </div>
-              </div>
-            </article>`;
+          const img = a.imageURL || a.image || '';
+          return {
+            titre: a.titre,
+            resume: a.resume || a.description || '',
+            auteur: a.auteur || 'GREC',
+            readTime: a.readTime || 5,
+            date,
+            cat,
+            catLabel,
+            img,
+            tags: a.tags || a.motsCles || [],
+            content: a.contenu || a.content || a.details || a.description || a.resume || ''
+          };
         });
-        initScrollReveal();
+        renderArticlesPage();
       } catch (e) { console.log('Firestore non configuré — affichage du contenu statique'); }
+    }
+
+    async function loadUpcomingEventsFromFirestore() {
+      try {
+        const wrap = document.getElementById('upcoming-events-list');
+        if (!wrap) return;
+        const snap = await db.collection(COLLECTIONS.EVENEMENTS).orderBy('date', 'asc').limit(6).get();
+        if (snap.empty) return;
+
+        const monthMap = ['Jan.', 'Fév.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'];
+        wrap.innerHTML = '';
+        snap.docs.forEach((doc, idx) => {
+          const d = doc.data() || {};
+          const dt = d.date ? new Date(d.date) : null;
+          const day = dt ? String(dt.getDate()).padStart(2, '0') : '--';
+          const mon = dt ? monthMap[dt.getMonth()] : '--';
+          wrap.innerHTML += `
+            <div class="flex gap-3">
+              <div class="text-center ${idx === 0 ? 'bg-gold' : 'bg-navy'} text-white rounded-lg px-3 py-2 min-w-[48px]">
+                <div class="text-lg font-bold font-display leading-none">${day}</div>
+                <div class="text-xs opacity-80 mt-0.5">${mon}</div>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-navy">${d.titre || 'Événement'}</div>
+                <div class="text-xs text-slate-400 mt-0.5">${d.lieu || '-'}</div>
+              </div>
+            </div>`;
+        });
+      } catch (e) { }
     }
 
     // Init
     initNavbar(); initMobileMenu(); initScrollReveal(); initAuthState();
+    allArticlesData = collectStaticArticles();
+    renderArticlesPage();
     loadArticlesFromFirestore();
+    loadUpcomingEventsFromFirestore();
   </script>
 
   <!-- Floating Chat Button -->

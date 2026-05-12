@@ -28,6 +28,7 @@ db.settings({ experimentalForceLongPolling: false });
 const COLLECTIONS = {
   MEMBRES:     "membres",
   ACTUALITES:  "actualites",
+  EVENEMENTS:  "evenements",
   GALERIE:     "galerie",
   ADMINS:      "admins",
   NEWSLETTER:  "newsletter",

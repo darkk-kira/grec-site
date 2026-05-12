@@ -63,6 +63,10 @@ body {
   overflow-x: hidden;
 }
 
+html, body {
+  max-width: 100%;
+}
+
 img, picture, video, iframe, svg {
   max-width: 100%;
   height: auto;
@@ -104,21 +108,23 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
   text-decoration: none;
   transition: all var(--duration-base) var(--ease-smooth);
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-gold {
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
   color: #fff;
   box-shadow: var(--shadow-gold);
+  border: 1px solid rgba(137, 89, 24, 0.22);
 }
 .btn-gold:hover {
-  background: var(--gold-light);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(200,137,58,0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(200,137,58,0.36);
 }
 
 .btn-outline {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.04);
   color: #fff;
   border: 1.5px solid rgba(255,255,255,0.35);
 }
@@ -128,7 +134,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
 }
 
 .btn-outline-gold {
-  background: transparent;
+  background: rgba(200, 137, 58, 0.05);
   color: var(--gold);
   border: 1.5px solid var(--gold);
 }
@@ -138,12 +144,12 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
 }
 
 .btn-navy {
-  background: var(--navy);
+  background: linear-gradient(135deg, var(--navy-mid), var(--navy));
   color: #fff;
+  border: 1px solid rgba(255,255,255,0.08);
 }
 .btn-navy:hover {
-  background: var(--navy-mid);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 /* ── Navbar ──────────────────────────────────────────────────── */
@@ -202,6 +208,28 @@ table {
 
 thead, tbody, tr, th, td {
   word-break: break-word;
+}
+
+.table-responsive,
+.data-table {
+  max-width: 100%;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive table,
+.data-table table {
+  min-width: max-content;
+}
+
+.data-table th,
+.data-table td {
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 /* ── Section Labels ──────────────────────────────────────────── */
@@ -391,7 +419,7 @@ thead, tbody, tr, th, td {
   .max-w-7xl { padding: 0 16px; }
 
   /* Navbar */
-  #navbar { padding: 12px 16px; }
+  #navbar { padding: 0; }
   
   /* Hero sections */
   .hero-bg, .hero-about, .hero-actualites, .hero-membres, .hero-galerie {
@@ -529,8 +557,28 @@ thead, tbody, tr, th, td {
 }
 
 @media (max-width: 768px) {
+  html, body, main, section, nav, footer {
+    max-width: 100%;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .table-responsive,
+  .overflow-x-auto {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  [class*="max-w-"] {
+    width: 100%;
+  }
+
   #navbar .max-w-7xl {
     justify-content: space-between;
+    flex-wrap: nowrap;
   }
 
   #mobile-menu .btn {
@@ -560,6 +608,7 @@ thead, tbody, tr, th, td {
   body.homepage .hero-bg .max-w-7xl {
     padding-top: 7.5rem;
     padding-bottom: 4rem;
+    max-width: 100%;
   }
 
   body.homepage .hero-bg h1 {
@@ -597,13 +646,18 @@ thead, tbody, tr, th, td {
 
 /* Touch devices */
 @media (hover: none) and (pointer: coarse) {
-  .btn, a, button {
+  .btn,
+  button {
     padding: 12px 16px;
     min-height: 44px;
     min-width: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  a:not(.btn):not(.admin-nav a) {
+    min-height: 44px;
   }
 
   .btn-social, .btn-small {
@@ -777,13 +831,14 @@ select:focus-visible {
 
 .hero-bg {
   background-image:
-    linear-gradient(105deg,
-      rgba(7,25,39,0.66) 0%,
-      rgba(7,25,39,0.46) 42%,
-      rgba(16,42,61,0.28) 72%,
-      rgba(7,25,39,0.58) 100%),
-    url('../assets/images/action-sociale.jpg') !important;
-  background-position: center top;
+    linear-gradient(180deg,
+      rgba(13,27,42,0.58) 0%,
+      rgba(13,27,42,0.30) 40%,
+      rgba(200,137,58,0.42) 100%),
+    url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .hero-about,
@@ -1179,6 +1234,53 @@ footer a:hover {
   border-color: rgba(16,32,45,0.07) !important;
 }
 
+@media (max-width: 768px) {
+  .data-table {
+    overflow: hidden !important;
+  }
+
+  .data-table .table-responsive {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table table {
+    width: max-content;
+    min-width: 640px;
+  }
+
+  .data-table th,
+  .data-table td {
+    white-space: nowrap;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+
+  .btn,
+  .btn-small,
+  .btn-add,
+  .btn-primary,
+  .save-btn,
+  .admin-tab,
+  .chat-mobile-tab {
+    width: auto;
+    min-width: 0;
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
+  #mobile-menu .btn,
+  body.homepage .hero-bg .btn {
+    width: 100%;
+  }
+}
+
 /* Navbar redesign: prioritize black logo + readable menu */
 #navbar {
   background: rgba(247, 244, 238, 0.92) !important;
@@ -1263,6 +1365,100 @@ footer a:hover {
 #navbar .hidden.lg\:flex.items-center.gap-8 {
   gap: clamp(1rem, 1.6vw, 1.9rem) !important;
   min-width: 0;
+}
+
+@media (max-width: 768px) {
+  #navbar {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100vw;
+    padding: 0 !important;
+    overflow-x: clip;
+  }
+
+  #navbar .max-w-7xl {
+    width: 100%;
+    max-width: 100%;
+    min-height: 76px;
+    padding: 10px 16px !important;
+    gap: 10px;
+  }
+
+  #navbar .brand-lockup {
+    max-width: calc(100vw - 86px);
+    padding: 7px 10px 7px 7px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(7,25,39,0.09);
+  }
+
+  #navbar .brand-lockup img {
+    height: 38px;
+    max-width: 96px;
+    object-fit: contain;
+  }
+
+  #mobile-menu-btn {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+    padding: 8px !important;
+  }
+
+  #mobile-menu {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  #mobile-menu > div {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  #navbar .max-w-7xl {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  #navbar .brand-lockup img {
+    height: 34px;
+    max-width: 86px;
+  }
+
+  #mobile-menu-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-actualites ~ section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .hero-actualites ~ section .max-w-7xl,
+  .hero-actualites ~ section .max-w-6xl,
+  .hero-actualites ~ section .max-w-5xl,
+  .hero-actualites ~ section .max-w-4xl {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .hero-actualites ~ section .card,
+  .hero-actualites ~ section .article-card,
+  .hero-actualites ~ section [class*="event"],
+  .hero-actualites ~ section [class*="evenement"] {
+    max-width: 100%;
+  }
 }
 
 .auth-member-link.hidden,

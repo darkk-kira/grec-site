@@ -15,6 +15,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
+    :root {
+      --chat-primary: #0e3652;
+      --chat-accent: #c58d45;
+      --chat-accent-2: #e6b46c;
+      --chat-surface: rgba(255, 255, 255, 0.95);
+      --chat-border: rgba(9, 35, 56, 0.14);
+    }
+
     /* Ecran principal de chat: 3 colonnes desktop, pile verticale mobile */
     .chat-layout {
       display: grid;
@@ -26,6 +34,8 @@
     @media (max-width: 1024px) {
       .chat-layout {
         grid-template-columns: 1fr;
+        min-height: auto;
+        align-content: start;
       }
 
       .chat-panel[data-panel] {
@@ -39,11 +49,12 @@
 
     /* Cartes latérales et zone messages */
     .chat-panel {
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid rgba(16, 32, 45, 0.1);
+      background: var(--chat-surface);
+      border: 1px solid var(--chat-border);
       border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 18px 40px rgba(13, 27, 42, 0.08);
+      box-shadow: 0 22px 50px rgba(12, 31, 47, 0.1);
+      backdrop-filter: blur(8px);
     }
 
     .chat-panel-title {
@@ -69,6 +80,23 @@
       text-align: left;
       padding: 12px 14px;
       border-bottom: 1px solid rgba(16, 32, 45, 0.06);
+      transition: all 180ms ease;
+      min-height: 0;
+      line-height: 1.35;
+    }
+
+    .chat-user-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chat-conversation-item {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
     }
 
     .chat-user-item:hover,
@@ -77,13 +105,18 @@
     }
 
     .chat-conversation-item.active {
-      background: rgba(31, 111, 115, 0.12);
+      background: linear-gradient(90deg, rgba(24, 88, 110, 0.14), rgba(24, 88, 110, 0.05));
+      box-shadow: inset 3px 0 0 #1f6f73;
     }
 
     .chat-user-name {
       display: block;
       color: var(--navy);
       font-weight: 600;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .chat-user-meta {
@@ -91,6 +124,11 @@
       color: var(--text-muted);
       font-size: 12px;
       margin-top: 2px;
+      line-height: 1.35;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .chat-user-row {
@@ -98,6 +136,41 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      min-width: 0;
+    }
+
+    .chat-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      flex: 0 0 42px;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(197, 141, 69, 0.24), rgba(31, 111, 115, 0.16));
+      color: #0d3145;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1px rgba(16, 32, 45, 0.08);
+    }
+
+    .chat-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .chat-list-copy {
+      min-width: 0;
+    }
+
+    .chat-conversation-time {
+      align-self: start;
+      color: var(--text-muted);
+      font-size: 11px;
+      line-height: 1.2;
+      white-space: nowrap;
     }
 
     .chat-unread-dot {
@@ -130,10 +203,18 @@
 
     .chat-search-input {
       width: 100%;
-      border: 1px solid rgba(16, 32, 45, 0.16);
-      border-radius: 10px;
-      padding: 9px 12px;
+      border: 1px solid rgba(16, 32, 45, 0.18);
+      border-radius: 12px;
+      padding: 10px 12px;
       font-size: 13px;
+      background: #fff;
+      transition: box-shadow 150ms ease, border-color 150ms ease;
+    }
+
+    .chat-search-input:focus {
+      outline: none;
+      border-color: var(--chat-accent);
+      box-shadow: 0 0 0 4px rgba(197, 141, 69, 0.18);
     }
 
     .chat-filter-row {
@@ -186,14 +267,16 @@
 
     .chat-bubble.mine {
       margin-left: auto;
-      background: linear-gradient(135deg, #E3B467, #C18D43);
-      color: #0c1c2a;
+      background: linear-gradient(135deg, var(--chat-accent-2), var(--chat-accent));
+      color: #10202d;
+      box-shadow: 0 10px 24px rgba(197, 141, 69, 0.24);
     }
 
     .chat-bubble.other {
       margin-right: auto;
-      background: #eef2f6;
+      background: #ecf2f7;
       color: #10202d;
+      box-shadow: 0 8px 18px rgba(16, 32, 45, 0.08);
     }
 
     .chat-bubble-time {
@@ -215,6 +298,27 @@
       gap: 10px;
       padding: 12px;
       border-top: 1px solid rgba(16, 32, 45, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.99));
+    }
+
+    #chat-message-input {
+      border-radius: 12px;
+      border: 1px solid rgba(16, 32, 45, 0.16);
+      padding: 10px 12px;
+      transition: box-shadow 150ms ease, border-color 150ms ease;
+      background: #fff;
+    }
+
+    #chat-message-input:focus {
+      outline: none;
+      border-color: var(--chat-accent);
+      box-shadow: 0 0 0 4px rgba(197, 141, 69, 0.18);
+    }
+
+    #chat-send-btn {
+      border-radius: 12px;
+      min-width: 110px;
+      font-weight: 700;
     }
 
     .chat-mobile-tabs {
@@ -222,6 +326,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
       margin-bottom: 10px;
+      align-items: stretch;
     }
 
     .chat-mobile-tab {
@@ -232,6 +337,8 @@
       font-weight: 600;
       color: #1a2e42;
       padding: 9px 8px;
+      min-height: 42px;
+      line-height: 1.2;
     }
 
     .chat-mobile-tab.active {
@@ -243,6 +350,22 @@
     @media (max-width: 1024px) {
       .chat-mobile-tabs {
         display: grid;
+      }
+
+      .chat-mobile-tab {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        min-width: 0;
+      }
+
+      .chat-user-item,
+      .chat-conversation-item {
+        justify-content: initial;
+        text-align: left;
+        word-break: normal;
+        overflow-wrap: normal;
       }
 
       .chat-send {

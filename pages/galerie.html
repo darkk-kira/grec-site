@@ -299,7 +299,7 @@
     <!-- PAGE START: Galerie -->
     <!-- HEADER / NAVBAR -->
 
-    <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+    <!-- ------------------- NAVBAR ------------------- -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="../index.html" class="brand-lockup flex items-center gap-3">
@@ -467,7 +467,7 @@
             <h2 class="font-display text-white text-3xl font-semibold mb-4">Rejoignez nos événements</h2>
             <p class="text-white/55 mb-8 text-sm">Participez à nos rencontres, formations et opportunités de networking.
             </p>
-            <a href="auth.html?tab=register" class="btn btn-gold inline-flex">Devenir membre →</a>
+            <a href="auth.html?tab=register" class="btn btn-gold inline-flex">Devenir membre ?</a>
         </div>
     </section>
 
@@ -533,17 +533,15 @@
             <div>
                 <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
                 <ul class="space-y-3 text-white/45 text-sm">
-                    <li>📧 <a href="mailto:info@grec.group"
-                            class="hover:text-gold transition-colors">info@grec.group</a></li>
-                    <li>📱 01 XX XX XX XX</li>
-                    <li>📍 Cotonou, Bénin</li>
+                    <li>Email: <a href="mailto:d.boris@grec.group"
+                            class="hover:text-gold transition-colors">d.boris@grec.group</a></li>
                 </ul>
             </div>
         </div>
         <div class="border-t border-white/10 py-5 px-6">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
                 <p class="text-white/30 text-xs">© 2025 GREC · Tous droits réservés</p>
-                <p class="text-white/20 text-xs">Fait avec ❤️ pour les entrepreneurs béninois</p>
+                <p class="text-white/20 text-xs">Fait avec passion pour les entrepreneurs béninois</p>
             </div>
         </div>
     </footer>
@@ -551,7 +549,7 @@
     <!-- Lightbox -->
     <div id="lightbox" class="lightbox">
         <div class="lightbox-content">
-            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <button class="lightbox-close" onclick="closeLightbox()">?</button>
             <button class="lightbox-nav prev" onclick="prevGallery()">‹</button>
             <img id="lightbox-img" src="" alt="" />
             <button class="lightbox-nav next" onclick="nextGallery()">›</button>
@@ -704,7 +702,7 @@
         initMobileMenu();
         loadGallery();
 
-        // ── Gestion du formulaire d'ajout de photo ──
+        // -- Gestion du formulaire d'ajout de photo --
         document.getElementById('add-photo-btn').addEventListener('click', () => {
             document.getElementById('modal-add-photo').classList.remove('hidden');
         });
@@ -814,3 +812,6 @@
 </body>
 
 </html>
+
+
+

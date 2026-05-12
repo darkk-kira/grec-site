@@ -226,10 +226,22 @@
             width: 100%;
         }
 
+        .data-table .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .data-table table {
             width: 100%;
             border-collapse: collapse;
             font-size: 13px;
+            min-width: 760px;
+        }
+
+        .data-table th,
+        .data-table td {
+            white-space: nowrap;
         }
 
         .data-table th {
@@ -355,6 +367,14 @@
         .recent-member-item:last-child {
             border-bottom: none;
         }
+
+        .admin-thumb {
+            width: 64px;
+            height: 42px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #E2E8F0;
+        }
     </style>
 </head>
 
@@ -457,24 +477,26 @@
                 </div>
 
                 <div class="data-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Email</th>
-                                <th>Téléphone</th>
-                                <th>Secteur</th>
-                                <th>Statut</th>
-                                <th>Date d'inscription</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="members-list">
-                            <tr>
-                                <td colspan="5" class="text-center text-slate-500 py-8">Chargement...</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Téléphone</th>
+                                    <th>Secteur</th>
+                                    <th>Statut</th>
+                                    <th>Date d'inscription</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="members-list">
+                                <tr>
+                                    <td colspan="7" class="text-center text-slate-500 py-8">Chargement...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -482,41 +504,82 @@
             <div id="articles" class="admin-content">
                 <div class="admin-header">
                     <h2>Gérer les Actualités</h2>
-                    <button class="btn-add" onclick="showArticleForm()">+ Nouvel article</button>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="btn-add" onclick="importDefaultArticles()">Importer les articles existants</button>
+                        <button class="btn-add" onclick="showArticleForm()">+ Nouvel article</button>
+                    </div>
                 </div>
 
                 <div id="article-form"
                     style="display:none; background:#fff; padding:24px; border-radius:12px; margin-bottom:24px;">
-                    <h3 class="font-semibold mb-4">Créer un article</h3>
+                    <h3 id="article-form-title" class="font-semibold mb-4">Créer un article</h3>
                     <form id="form-article" onsubmit="saveArticle(event)">
                         <div class="form-group">
                             <label>Titre</label>
                             <input type="text" id="art-title" required />
                         </div>
                         <div class="form-group">
-                            <label>Description</label>
+                            <label>Résumé</label>
                             <textarea id="art-desc" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Détails complets de l'article</label>
+                            <textarea id="art-content" required
+                                placeholder="Ajoutez ici tout le contenu détaillé qui s'affichera quand on clique sur Lire."></textarea>
                         </div>
                         <div class="form-group">
                             <label>Catégorie</label>
                             <select id="art-cat" required>
-                                <option value="news">Actualité</option>
-                                <option value="event">Événement</option>
-                                <option value="update">Mise à jour</option>
+                                <option value="actualite">Actualité</option>
+                                <option value="evenement">Événement</option>
+                                <option value="opportunite">Opportunité</option>
+                                <option value="formation">Formation</option>
+                                <option value="partenariat">Partenariat</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>URL Image</label>
                             <input type="url" id="art-img" />
                         </div>
-                        <button type="submit" class="btn-add">Publier</button>
+                        <div class="form-group">
+                            <label>Ou téléverser une image</label>
+                            <input type="file" id="art-file" accept="image/*" />
+                        </div>
+                        <div class="form-group">
+                            <label>Auteur affiché</label>
+                            <input type="text" id="art-author" placeholder="Ex: Comité GREC" />
+                        </div>
+                        <div class="form-group">
+                            <label>Date de publication</label>
+                            <input type="date" id="art-date" />
+                        </div>
+                        <div class="form-group">
+                            <label>Temps de lecture (minutes)</label>
+                            <input type="number" id="art-readtime" min="1" max="30" value="5" />
+                        </div>
+                        <div class="form-group">
+                            <label>Tags (séparés par virgule)</label>
+                            <input type="text" id="art-tags" placeholder="Ex: diaspora, financement, export" />
+                        </div>
+                        <div class="form-group">
+                            <label style="display:flex;align-items:center;gap:8px;font-weight:500;">
+                                <input type="checkbox" id="art-featured" />
+                                Mettre cet article à la une
+                            </label>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button id="article-submit-btn" type="submit" class="btn-add">Publier</button>
+                            <button type="button" class="btn-small btn-delete" onclick="resetArticleForm()">Annuler</button>
+                        </div>
                     </form>
                 </div>
 
                 <div class="data-table">
+                    <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Titre</th>
                                 <th>Catégorie</th>
                                 <th>Auteur</th>
@@ -526,10 +589,51 @@
                         </thead>
                         <tbody id="articles-list">
                             <tr>
-                                <td colspan="5" class="text-center text-slate-500 py-8">Chargement...</td>
+                                <td colspan="6" class="text-center text-slate-500 py-8">Chargement...</td>
                             </tr>
                         </tbody>
                     </table>
+                    </div>
+                </div>
+
+                <div id="events-form"
+                    style="background:#fff; padding:24px; border-radius:12px; margin-top:24px; margin-bottom:24px;">
+                    <h3 class="font-semibold mb-4">Événements à venir</h3>
+                    <form id="form-event" onsubmit="saveUpcomingEvent(event)">
+                        <div class="form-group">
+                            <label>Titre</label>
+                            <input type="text" id="evt-title" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Lieu</label>
+                            <input type="text" id="evt-location" placeholder="Cotonou · Hôtel Novotel" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="evt-date" required />
+                        </div>
+                        <button type="submit" class="btn-add">Ajouter l'événement</button>
+                    </form>
+                </div>
+
+                <div class="data-table">
+                    <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Lieu</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="events-list">
+                            <tr>
+                                <td colspan="4" class="text-center text-slate-500 py-8">Chargement...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
                 </div>
             </div>
 
@@ -565,6 +669,7 @@
                 </div>
 
                 <div class="data-table">
+                    <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
@@ -580,6 +685,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
@@ -599,6 +705,97 @@
     <script src="../js/utils.js"></script>
 
     <script>
+        let editingArticleId = null;
+        let editingArticleImageURL = '';
+
+        const DEFAULT_ARTICLES = [
+            {
+                id: 'forum-grec-2025',
+                titre: "Forum GREC 2025 : « L'entrepreneuriat béninois à l'ère du numérique »",
+                resume: "Le GREC organise son grand Forum annuel les 20 et 21 juin 2025 à Cotonou. Plus de 300 entrepreneurs attendus, 15 panels thématiques, des ateliers pratiques et une soirée de networking exclusive.",
+                contenu: "Le Forum GREC 2025 se tiendra les 20 et 21 juin 2025 à Cotonou. Il réunira entrepreneurs, investisseurs, experts de la transformation numérique et membres de la diaspora autour des enjeux concrets des PME béninoises.\n\nAu programme : 15 panels thématiques, des ateliers pratiques, des sessions de mentorat, des rendez-vous B2B et une soirée de networking. Les discussions porteront notamment sur la digitalisation des services, l'accès au financement, l'export, la structuration des entreprises et les opportunités de collaboration entre le Bénin et la diaspora.\n\nL'objectif est de donner aux participants des outils directement applicables, de créer des mises en relation utiles et de faire émerger des projets communs à fort impact.",
+                categorie: 'evenement',
+                imageURL: "https://commons.wikimedia.org/wiki/Special:FilePath/Salon_de_l%27Entrepreneuriat_Num%C3%A9rique_et_de_l%27Intelligence_Artificielle_du_B%C3%A9nin.jpg",
+                auteur: 'Comité GREC',
+                date: '2025-04-15',
+                readTime: 5,
+                tags: ['Cotonou', '20-21 Juin 2025', '300+ participants'],
+                isFeatured: true
+            },
+            {
+                id: 'export-benin-france',
+                titre: "Programme d'export Bénin-France : nouvelles opportunités pour les PME",
+                resume: "La chambre de commerce franco-béninoise ouvre ses candidatures pour le programme d'accompagnement à l'exportation.",
+                contenu: "Le programme accompagne les PME béninoises qui souhaitent tester ou renforcer leur présence sur le marché français. Il couvre l'analyse du potentiel export, la préparation des dossiers, l'adaptation de l'offre, la prospection commerciale et la mise en relation avec des partenaires.\n\nLes entreprises éligibles devront présenter une activité formalisée, une capacité de production claire et un projet export réaliste. Les membres du GREC bénéficieront d'un accompagnement prioritaire pour comprendre les critères, préparer leur candidature et identifier les points à améliorer avant dépôt.",
+                categorie: 'opportunite',
+                imageURL: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80',
+                auteur: 'Adjobi Mensah',
+                date: '2025-04-10',
+                readTime: 4,
+                tags: ['export', 'PME', 'France']
+            },
+            {
+                id: 'masterclass-finance',
+                titre: "Masterclass Finance d'entreprise : lever des fonds en Afrique de l'Ouest",
+                resume: "Formation intensive d'une journée animée par des experts en capital-risque africain.",
+                contenu: "Cette masterclass d'une journée est conçue pour aider les entrepreneurs à mieux préparer une levée de fonds. Les modules abordent la construction d'un pitch deck, la valorisation, la lecture des attentes investisseurs, la due diligence et la négociation des termes.\n\nDes cas pratiques de startups béninoises seront étudiés afin de montrer les erreurs fréquentes, les bons réflexes financiers et les documents à préparer avant de contacter des investisseurs.",
+                categorie: 'formation',
+                imageURL: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80',
+                auteur: 'Équipe GREC',
+                date: '2025-04-03',
+                readTime: 6,
+                tags: ['finance', 'levée de fonds', 'formation']
+            },
+            {
+                id: 'incubation-grec-2025',
+                titre: "Lancement du programme d'incubation GREC 2025 : 10 startups sélectionnées",
+                resume: "Dix startups béninoises bénéficieront d'un accompagnement de six mois.",
+                contenu: "La promotion 2025 du programme d'incubation GREC accompagnera dix startups pendant six mois. Les projets sélectionnés bénéficieront de mentorat, d'ateliers business, d'un accès au réseau de membres, de séances de revue stratégique et d'introductions auprès de partenaires financiers.\n\nLe programme mettra l'accent sur la validation du modèle économique, la structuration commerciale, la clarté financière et la préparation aux premières discussions avec des investisseurs ou grands comptes.",
+                categorie: 'actualite',
+                imageURL: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=900&q=80',
+                auteur: 'Directeur GREC',
+                date: '2025-03-28',
+                readTime: 3,
+                tags: ['incubation', 'startups', 'mentorat']
+            },
+            {
+                id: 'partenariat-bpi-france',
+                titre: "GREC x BPI France : un accord stratégique pour soutenir la diaspora entrepreneuriale",
+                resume: "Un mémorandum d'entente ouvre la voie à des financements et garanties de prêts pour les membres de la diaspora.",
+                contenu: "L'accord vise à faciliter l'accès à l'information, aux dispositifs d'accompagnement et aux mécanismes de financement pour les entrepreneurs de la diaspora souhaitant investir au Bénin.\n\nIl ouvre la voie à des ateliers d'information, des sessions d'orientation, des mises en relation ciblées et un meilleur accompagnement des porteurs de projets installés en France mais actifs sur le marché béninois.",
+                categorie: 'partenariat',
+                imageURL: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
+                auteur: 'Komlan Attiogbé',
+                date: '2025-03-20',
+                readTime: 5,
+                tags: ['partenariat', 'diaspora', 'financement']
+            },
+            {
+                id: 'networking-paris',
+                titre: "Soirée networking GREC à Paris : retour sur une rencontre exceptionnelle",
+                resume: "Plus de 80 membres ont participé à la soirée networking organisée à Paris.",
+                contenu: "La soirée networking organisée à Paris a réuni plus de 80 membres et partenaires autour de pitchs express, de rencontres B2B et de présentations de projets collaboratifs.\n\nCette rencontre a permis de consolider les liens entre membres locaux et diaspora, d'identifier des opportunités de partenariat et de faire émerger plusieurs pistes de collaboration dans la tech, le commerce, la finance et l'agro.",
+                categorie: 'evenement',
+                imageURL: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80',
+                auteur: 'Marie-Claire Agossou',
+                date: '2025-03-12',
+                readTime: 2,
+                tags: ['networking', 'Paris', 'diaspora']
+            },
+            {
+                id: 'rapport-activite-2024',
+                titre: "Rapport d'activité 2024 : une année de croissance pour le réseau GREC",
+                resume: "Le bilan 2024 est positif : +35 nouveaux membres, 8 événements organisés, 3 accords de partenariat signés.",
+                contenu: "L'année 2024 marque une progression importante pour le réseau GREC : 35 nouveaux membres, 8 événements organisés, 3 accords de partenariat et plus de 200 mises en relation.\n\nLe rapport met en avant les actions menées pour renforcer l'annuaire membre, améliorer la visibilité des entrepreneurs, développer les événements de networking et préparer les priorités de 2025 : formation, financement, export et collaboration diaspora-Bénin.",
+                categorie: 'actualite',
+                imageURL: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80',
+                auteur: 'Bureau exécutif',
+                date: '2025-03-05',
+                readTime: 7,
+                tags: ['rapport', 'activité', '2024']
+            }
+        ];
+
         function switchTab(tabName, event) {
             document.querySelectorAll('.admin-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.admin-nav a').forEach(el => el.classList.remove('active'));
@@ -613,6 +810,37 @@
             document.getElementById('article-form').style.display = document.getElementById('article-form').style.display === 'none' ? 'block' : 'none';
         }
 
+        function resetArticleForm() {
+            editingArticleId = null;
+            editingArticleImageURL = '';
+            document.getElementById('form-article').reset();
+            document.getElementById('article-form-title').textContent = 'Créer un article';
+            document.getElementById('article-submit-btn').textContent = 'Publier';
+            document.getElementById('article-form').style.display = 'none';
+        }
+
+        function fillArticleForm(data, id = null) {
+            editingArticleId = id;
+            editingArticleImageURL = data.imageURL || data.image || '';
+            document.getElementById('article-form').style.display = 'block';
+            document.getElementById('article-form-title').textContent = id ? 'Modifier cet article' : 'Créer un article';
+            document.getElementById('article-submit-btn').textContent = id ? 'Enregistrer' : 'Publier';
+            document.getElementById('art-title').value = data.titre || '';
+            document.getElementById('art-desc').value = data.resume || data.description || '';
+            document.getElementById('art-content').value = data.contenu || data.content || data.details || data.description || data.resume || '';
+            document.getElementById('art-cat').value = data.categorie || 'actualite';
+            document.getElementById('art-img').value = editingArticleImageURL;
+            document.getElementById('art-file').value = '';
+            document.getElementById('art-author').value = data.auteur || '';
+            document.getElementById('art-readtime').value = data.readTime || 5;
+            document.getElementById('art-tags').value = Array.isArray(data.tags) ? data.tags.join(', ') : '';
+            document.getElementById('art-featured').checked = !!data.isFeatured;
+
+            const date = data.publishedAt?.toDate ? data.publishedAt.toDate() : (data.date ? new Date(`${data.date}T12:00:00`) : null);
+            document.getElementById('art-date').value = date && !Number.isNaN(date.getTime()) ? date.toISOString().slice(0, 10) : '';
+            document.getElementById('article-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
         function showGalleryForm() {
             document.getElementById('gallery-form').style.display = document.getElementById('gallery-form').style.display === 'none' ? 'block' : 'none';
         }
@@ -620,21 +848,120 @@
         async function saveArticle(e) {
             e.preventDefault();
             try {
-                await db.collection(COLLECTIONS.ACTUALITES).add({
-                    titre: document.getElementById('art-title').value,
-                    description: document.getElementById('art-desc').value,
+                const providedDate = document.getElementById('art-date').value;
+                const tagsRaw = document.getElementById('art-tags').value || '';
+                const file = document.getElementById('art-file').files[0];
+                const manualImageURL = document.getElementById('art-img').value.trim();
+                const imageURL = file ? await uploadFile(file, STORAGE_PATHS.ACTUALITES) : (manualImageURL || editingArticleImageURL);
+                const resume = document.getElementById('art-desc').value.trim();
+                const contenu = document.getElementById('art-content').value.trim();
+                const articleData = {
+                    titre: document.getElementById('art-title').value.trim(),
+                    description: resume,
+                    resume,
+                    contenu,
+                    content: contenu,
+                    details: contenu,
                     categorie: document.getElementById('art-cat').value,
-                    image: document.getElementById('art-img').value,
-                    auteur: auth.currentUser.displayName || auth.currentUser.email,
+                    imageURL,
+                    image: imageURL,
+                    isFeatured: !!document.getElementById('art-featured').checked,
+                    auteur: document.getElementById('art-author').value || auth.currentUser.displayName || auth.currentUser.email,
+                    readTime: Number(document.getElementById('art-readtime').value || 5),
+                    tags: tagsRaw.split(',').map(t => t.trim()).filter(Boolean),
                     publie: true,
-                    publishedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                showToast('Article créé !', 'success');
-                document.getElementById('form-article').reset();
-                showArticleForm();
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                if (providedDate) {
+                    articleData.publishedAt = firebase.firestore.Timestamp.fromDate(new Date(`${providedDate}T12:00:00`));
+                } else if (!editingArticleId) {
+                    articleData.publishedAt = firebase.firestore.FieldValue.serverTimestamp();
+                }
+
+                if (editingArticleId) {
+                    await db.collection(COLLECTIONS.ACTUALITES).doc(editingArticleId).update(articleData);
+                    showToast('Article mis à jour !', 'success');
+                } else {
+                    await db.collection(COLLECTIONS.ACTUALITES).add(articleData);
+                    showToast('Article créé !', 'success');
+                }
+
+                resetArticleForm();
                 loadArticles();
             } catch (e) {
                 showToast('Erreur: ' + e.message, 'error');
+            }
+        }
+
+        async function importDefaultArticles() {
+            if (!confirm('Importer les articles déjà présents dans la page Actualités ? Les articles déjà importés ne seront pas dupliqués.')) return;
+            try {
+                let imported = 0;
+                for (const article of DEFAULT_ARTICLES) {
+                    const ref = db.collection(COLLECTIONS.ACTUALITES).doc(`static-${article.id}`);
+                    const existing = await ref.get();
+                    if (existing.exists) continue;
+
+                    const publishedAt = firebase.firestore.Timestamp.fromDate(new Date(`${article.date}T12:00:00`));
+                    await ref.set({
+                        titre: article.titre,
+                        description: article.resume,
+                        resume: article.resume,
+                        contenu: article.contenu,
+                        content: article.contenu,
+                        details: article.contenu,
+                        categorie: article.categorie,
+                        imageURL: article.imageURL,
+                        image: article.imageURL,
+                        auteur: article.auteur,
+                        readTime: article.readTime,
+                        tags: article.tags || [],
+                        isFeatured: !!article.isFeatured,
+                        publie: true,
+                        seedSlug: article.id,
+                        sourceSeed: 'grec-static-articles',
+                        publishedAt,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    imported += 1;
+                }
+
+                showToast(imported ? `${imported} article(s) importé(s).` : 'Tous les articles étaient déjà dans la liste.', imported ? 'success' : 'info');
+                loadArticles();
+            } catch (e) {
+                showToast('Import impossible: ' + e.message, 'error');
+            }
+        }
+
+        async function editArticle(id) {
+            try {
+                const doc = await db.collection(COLLECTIONS.ACTUALITES).doc(id).get();
+                if (!doc.exists) {
+                    showToast('Article introuvable.', 'error');
+                    return;
+                }
+                fillArticleForm(doc.data(), id);
+            } catch (e) {
+                showToast('Impossible de charger l’article: ' + e.message, 'error');
+            }
+        }
+
+        async function saveUpcomingEvent(e) {
+            e.preventDefault();
+            try {
+                await db.collection(COLLECTIONS.EVENEMENTS).add({
+                    titre: document.getElementById('evt-title').value,
+                    lieu: document.getElementById('evt-location').value,
+                    date: document.getElementById('evt-date').value,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showToast('Événement ajouté !', 'success');
+                document.getElementById('form-event').reset();
+                loadUpcomingEvents();
+            } catch (err) {
+                showToast('Erreur: ' + err.message, 'error');
             }
         }
 
@@ -729,22 +1056,27 @@
             try {
                 const snap = await db.collection(COLLECTIONS.ACTUALITES).orderBy('publishedAt', 'desc').get();
                 if (snap.empty) {
-                    list.innerHTML = `<tr><td colspan="5" class="text-center text-slate-500 py-8">Aucun article trouvé.</td></tr>`;
+                    list.innerHTML = `<tr><td colspan="6" class="text-center text-slate-500 py-8">Aucun article trouvé.</td></tr>`;
                 } else {
                     snap.forEach(doc => {
                         const d = doc.data();
+                        const imageURL = d.imageURL || d.image || '';
                         list.innerHTML += `<tr>
+            <td>${imageURL ? `<img src="${imageURL}" alt="${d.titre || 'Article'}" class="admin-thumb" />` : '-'}</td>
             <td>${d.titre || '-'}</td>
             <td>${d.categorie || '-'}</td>
             <td>${d.auteur || '-'}</td>
             <td>${d.publishedAt?.toDate?.().toLocaleDateString?.('fr-FR') || '-'}</td>
-            <td><button class="btn-small btn-delete" onclick="deleteArticle('${doc.id}')">Supprimer</button></td>
+            <td>
+                <button class="btn-small btn-edit" onclick="editArticle('${doc.id}')">Modifier</button>
+                <button class="btn-small btn-delete" onclick="deleteArticle('${doc.id}')">Supprimer</button>
+            </td>
           </tr>`;
                     });
                 }
                 document.getElementById('stat-articles').textContent = snap.size;
             } catch (e) {
-                list.innerHTML = `<tr><td colspan="5" class="text-center text-red-500 py-8">Erreur lors du chargement des articles : ${e.message}</td></tr>`;
+                list.innerHTML = `<tr><td colspan="6" class="text-center text-red-500 py-8">Erreur lors du chargement des articles : ${e.message}</td></tr>`;
                 showToast('Impossible de charger les articles: ' + e.message, 'error');
             }
         }
@@ -775,21 +1107,54 @@
             }
         }
 
-        function deleteArticle(id) {
-            if (confirm('Supprimer cet article ?')) {
-                db.collection(COLLECTIONS.ACTUALITES).doc(id).delete().then(() => {
-                    showToast('Supprimé !', 'success');
-                    loadArticles();
+        async function loadUpcomingEvents() {
+            const list = document.getElementById('events-list');
+            list.innerHTML = '';
+
+            try {
+                const snap = await db.collection(COLLECTIONS.EVENEMENTS).orderBy('date', 'asc').get();
+                if (snap.empty) {
+                    list.innerHTML = `<tr><td colspan="4" class="text-center text-slate-500 py-8">Aucun événement à venir.</td></tr>`;
+                    return;
+                }
+                snap.forEach(doc => {
+                    const d = doc.data() || {};
+                    const dateLabel = d.date ? new Date(d.date).toLocaleDateString('fr-FR') : '-';
+                    list.innerHTML += `<tr>
+            <td>${d.titre || '-'}</td>
+            <td>${d.lieu || '-'}</td>
+            <td>${dateLabel}</td>
+            <td><button class="btn-small btn-delete" onclick="deleteUpcomingEvent('${doc.id}')">Supprimer</button></td>
+          </tr>`;
                 });
+            } catch (e) {
+                list.innerHTML = `<tr><td colspan="4" class="text-center text-red-500 py-8">Erreur lors du chargement des événements : ${e.message}</td></tr>`;
             }
         }
 
-        function deleteGalleryItem(id) {
-            if (confirm('Supprimer cette photo ?')) {
-                db.collection(COLLECTIONS.GALERIE).doc(id).delete().then(() => {
-                    showToast('Supprimé !', 'success');
-                    loadGallery();
-                });
+        async function deleteArticle(id) {
+            if (!confirm('Supprimer cet article ?')) return;
+            try {
+                await db.collection(COLLECTIONS.ACTUALITES).doc(id).delete();
+                showToast('Article supprimé !', 'success');
+                loadArticles();
+            } catch (e) {
+                console.error('Suppression article refusée:', e);
+                const msg = e?.code === 'permission-denied'
+                    ? 'Suppression refusée par les règles Firestore (permission-denied).'
+                    : (e?.message || 'Erreur inconnue');
+                showToast('Impossible de supprimer: ' + msg, 'error');
+            }
+        }
+
+        async function deleteGalleryItem(id) {
+            if (!confirm('Supprimer cette photo ?')) return;
+            try {
+                await db.collection(COLLECTIONS.GALERIE).doc(id).delete();
+                showToast('Photo supprimée !', 'success');
+                loadGallery();
+            } catch (e) {
+                showToast('Impossible de supprimer la photo: ' + (e.message || 'Erreur inconnue'), 'error');
             }
         }
 
@@ -799,6 +1164,17 @@
                     showToast('Supprimé !', 'success');
                     loadMembers();
                 });
+            }
+        }
+
+        async function deleteUpcomingEvent(id) {
+            if (!confirm('Supprimer cet événement ?')) return;
+            try {
+                await db.collection(COLLECTIONS.EVENEMENTS).doc(id).delete();
+                showToast('Événement supprimé !', 'success');
+                loadUpcomingEvents();
+            } catch (e) {
+                showToast('Impossible de supprimer l\'événement: ' + (e.message || 'Erreur inconnue'), 'error');
             }
         }
 
@@ -818,6 +1194,7 @@
             loadMembers();
             loadArticles();
             loadGallery();
+            loadUpcomingEvents();
             listenRecentMembers();
 
             db.collection(COLLECTIONS.NEWSLETTER).onSnapshot(snap => {

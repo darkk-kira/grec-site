@@ -9,7 +9,8 @@
     content="Le GREC fédère les entrepreneurs béninois locaux et de la diaspora pour gagner ensemble. Expérience · Innovation · Excellence." />
   <meta property="og:title" content="GREC - Entrepreneuriat & Créativité au Bénin" />
   <meta property="og:description" content="Rejoignez le réseau des entrepreneurs béninois et de la diaspora." />
-  <meta property="og:image" content="assets/images/hero.jpg" />
+  <meta property="og:image"
+    content="https://commons.wikimedia.org/wiki/Special:FilePath/Salon_de_l%27Entrepreneuriat_Num%C3%A9rique_et_de_l%27Intelligence_Artificielle_du_B%C3%A9nin.jpg" />
   <link rel="icon" href="assets/images/favicon.png" type="image/png" />
 
 
@@ -47,12 +48,12 @@
     /* Hero */
     .hero-bg {
       background-image: linear-gradient(to bottom,
-          rgba(13, 27, 42, 0.54) 0%,
-          rgba(13, 27, 42, 0.34) 40%,
-          rgba(13, 27, 42, 0.58) 100%),
-        url('assets/images/action-sociale.jpg');
+          rgba(13, 27, 42, 0.58) 0%,
+          rgba(13, 27, 42, 0.30) 40%,
+          rgba(200, 137, 58, 0.42) 100%),
+        url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80');
       background-size: cover;
-      background-position: center top;
+      background-position: center center;
       background-attachment: fixed;
     }
 
@@ -156,7 +157,7 @@
 
   <!-- PAGE START: Accueil -->
   <!-- HEADER / NAVBAR -->
-  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <!-- ------------------- NAVBAR ------------------- -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="index.html" class="brand-lockup flex items-center gap-3">
@@ -178,7 +179,8 @@
         <a href="pages/galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
       </div>
       <div class="hidden lg:flex items-center gap-3">
-        <a href="pages/auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="pages/auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
+          membre</a>
         <a href="pages/profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
         <a href="pages/chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
         <a href="admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
@@ -203,11 +205,13 @@
         <a href="pages/galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
         <div class="pt-3 flex flex-col gap-2">
           <a href="pages/auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
-          <a href="pages/auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
+          <a href="pages/auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
+            membre</a>
           <a href="pages/profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
           <a href="pages/chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
           <a href="admin/index.html" class="auth-admin-link hidden btn btn-gold text-center text-sm">Admin</a>
-          <button onclick="logout()" class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
+          <button onclick="logout()"
+            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
         </div>
       </div>
     </div>
@@ -249,7 +253,7 @@
           Devenir membre
         </a>
         <a href="pages/about.html" class="btn btn-outline px-6 py-3 text-base">
-          Découvrir notre mission →
+          Découvrir notre mission ?
         </a>
       </div>
 
@@ -269,7 +273,7 @@
           <div class="text-white/45 text-xs mt-1 uppercase tracking-wide">Secteurs couverts</div>
         </div>
         <div>
-          <div class="stat-number text-4xl font-display font-bold">🌍</div>
+          <div class="stat-number text-4xl font-display font-bold">3</div>
           <div class="text-white/45 text-xs mt-1 uppercase tracking-wide">BJ · FR · RW</div>
         </div>
       </div>
@@ -411,7 +415,7 @@
         </div>
 
         <a href="pages/about.html" class="btn btn-outline-gold mt-8 inline-flex">
-          En savoir plus →
+          En savoir plus ?
         </a>
       </div>
     </div>
@@ -648,7 +652,7 @@
           <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy reveal">Articles récents</h2>
         </div>
         <a href="pages/actualites.html" class="hidden md:inline-flex btn btn-outline-gold text-sm reveal">
-          Tous les articles →
+          Tous les articles ?
         </a>
       </div>
 
@@ -735,7 +739,7 @@
       </div>
 
       <div class="text-center mt-10 md:hidden">
-        <a href="pages/actualites.html" class="btn btn-outline-gold">Tous les articles →</a>
+        <a href="pages/actualites.html" class="btn btn-outline-gold">Tous les articles ?</a>
       </div>
     </div>
   </section>
@@ -749,7 +753,7 @@
           <div class="section-label reveal">Nos moments</div>
           <h2 class="font-display text-3xl font-semibold text-navy reveal">Galerie photos</h2>
         </div>
-        <a href="pages/galerie.html" class="hidden md:inline-flex btn btn-outline-gold text-sm reveal">Voir tout →</a>
+        <a href="pages/galerie.html" class="hidden md:inline-flex btn btn-outline-gold text-sm reveal">Voir tout ?</a>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -893,13 +897,13 @@
         <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
         <ul class="space-y-3">
           <li>
-            <a href="mailto:info@grec.group"
+            <a href="mailto:d.boris@grec.group"
               class="text-white/50 hover:text-gold text-sm transition-colors flex items-center gap-2">
               <svg class="w-3.5 h-3.5 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              info@grec.group
+              d.boris@grec.group
             </a>
           </li>
         </ul>
@@ -911,7 +915,7 @@
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
         <p class="text-white/30 text-xs">© 2025 GREC · Groupe de Réflexion sur l'Entrepreneuriat et la Créativité au
           Bénin · Tous droits réservés</p>
-        <p class="text-white/20 text-xs">Fait avec ❤ pour les entrepreneurs béninois</p>
+        <p class="text-white/20 text-xs">Fait avec passion pour les entrepreneurs béninois</p>
       </div>
     </div>
   </footer>
@@ -1070,7 +1074,7 @@
           email,
           subscribedAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        showToast('Abonnement confirmé ! Merci 🎉', 'success');
+        showToast('Abonnement confirmé ! Merci.', 'success');
         e.target.reset();
       } catch (err) {
         showToast('Erreur. Veuillez réessayer.', 'error');
@@ -1149,5 +1153,3 @@
 </body>
 
 </html>
-
-

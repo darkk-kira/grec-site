@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil membre — GREC Bénin</title>
+    <meta name="description" content="Découvrez le profil d'un membre du réseau GREC." />
+    <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#C8893A', 'gold-light': '#E5A84B',
+                        navy: '#0D1B2A', 'navy-mid': '#1A2E42',
+                        cream: '#F2EDE3', 'off-white': '#F8F5EF',
+                    },
+                    fontFamily: {
+                        display: ['"Playfair Display"', 'Georgia', 'serif'],
+                        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <style>
+        .profile-container {
+            display: grid;
+            grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+            gap: 32px;
+            align-items: start;
+        }
+
+        .profile-sidebar {
+            min-width: 0;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .profile-content {
+            min-width: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-sidebar {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 600;
+            color: #fff;
+            margin: 0 auto 16px;
+        }
+
+        .stat-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.07);
+        }
+
+        .stat-box .value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .stat-box .label {
+            font-size: 12px;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-menu a,
+        .profile-menu button {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            text-align: left;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .profile-menu a:hover,
+        .profile-menu button:hover,
+        .profile-menu a.active {
+            background: rgba(31, 111, 115, 0.12);
+            color: var(--teal);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(200, 137, 58, 0.1);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 14px;
+            padding: 10px 24px;
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--duration-base) var(--ease-smooth);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: #fff;
+            box-shadow: var(--shadow-gold);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(200, 137, 58, 0.36);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+        }
+
+        .btn-outline:hover {
+            border-color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 16px;
+        }
+
+        .label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .field-value {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(26, 46, 66, 0.95)),
+                url('../assets/images/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-bg>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-bg h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .hero-bg p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-bg h1 {
+                font-size: 32px;
+            }
+
+            .hero-bg p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-body bg-white text-navy">
+    <!-- PAGE START: Profil public -->
+    <section class="hero-bg">
+        <div class="max-w-3xl px-6">
+            <h1 class="font-display">Profil public du membre</h1>
+            <p class="text-base md:text-lg">Informations publiques du réseau GREC — présentation professionnelle du
+                membre sans données privées.</p>
+        </div>
+    </section>
+
+    <!-- NAVIGATION -->
+    <nav id="navbar" class="transparent">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="../index.html" class="brand-lockup flex items-center gap-3">
+                <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+                    onerror="this.style.display='none'" />
+                <div class="hidden sm:block">
+                    <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+                    <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
+                <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
+                <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Espace</a>
+                <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
+                <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+            </div>
+
+            <div class="hidden lg:flex items-center gap-3">
+                <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
+                    membre</a>
+                <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
+                <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
+            </div>
+
+            <button id="mobile-menu-btn"
+                class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors"
+                onclick="toggleMobileMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
+            <div class="px-6 py-4 flex flex-col gap-3">
+                <a href="../index.html"
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+                <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
+                    sommes-nous ?</a>
+                <a href="membres.html"
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Espace</a>
+                <a href="actualites.html"
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+                <a href="galerie.html"
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Galerie</a>
+                <a href="auth.html"
+                    class="auth-login-link hidden text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Se
+                    connecter</a>
+                <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
+                    membre</a>
+                <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
+                <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="profile-container">
+                <!-- Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="stat-box">
+                        <div class="profile-avatar" id="profile-avatar">?</div>
+                        <div class="text-center">
+                            <h2 class="font-display font-semibold text-lg text-navy mb-1" id="profile-name">
+                                Chargement...</h2>
+                            <p class="text-sm text-slate-500" id="profile-role">Membre GREC</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 space-y-4">
+                        <div class="stat-box">
+                            <div class="value" id="stat-events">0</div>
+                            <div class="label">Événements</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value" id="stat-connections">0</div>
+                            <div class="label">Connexions</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <a href="membres.html" class="btn btn-gold w-full">Retour à l'espace</a>
+                    </div>
+                </div>
+
+                <!-- Main content -->
+                <div class="profile-content">
+                    <!-- Section: Information -->
+                    <div class="bg-white rounded-lg border border-slate-200 p-6 mb-6">
+                        <span class="label">Informations générales</span>
+                        <div class="grid md:grid-cols-2 gap-6 mt-4">
+                            <div>
+                                <div class="label">Nom complet</div>
+                                <div class="field-value" id="field-nom">Chargement...</div>
+                            </div>
+                            <div>
+                                <div class="label">Secteur d'activité</div>
+                                <div class="field-value" id="field-secteur">Chargement...</div>
+                            </div>
+                            <div>
+                                <div class="label">Pays</div>
+                                <div class="field-value" id="field-pays">Chargement...</div>
+                            </div>
+                            <div>
+                                <div class="label">Poste actuel</div>
+                                <div class="field-value" id="field-poste">Chargement...</div>
+                            </div>
+                            <div>
+                                <div class="label">Organisation</div>
+                                <div class="field-value" id="field-organisation">Chargement...</div>
+                            </div>
+                            <div>
+                                <div class="label">Domaines d'expertise</div>
+                                <div class="field-value" id="field-expertises">Chargement...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section: Biographie -->
+                    <div class="bg-white rounded-lg border border-slate-200 p-6 mb-6">
+                        <span class="label">Biographie</span>
+                        <div class="field-value mt-4" id="field-bio">Chargement...</div>
+                    </div>
+
+                    <!-- Section: Coordonnées publiques -->
+                    <div class="bg-white rounded-lg border border-slate-200 p-6 mb-6">
+                        <span class="label">Coordonnées publiques</span>
+                        <div class="grid md:grid-cols-2 gap-6 mt-4">
+                            <div>
+                                <div class="label">E-mail professionnel</div>
+                                <div class="field-value" id="field-email">Non renseigné</div>
+                            </div>
+                            <div>
+                                <div class="label">Profil LinkedIn</div>
+                                <div class="field-value" id="field-linkedin">Non renseigné</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section: Membre depuis -->
+                    <div class="bg-white rounded-lg border border-slate-200 p-6">
+                        <span class="label">Membre depuis</span>
+                        <div class="field-value mt-4" id="field-depuis">Chargement...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="brand-lockup flex items-center gap-3 mb-4">
+                        <img src="../assets/images/logo.png" alt="GREC" class="h-8 w-auto"
+                            onerror="this.style.display='none'" />
+                        <div>
+                            <div class="brand-title font-display font-bold text-lg text-white">GREC</div>
+                            <div class="logo-subtitle text-xs text-white/50">Bénin · Diaspora</div>
+                        </div>
+                    </div>
+                    <p class="text-white/70 text-sm leading-relaxed">
+                        Le réseau des entrepreneurs béninois et de la diaspora. Connectons-nous pour innover et réussir
+                        ensemble.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-display font-semibold text-white mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html"
+                                class="text-white/50 hover:text-gold text-sm transition-colors">Accueil</a></li>
+                        <li><a href="about.html" class="text-white/50 hover:text-gold text-sm transition-colors">Qui
+                                sommes-nous ?</a></li>
+                        <li><a href="membres.html"
+                                class="text-white/50 hover:text-gold text-sm transition-colors">Espace</a></li>
+                        <li><a href="actualites.html"
+                                class="text-white/50 hover:text-gold text-sm transition-colors">Actualités</a></li>
+                        <li><a href="galerie.html"
+                                class="text-white/50 hover:text-gold text-sm transition-colors">Galerie</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-display font-semibold text-white mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li><a href="mailto:d.boris@grec.group"
+                                class="text-white/50 hover:text-gold text-sm transition-colors">d.boris@grec.group</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-display font-semibold text-white mb-4">Devenir membre</h3>
+                    <p class="text-white/70 text-sm mb-4">
+                        Rejoignez notre réseau d'entrepreneurs congolais et bénéficiez d'opportunités uniques.
+                    </p>
+                    <a href="auth.html?tab=register" class="btn btn-gold">Demander mon adhésion ?</a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 mt-8 pt-8 text-center">
+                <p class="text-white/30 text-xs">© 2025 GREC · Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD5QwGjN0iMQ7f9j1Z0Z0Z0Z0Z0Z0Z0Z0Z0",
+            authDomain: "grec-benin.firebaseapp.com",
+            projectId: "grec-benin",
+            storageBucket: "grec-benin.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef123456"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Auth state
+        onAuthStateChanged(auth, (user) => {
+            const loginLinks = document.querySelectorAll('.auth-login-link');
+            const registerLinks = document.querySelectorAll('.auth-register-link');
+            const memberLinks = document.querySelectorAll('.auth-member-link');
+            const chatLinks = document.querySelectorAll('.auth-chat-link');
+
+            if (user) {
+                loginLinks.forEach(link => link.classList.add('hidden'));
+                registerLinks.forEach(link => link.classList.add('hidden'));
+                memberLinks.forEach(link => link.classList.remove('hidden'));
+                chatLinks.forEach(link => link.classList.remove('hidden'));
+            } else {
+                loginLinks.forEach(link => link.classList.remove('hidden'));
+                registerLinks.forEach(link => link.classList.remove('hidden'));
+                memberLinks.forEach(link => link.classList.add('hidden'));
+                chatLinks.forEach(link => link.classList.add('hidden'));
+            }
+        });
+
+        function formatNameFromSlug(slug) {
+            return String(slug || '')
+                .replace(/[-_]+/g, ' ')
+                .split(' ')
+                .filter(Boolean)
+                .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+                .join(' ');
+        }
+
+        // Load member profile from URL params
+        function loadMemberProfile() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const memberSlug = urlParams.get('member');
+            const memberName = urlParams.get('name');
+            const secteur = urlParams.get('secteur');
+            const pays = urlParams.get('pays');
+            const poste = urlParams.get('poste');
+            const organisation = urlParams.get('organisation');
+            const expertises = urlParams.get('expertises');
+            const email = urlParams.get('email');
+            const linkedin = urlParams.get('linkedin');
+            const bio = urlParams.get('bio');
+            const depuis = urlParams.get('depuis');
+
+            const displayName = memberName || formatNameFromSlug(memberSlug) || 'Membre GREC';
+            document.getElementById('profile-name').textContent = displayName;
+            document.getElementById('profile-avatar').textContent = displayName.charAt(0).toUpperCase();
+
+            document.getElementById('field-secteur').textContent = secteur || 'Non renseigné';
+            document.getElementById('field-pays').textContent = pays || 'Non renseigné';
+            document.getElementById('field-poste').textContent = poste || 'Non renseigné';
+            document.getElementById('field-organisation').textContent = organisation || 'Non renseigné';
+            document.getElementById('field-expertises').textContent = expertises || 'Non renseigné';
+            document.getElementById('field-email').textContent = email || 'Non renseigné';
+            document.getElementById('field-linkedin').innerHTML = linkedin ? `<a href="${escapeHTML(linkedin)}" target="_blank" rel="noopener">${escapeHTML(linkedin)}</a>` : 'Non renseigné';
+            document.getElementById('field-bio').textContent = bio || 'Aucune description publique n’est disponible.';
+            document.getElementById('field-depuis').textContent = depuis || 'Date de membre non précisée';
+
+            // Placeholder stats
+            document.getElementById('stat-events').textContent = '1';
+            document.getElementById('stat-connections').textContent = '1';
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                navbar.classList.remove('transparent');
+            } else {
+                navbar.classList.remove('scrolled');
+                navbar.classList.add('transparent');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        window.toggleMobileMenu = toggleMobileMenu;
+
+        // Load profile on page load
+        loadMemberProfile();
+    </script>
+</body>
+
+</html>

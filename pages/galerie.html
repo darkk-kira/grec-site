@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galerie — GREC Bénin</title>
     <meta name="description" content="Découvrez les moments partagés et événements du réseau GREC." />
-    <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+    <link rel="icon" href="../Assets/images/favicon.png" type="image/png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,7 +37,7 @@
     <style>
         .hero-galerie {
             background: linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(13, 27, 42, 0.75) 100%),
-                url('../assets/images/galerie-1.jpeg') center/cover no-repeat;
+                url('../Assets/images/galerie-1.jpeg') center/cover no-repeat;
             background-attachment: fixed;
         }
 
@@ -303,7 +303,7 @@
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="../index.html" class="brand-lockup flex items-center gap-3">
-                <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+                <img src="../Assets/images/logo.png" alt="GREC" class="h-10 object-contain"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
                 <div
                     class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
@@ -316,16 +316,16 @@
             <div class="hidden lg:flex items-center gap-8">
                 <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
                 <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
-                <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Espace</a>
+                <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Notre communauté</a>
                 <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
                 <a href="galerie.html" class="nav-link active text-sm font-medium">Galerie</a>
+                <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
             </div>
             <div class="hidden lg:flex items-center gap-3">
                 <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
                     membre</a>
                 <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
                 <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
-                <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
                 <button onclick="logout()"
                     class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
             </div>
@@ -343,10 +343,11 @@
                 <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
                     sommes-nous ?</a>
                 <a href="membres.html"
-                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Espace</a>
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Notre communauté</a>
                 <a href="actualites.html"
                     class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
                 <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+                <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
                 <div class="pt-3 flex flex-col gap-2">
                     <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se
                         connecter</a>
@@ -355,8 +356,6 @@
                     <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon
                         profil</a>
                     <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
-                    <a href="../admin/index.html"
-                        class="auth-admin-link hidden btn btn-gold text-center text-sm">Admin</a>
                     <button onclick="logout()"
                         class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
                 </div>
@@ -379,7 +378,7 @@
                         GREC.</p>
                 </div>
                 <button id="add-photo-btn"
-                    class="auth-admin-link hidden bg-gold hover:bg-gold-light text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap">
+                    class="bg-gold hover:bg-gold-light text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap">
                     + Ajouter une photo
                 </button>
             </div>
@@ -475,9 +474,14 @@
     <footer class="bg-navy border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
             <div class="md:col-span-1">
-                <img src="../assets/images/logo.png" alt="GREC" class="h-12 mb-4 object-contain"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" />
-                <div class="hidden font-display text-white text-2xl font-bold mb-4">GREC</div>
+                <div class="brand-lockup flex items-center gap-3 mb-4">
+                    <img src="../Assets/images/logo.png" alt="GREC" class="h-12 object-contain"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" />
+                    <div>
+                        <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+                        <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
+                    </div>
+                </div>
                 <p class="text-white/45 text-sm leading-relaxed mb-5">Le réseau des entrepreneurs béninois et de la
                     diaspora.</p>
                 <div class="flex gap-3">
@@ -511,15 +515,15 @@
                 <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Liens utiles</h3>
                 <ul class="space-y-3">
                     <li><a href="about.html" class="text-white/45 hover:text-gold text-sm transition-colors">Qui
-                            sommes-nous</a></li>
-                    <li><a href="membres.html"
-                            class="text-white/45 hover:text-gold text-sm transition-colors">Espace</a></li>
+                            sommes-nous ?</a></li>
+                    <li><a href="membres.html" class="text-white/45 hover:text-gold text-sm transition-colors">Notre
+                            communauté</a></li>
                     <li><a href="actualites.html"
                             class="text-white/45 hover:text-gold text-sm transition-colors">Actualités</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Espace membres</h3>
+                <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Notre communauté</h3>
                 <ul class="space-y-3">
                     <li><a href="auth.html"
                             class="text-white/45 hover:text-gold text-sm transition-colors">Connexion</a></li>
@@ -533,8 +537,8 @@
             <div>
                 <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Contact</h3>
                 <ul class="space-y-3 text-white/45 text-sm">
-                    <li>Email: <a href="mailto:d.boris@grec.group"
-                            class="hover:text-gold transition-colors">d.boris@grec.group</a></li>
+                    <li>Email: <a href="mailto:contact@grec.com"
+                            class="hover:text-gold transition-colors">contact@grec.com</a></li>
                 </ul>
             </div>
         </div>
@@ -574,20 +578,20 @@
         let currentFilter = 'all';
         let uploadedSessionItems = [];
         const localGalleryItems = [
-            { url: '../assets/images/plage1.jpeg', titre: 'Rencontre sur la plage', categorie: 'plage' },
-            { url: '../assets/images/plage2.jpeg', titre: 'Échanges terrain', categorie: 'plage' },
-            { url: '../assets/images/hero.jpg', titre: 'RDV de la diaspora', categorie: 'diaspora' },
-            { url: '../assets/images/actualites-hero.jpg', titre: 'Panel entrepreneurial', categorie: 'diaspora' },
-            { url: '../assets/images/action-sociale.jpg', titre: 'Action sociale', categorie: 'diaspora' },
-            { url: '../assets/images/galerie-1.jpeg', titre: 'Moment réseau', categorie: 'reunions' },
-            { url: '../assets/images/Rencontres.jpeg', titre: 'Rencontre membres', categorie: 'reunions' },
-            { url: '../assets/images/Rencontres (2).jpeg', titre: 'Session collective', categorie: 'reunions' },
-            { url: '../assets/images/rencontre 4.jpeg', titre: 'Vie du réseau', categorie: 'reunions' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.02.jpeg', titre: 'Échanges terrain', categorie: 'plage' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.07.jpeg', titre: 'RDV de la diaspora', categorie: 'diaspora' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.14.jpeg', titre: 'Conférence', categorie: 'diaspora' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.20.jpeg', titre: 'Rencontre GREC', categorie: 'reunions' },
-            { url: '../assets/images/WhatsApp Image 2026-04-27 at 11.54.29.jpeg', titre: 'Table ronde', categorie: 'reunions' }
+            { url: '../Assets/images/plage1.jpeg', titre: 'Rencontre sur la plage', categorie: 'plage' },
+            { url: '../Assets/images/plage2.jpeg', titre: 'Échanges terrain', categorie: 'plage' },
+            { url: '../Assets/images/hero.jpg', titre: 'RDV de la diaspora', categorie: 'diaspora' },
+            { url: '../Assets/images/actualites-hero.jpg', titre: 'Panel entrepreneurial', categorie: 'diaspora' },
+            { url: '../Assets/images/action-sociale.jpg', titre: 'Action sociale', categorie: 'diaspora' },
+            { url: '../Assets/images/galerie-1.jpeg', titre: 'Moment réseau', categorie: 'reunions' },
+            { url: '../Assets/images/Rencontres.jpeg', titre: 'Rencontre membres', categorie: 'reunions' },
+            { url: '../Assets/images/Rencontres (2).jpeg', titre: 'Session collective', categorie: 'reunions' },
+            { url: '../Assets/images/rencontre 4.jpeg', titre: 'Vie du réseau', categorie: 'reunions' },
+            { url: '../Assets/images/WhatsApp Image 2026-04-27 at 11.54.02.jpeg', titre: 'Échanges terrain', categorie: 'plage' },
+            { url: '../Assets/images/WhatsApp Image 2026-04-27 at 11.54.07.jpeg', titre: 'RDV de la diaspora', categorie: 'diaspora' },
+            { url: '../Assets/images/WhatsApp Image 2026-04-27 at 11.54.14.jpeg', titre: 'Conférence', categorie: 'diaspora' },
+            { url: '../Assets/images/WhatsApp Image 2026-04-27 at 11.54.20.jpeg', titre: 'Rencontre GREC', categorie: 'reunions' },
+            { url: '../Assets/images/WhatsApp Image 2026-04-27 at 11.54.29.jpeg', titre: 'Table ronde', categorie: 'reunions' }
         ];
 
         function isValidGalleryItem(item) {
@@ -609,13 +613,13 @@
             container.innerHTML = '';
 
             items.forEach((g, idx) => {
-                galleryImages.push(g.url || '../assets/images/hero.jpg');
+                galleryImages.push(g.url || '../Assets/images/hero.jpg');
 
                 const img = document.createElement('div');
                 img.className = 'gallery-item reveal';
                 img.setAttribute('data-category', g.categorie || 'reunions');
                 img.innerHTML = `
-          <img src="${g.url || '../assets/images/hero.jpg'}" alt="${g.titre || 'Photo GREC'}" loading="lazy" />
+          <img src="${g.url || '../Assets/images/hero.jpg'}" alt="${g.titre || 'Photo GREC'}" loading="lazy" />
           <div class="gallery-overlay">
             <a href="#" onclick="openLightbox(${idx}); return false;" title="Voir en grand">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -812,6 +816,3 @@
 </body>
 
 </html>
-
-
-

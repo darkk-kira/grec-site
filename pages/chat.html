@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Messagerie - GREC Bénin</title>
   <meta name="description" content="Messagerie privée entre membres inscrits du réseau GREC." />
-  <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+  <link rel="icon" href="../Assets/images/favicon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -386,7 +386,7 @@
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="../index.html" class="brand-lockup flex items-center gap-3">
-        <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+        <img src="../Assets/images/logo.png" alt="GREC" class="h-10 object-contain"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
         <div
           class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
@@ -399,15 +399,16 @@
       <div class="hidden lg:flex items-center gap-8">
         <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
         <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
-        <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Espace</a>
+        <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Notre communauté</a>
         <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
         <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+        <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
       </div>
       <div class="hidden lg:flex items-center gap-3">
-        <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+                <a href="auth.html" class="auth-login-link hidden btn btn-outline text-sm py-2 px-4">Se connecter</a>
+<a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
         <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
         <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
-        <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
         <button onclick="logout()"
           class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
       </div>
@@ -422,16 +423,16 @@
         <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
         <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
           sommes-nous</a>
-        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Espace</a>
+        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Notre communauté</a>
         <a href="actualites.html"
           class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
         <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+        <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
         <div class="pt-3 flex flex-col gap-2">
           <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
           <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
           <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
           <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
-          <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-center text-sm">Admin</a>
           <button onclick="logout()" class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
         </div>
       </div>
@@ -504,3 +505,7 @@
 </body>
 
 </html>
+
+
+
+

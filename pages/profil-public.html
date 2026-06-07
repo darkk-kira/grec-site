@@ -2,588 +2,506 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profil membre — GREC Bénin</title>
-    <meta name="description" content="Découvrez le profil d'un membre du réseau GREC." />
-    <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
-        rel="stylesheet" />
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#C8893A', 'gold-light': '#E5A84B',
-                        navy: '#0D1B2A', 'navy-mid': '#1A2E42',
-                        cream: '#F2EDE3', 'off-white': '#F8F5EF',
-                    },
-                    fontFamily: {
-                        display: ['"Playfair Display"', 'Georgia', 'serif'],
-                        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
-                    }
-                }
-            }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil public - GREC Bénin</title>
+  <meta name="description" content="Profil public d'un membre du réseau GREC." />
+  <link rel="icon" href="../Assets/images/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#C8893A',
+            'gold-light': '#E5A84B',
+            navy: '#0D1B2A',
+            'navy-mid': '#1A2E42',
+            cream: '#F2EDE3',
+            'off-white': '#F8F5EF',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          }
         }
-    </script>
-    <link rel="stylesheet" href="../css/style.css" />
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(200, 137, 58, 0.14), transparent 28%),
+        radial-gradient(circle at top right, rgba(13, 27, 42, 0.12), transparent 24%),
+        linear-gradient(180deg, #f8f5ef 0%, #fffdf9 100%);
+    }
 
-    <style>
-        .profile-container {
-            display: grid;
-            grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
-            gap: 32px;
-            align-items: start;
-        }
+    .profile-panel {
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(16, 32, 45, 0.08);
+      box-shadow: 0 18px 46px rgba(13, 27, 42, 0.1);
+      backdrop-filter: blur(10px);
+    }
 
-        .profile-sidebar {
-            min-width: 0;
-            width: 100%;
-            max-width: 360px;
-        }
+    .profile-avatar-frame {
+      width: 200px;
+      height: 200px;
+      border-radius: 32px;
+      padding: 8px;
+      background: linear-gradient(145deg, rgba(200, 137, 58, 0.22), rgba(26, 46, 66, 0.12));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    }
 
-        .profile-content {
-            min-width: 0;
-        }
+    .profile-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 26px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0d1b2a, #1a2e42 52%, #c8893a);
+      color: #fff;
+      position: relative;
+    }
 
-        @media (max-width: 1024px) {
-            .profile-container {
-                grid-template-columns: 1fr;
-            }
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
 
-            .profile-sidebar {
-                position: static;
-                transform: none;
-                width: 100%;
-                max-width: 100%;
-            }
-        }
+    .profile-avatar .avatar-initials {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
 
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold-light), var(--gold));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            font-weight: 600;
-            color: #fff;
-            margin: 0 auto 16px;
-        }
+    .profile-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+      color: #0d1b2a;
+      font-weight: 700;
+    }
 
-        .stat-box {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.07);
-        }
+    .profile-section-title {
+      font-family: 'Playfair Display', serif;
+      color: #0d1b2a;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
 
-        .stat-box .value {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 4px;
-        }
+    .profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border-radius: 999px;
+      padding: 0.45rem 0.85rem;
+      border: 1px solid rgba(200, 137, 58, 0.2);
+      background: rgba(200, 137, 58, 0.08);
+      color: #9a6121;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
 
-        .stat-box .label {
-            font-size: 12px;
-            color: #64748B;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+    .soft-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200, 137, 58, 0.45), transparent);
+    }
 
-        .profile-menu a,
-        .profile-menu button {
-            display: block;
-            width: 100%;
-            padding: 12px 16px;
-            text-align: left;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            text-decoration: none;
-            transition: all 0.2s;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-        }
+    .profile-info {
+      border: 1px solid rgba(16, 32, 45, 0.08);
+      background: rgba(248, 245, 239, 0.8);
+      border-radius: 20px;
+      padding: 16px 18px;
+    }
 
-        .profile-menu a:hover,
-        .profile-menu button:hover,
-        .profile-menu a.active {
-            background: rgba(31, 111, 115, 0.12);
-            color: var(--teal);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #D1D5DB;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(200, 137, 58, 0.1);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-family: var(--font-body);
-            font-weight: 500;
-            font-size: 14px;
-            padding: 10px 24px;
-            border-radius: var(--radius-md);
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all var(--duration-base) var(--ease-smooth);
-            white-space: nowrap;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold-light), var(--gold));
-            color: #fff;
-            box-shadow: var(--shadow-gold);
-        }
-
-        .btn-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(200, 137, 58, 0.36);
-        }
-
-        .btn-outline {
-            background: rgba(255, 255, 255, 0.04);
-            color: #fff;
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-        }
-
-        .btn-outline:hover {
-            border-color: rgba(255, 255, 255, 0.7);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 16px;
-        }
-
-        .label {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .field-value {
-            font-size: 14px;
-            color: #374151;
-            line-height: 1.5;
-        }
-
-        .hero-bg {
-            background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(26, 46, 66, 0.95)),
-                url('../assets/images/hero.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 50vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-            position: relative;
-        }
-
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-bg>* {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-bg h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .hero-bg p {
-            font-size: 18px;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 32px;
-        }
-
-        @media (max-width: 768px) {
-            .hero-bg h1 {
-                font-size: 32px;
-            }
-
-            .hero-bg p {
-                font-size: 16px;
-            }
-        }
-    </style>
+    .profile-label {
+      display: block;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(13, 27, 42, 0.48);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+  </style>
 </head>
 
-<body class="font-body bg-white text-navy">
-    <!-- PAGE START: Profil public -->
-    <section class="hero-bg">
-        <div class="max-w-3xl px-6">
-            <h1 class="font-display">Profil public du membre</h1>
-            <p class="text-base md:text-lg">Informations publiques du réseau GREC — présentation professionnelle du
-                membre sans données privées.</p>
+<body class="font-body text-navy">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="../index.html" class="brand-lockup flex items-center gap-3">
+        <img src="../Assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+        <div
+          class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
+          G</div>
+        <div class="hidden sm:block">
+          <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+          <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
         </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
+        <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
+        <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Notre communauté</a>
+        <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
+        <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+        <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
+        <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
+        <button onclick="logout()"
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+      </div>
+      <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+        <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
+          sommes-nous ?</a>
+        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Notre
+          communauté</a>
+        <a href="actualites.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+        <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+        <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
+        <div class="pt-3 flex flex-col gap-2">
+          <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
+          <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
+          <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
+          <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
+          <button onclick="logout()"
+            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-32 pb-14">
+    <section class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+        <div>
+          <span class="profile-badge mb-3">Profil public</span>
+          <h1 id="public-title" class="font-display text-4xl md:text-5xl font-semibold text-navy leading-tight">Chargement...</h1>
+          <p id="public-subtitle" class="text-slate-600 mt-3 max-w-2xl">
+            Les membres du réseau peuvent consulter ici les informations que tu as choisies de rendre visibles.
+          </p>
+        </div>
+        <div class="profile-panel px-5 py-4 max-w-xl">
+          <p class="text-xs uppercase tracking-[0.2em] text-slate-500 font-semibold">Recherche communautaire</p>
+          <p id="public-status" class="mt-2 text-sm text-slate-700">Chargement du profil...</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 xl:grid-cols-[360px_minmax(0,1fr)] gap-6 items-start">
+        <aside class="profile-panel p-6 md:p-8">
+          <div class="flex flex-col items-center text-center">
+            <div class="profile-avatar-frame">
+              <div class="profile-avatar">
+                <img id="public-photo" alt="Photo de profil publique" />
+                <span id="public-initials" class="avatar-initials">GM</span>
+              </div>
+            </div>
+            <div class="mt-5">
+              <div id="public-name" class="profile-name">Membre</div>
+              <p id="public-poste" class="text-gold text-sm font-semibold mt-2">-</p>
+            </div>
+            <div id="public-badges" class="flex flex-wrap justify-center gap-2 mt-5"></div>
+          </div>
+
+          <div class="soft-divider my-7"></div>
+
+          <div class="space-y-3">
+            <a href="membres.html" class="btn btn-outline w-full text-center">Retour à la communauté</a>
+            <a id="public-edit-link" href="profil.html" class="btn btn-gold w-full text-center hidden">Modifier mon profil</a>
+            <a id="public-chat-link" href="chat.html" class="btn btn-outline w-full text-center hidden">Contacter via la messagerie</a>
+          </div>
+        </aside>
+
+        <section class="space-y-6">
+          <article class="profile-panel p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+              <div>
+                <h2 class="profile-section-title">Présentation</h2>
+                <p class="text-slate-600 text-sm mt-2 max-w-2xl">
+                  Cette fiche publique exclut volontairement les informations sensibles comme l'email ou le téléphone.
+                </p>
+              </div>
+              <span id="public-visibility-pill" class="profile-badge self-start">Visible</span>
+            </div>
+
+            <div class="soft-divider my-6"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="profile-info">
+                <span class="profile-label">Secteur</span>
+                <div id="public-sector" class="text-navy font-semibold">-</div>
+              </div>
+              <div class="profile-info">
+                <span class="profile-label">Localisation</span>
+                <div id="public-location" class="text-navy font-semibold">-</div>
+              </div>
+              <div class="profile-info md:col-span-2">
+                <span class="profile-label">Bio publique</span>
+                <div id="public-bio" class="text-slate-600 leading-relaxed">-</div>
+              </div>
+              <div class="profile-info">
+                <span class="profile-label">Membre depuis</span>
+                <div id="public-since" class="text-navy font-semibold">-</div>
+              </div>
+              <div class="profile-info">
+                <span class="profile-label">Statut</span>
+                <div id="public-account-state" class="text-navy font-semibold">-</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="profile-panel p-6 md:p-8">
+            <h2 class="profile-section-title">Profil public sécurisé</h2>
+            <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+              Le profil public est alimenté depuis ta fiche privée, mais il ne montre que les champs que tu as choisis
+              d'afficher dans la communauté.
+            </p>
+          </article>
+        </section>
+      </div>
     </section>
+  </main>
 
-    <!-- NAVIGATION -->
-    <nav id="navbar" class="transparent">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="../index.html" class="brand-lockup flex items-center gap-3">
-                <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
-                    onerror="this.style.display='none'" />
-                <div class="hidden sm:block">
-                    <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
-                    <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
-                </div>
-            </a>
+  <div id="toast-container"></div>
 
-            <div class="hidden lg:flex items-center gap-8">
-                <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
-                <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
-                <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Espace</a>
-                <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
-                <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
-            </div>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>
+    const state = {
+      uid: null,
+      data: null,
+      nameQuery: '',
+      loaded: false
+    };
 
-            <div class="hidden lg:flex items-center gap-3">
-                <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
-                    membre</a>
-                <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
-                <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
-            </div>
+    const els = {};
 
-            <button id="mobile-menu-btn"
-                class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors"
-                onclick="toggleMobileMenu()">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                    </path>
-                </svg>
-            </button>
-        </div>
-        <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
-            <div class="px-6 py-4 flex flex-col gap-3">
-                <a href="../index.html"
-                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
-                <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
-                    sommes-nous ?</a>
-                <a href="membres.html"
-                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Espace</a>
-                <a href="actualites.html"
-                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
-                <a href="galerie.html"
-                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Galerie</a>
-                <a href="auth.html"
-                    class="auth-login-link hidden text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Se
-                    connecter</a>
-                <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
-                    membre</a>
-                <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
-                <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
-            </div>
-        </div>
-    </nav>
+    function getInitials(name = 'Membre') {
+      const parts = String(name).trim().split(/\s+/).filter(Boolean);
+      const initials = parts.slice(0, 2).map(part => part[0] || '').join('');
+      return (initials || 'GM').toUpperCase();
+    }
 
-    <!-- MAIN CONTENT -->
-    <main class="py-16">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="profile-container">
-                <!-- Sidebar -->
-                <div class="profile-sidebar">
-                    <div class="stat-box">
-                        <div class="profile-avatar" id="profile-avatar">?</div>
-                        <div class="text-center">
-                            <h2 class="font-display font-semibold text-lg text-navy mb-1" id="profile-name">
-                                Chargement...</h2>
-                            <p class="text-sm text-slate-500" id="profile-role">Membre GREC</p>
-                        </div>
-                    </div>
+    function setAvatar(photoEl, initialsEl, name, photoURL) {
+      initialsEl.textContent = getInitials(name);
+      if (photoURL) {
+        photoEl.src = photoURL;
+        photoEl.style.display = 'block';
+        initialsEl.style.display = 'none';
+      } else {
+        photoEl.removeAttribute('src');
+        photoEl.style.display = 'none';
+        initialsEl.style.display = 'block';
+      }
+    }
 
-                    <div class="mt-6 space-y-4">
-                        <div class="stat-box">
-                            <div class="value" id="stat-events">0</div>
-                            <div class="label">Événements</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="value" id="stat-connections">0</div>
-                            <div class="label">Connexions</div>
-                        </div>
-                    </div>
+    function safeText(value, fallback = '-') {
+      const text = String(value || '').trim();
+      return text || fallback;
+    }
 
-                    <div class="mt-8">
-                        <a href="membres.html" class="btn btn-gold w-full">Retour à l'espace</a>
-                    </div>
-                </div>
+    function formatDate(value) {
+      if (!value) return '-';
+      const date = value.toDate ? value.toDate() : new Date(value);
+      if (Number.isNaN(date.getTime())) return '-';
+      return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
 
-                <!-- Main content -->
-                <div class="profile-content">
-                    <!-- Section: Information -->
-                    <div class="bg-white rounded-lg border border-slate-200 p-6 mb-6">
-                        <span class="label">Informations générales</span>
-                        <div class="grid md:grid-cols-2 gap-6 mt-4">
-                            <div>
-                                <div class="label">Nom complet</div>
-                                <div class="field-value" id="field-nom">Chargement...</div>
-                            </div>
-                            <div>
-                                <div class="label">Secteur d'activité</div>
-                                <div class="field-value" id="field-secteur">Chargement...</div>
-                            </div>
-                            <div>
-                                <div class="label">Pays</div>
-                                <div class="field-value" id="field-pays">Chargement...</div>
-                            </div>
-                            <div>
-                                <div class="label">Poste actuel</div>
-                                <div class="field-value" id="field-poste">Chargement...</div>
-                            </div>
-                            <div>
-                                <div class="label">Organisation</div>
-                                <div class="field-value" id="field-organisation">Chargement...</div>
-                            </div>
-                            <div>
-                                <div class="label">Domaines d'expertise</div>
-                                <div class="field-value" id="field-expertises">Chargement...</div>
-                            </div>
-                        </div>
-                    </div>
+    function hideSensitiveLinks() {
+      if (els.editLink) els.editLink.classList.add('hidden');
+      if (els.chatLink) els.chatLink.classList.add('hidden');
+    }
 
-                    <!-- Section: Biographie -->
-                    <div class="bg-white rounded-lg border border-slate-200 p-6 mb-6">
-                        <span class="label">Biographie</span>
-                        <div class="field-value mt-4" id="field-bio">Chargement...</div>
-                    </div>
+    function renderProfile(doc, user) {
+      const data = doc || {};
+      const visible = data.publicProfileEnabled !== false;
+      const name = data.nom || user?.displayName || user?.email || 'Membre';
+      const photoURL = data.showPhoto === false ? '' : (data.photoURL || data.photoDataURL || user?.photoURL || '');
+      const secteur = data.secteur || 'Membre';
+      const location = data.showLocation === false
+        ? 'Masqué'
+        : [data.ville, data.pays].filter(Boolean).join(', ') || 'Non renseignée';
+      const bio = data.showBio === false
+        ? 'Bio masquée par ce membre.'
+        : (data.bio || 'Aucune bio publique pour le moment.');
 
-                    <!-- Section: Coordonnées publiques -->
-                    <div class="bg-white rounded-lg border border-slate-200 p-6 mb-6">
-                        <span class="label">Coordonnées publiques</span>
-                        <div class="grid md:grid-cols-2 gap-6 mt-4">
-                            <div>
-                                <div class="label">E-mail professionnel</div>
-                                <div class="field-value" id="field-email">Non renseigné</div>
-                            </div>
-                            <div>
-                                <div class="label">Profil LinkedIn</div>
-                                <div class="field-value" id="field-linkedin">Non renseigné</div>
-                            </div>
-                        </div>
-                    </div>
+      setAvatar(els.photo, els.initials, name, photoURL);
+      els.title.textContent = name;
+      els.name.textContent = name;
+      els.poste.textContent = data.poste || data.secteur || 'Membre du réseau GREC';
+      els.subtitle.textContent = visible
+        ? 'Profil public visible par les membres du réseau.'
+        : 'Ce membre a rendu son profil public invisible.';
+      els.status.textContent = visible ? 'Profil public visible' : 'Profil public masqué';
+      els.visibilityPill.textContent = visible ? 'Visible' : 'Masqué';
+      els.sector.textContent = secteur;
+      els.location.textContent = location;
+      els.bio.textContent = bio;
+      els.since.textContent = formatDate(data.createdAt);
+      els.accountState.textContent = data.statut || 'actif';
 
-                    <!-- Section: Membre depuis -->
-                    <div class="bg-white rounded-lg border border-slate-200 p-6">
-                        <span class="label">Membre depuis</span>
-                        <div class="field-value mt-4" id="field-depuis">Chargement...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+      els.badges.innerHTML = '';
+      const badges = [];
+      if (data.secteur) badges.push(data.secteur);
+      if (data.showLocation !== false && (data.pays || data.ville)) badges.push([data.ville, data.pays].filter(Boolean).join(' · '));
+      badges.push(visible ? 'Profil public' : 'Privé');
+      badges.forEach(text => {
+        const badge = document.createElement('span');
+        badge.className = 'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-white border border-slate-200 text-slate-700 shadow-sm';
+        badge.textContent = text;
+        els.badges.appendChild(badge);
+      });
 
-    <!-- FOOTER -->
-    <footer class="bg-navy text-white py-12">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <div class="brand-lockup flex items-center gap-3 mb-4">
-                        <img src="../assets/images/logo.png" alt="GREC" class="h-8 w-auto"
-                            onerror="this.style.display='none'" />
-                        <div>
-                            <div class="brand-title font-display font-bold text-lg text-white">GREC</div>
-                            <div class="logo-subtitle text-xs text-white/50">Bénin · Diaspora</div>
-                        </div>
-                    </div>
-                    <p class="text-white/70 text-sm leading-relaxed">
-                        Le réseau des entrepreneurs béninois et de la diaspora. Connectons-nous pour innover et réussir
-                        ensemble.
-                    </p>
-                </div>
+      const isOwner = Boolean(user && (
+        (state.uid && user.uid === state.uid) ||
+        (data.email && user.email && data.email === user.email) ||
+        (data.slug && data.slug === slugify(user.displayName || ''))
+      ));
 
-                <div>
-                    <h3 class="font-display font-semibold text-white mb-4">Navigation</h3>
-                    <ul class="space-y-2">
-                        <li><a href="../index.html"
-                                class="text-white/50 hover:text-gold text-sm transition-colors">Accueil</a></li>
-                        <li><a href="about.html" class="text-white/50 hover:text-gold text-sm transition-colors">Qui
-                                sommes-nous ?</a></li>
-                        <li><a href="membres.html"
-                                class="text-white/50 hover:text-gold text-sm transition-colors">Espace</a></li>
-                        <li><a href="actualites.html"
-                                class="text-white/50 hover:text-gold text-sm transition-colors">Actualités</a></li>
-                        <li><a href="galerie.html"
-                                class="text-white/50 hover:text-gold text-sm transition-colors">Galerie</a></li>
-                    </ul>
-                </div>
+      if (isOwner) {
+        els.editLink.classList.remove('hidden');
+        els.chatLink.href = 'chat.html';
+      } else {
+        els.editLink.classList.add('hidden');
+        els.chatLink.href = `chat.html${state.uid ? `?with=${encodeURIComponent(state.uid)}` : ''}`;
+        if (user) {
+          els.chatLink.classList.remove('hidden');
+        }
+      }
 
-                <div>
-                    <h3 class="font-display font-semibold text-white mb-4">Contact</h3>
-                    <ul class="space-y-2">
-                        <li><a href="mailto:d.boris@grec.group"
-                                class="text-white/50 hover:text-gold text-sm transition-colors">d.boris@grec.group</a>
-                        </li>
-                    </ul>
-                </div>
+      if (!visible) {
+        els.subtitle.textContent = 'Profil limité aux informations publiques choisies par ce membre.';
+      }
+    }
 
-                <div>
-                    <h3 class="font-display font-semibold text-white mb-4">Devenir membre</h3>
-                    <p class="text-white/70 text-sm mb-4">
-                        Rejoignez notre réseau d'entrepreneurs congolais et bénéficiez d'opportunités uniques.
-                    </p>
-                    <a href="auth.html?tab=register" class="btn btn-gold">Demander mon adhésion ?</a>
-                </div>
-            </div>
+    async function loadByUid(uid) {
+      const snap = await db.collection(COLLECTIONS.MEMBRES).doc(uid).get();
+      return snap.exists ? snap.data() : null;
+    }
 
-            <div class="border-t border-white/10 mt-8 pt-8 text-center">
-                <p class="text-white/30 text-xs">© 2025 GREC · Tous droits réservés</p>
-            </div>
-        </div>
-    </footer>
+    async function loadByName(nameValue) {
+      const snap = await db.collection(COLLECTIONS.MEMBRES).get();
+      const target = String(nameValue || '').trim().toLowerCase();
+      let found = null;
+      snap.forEach(doc => {
+        if (found) return;
+        const data = doc.data() || {};
+        const candidate = String(data.nom || '').trim().toLowerCase();
+        const candidateSlug = slugify(data.nom || '');
+        const storedSlug = String(data.slug || '').trim().toLowerCase();
+        const requestedSlug = slugify(nameValue || '').toLowerCase();
+        if (candidate === target || candidateSlug === requestedSlug || storedSlug === requestedSlug) {
+          found = data;
+        }
+      });
+      return found;
+    }
 
-    <!-- Firebase -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
-        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+    async function resolveProfile() {
+      const params = new URLSearchParams(window.location.search);
+      const uid = (params.get('uid') || '').trim();
+      const name = (params.get('name') || params.get('member') || '').trim();
+      state.uid = uid || null;
+      state.nameQuery = name;
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyD5QwGjN0iMQ7f9j1Z0Z0Z0Z0Z0Z0Z0Z0Z0",
-            authDomain: "grec-benin.firebaseapp.com",
-            projectId: "grec-benin",
-            storageBucket: "grec-benin.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef123456"
-        };
+      let data = null;
+      if (uid) {
+        data = await loadByUid(uid);
+      }
+      if (!data && name) {
+        data = await loadByName(name);
+      }
+      return data;
+    }
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+    function cacheElements() {
+      els.title = document.getElementById('public-title');
+      els.subtitle = document.getElementById('public-subtitle');
+      els.status = document.getElementById('public-status');
+      els.photo = document.getElementById('public-photo');
+      els.initials = document.getElementById('public-initials');
+      els.name = document.getElementById('public-name');
+      els.poste = document.getElementById('public-poste');
+      els.badges = document.getElementById('public-badges');
+      els.visibilityPill = document.getElementById('public-visibility-pill');
+      els.sector = document.getElementById('public-sector');
+      els.location = document.getElementById('public-location');
+      els.bio = document.getElementById('public-bio');
+      els.since = document.getElementById('public-since');
+      els.accountState = document.getElementById('public-account-state');
+      els.editLink = document.getElementById('public-edit-link');
+      els.chatLink = document.getElementById('public-chat-link');
+    }
 
-        // Auth state
-        onAuthStateChanged(auth, (user) => {
-            const loginLinks = document.querySelectorAll('.auth-login-link');
-            const registerLinks = document.querySelectorAll('.auth-register-link');
-            const memberLinks = document.querySelectorAll('.auth-member-link');
-            const chatLinks = document.querySelectorAll('.auth-chat-link');
+    cacheElements();
 
-            if (user) {
-                loginLinks.forEach(link => link.classList.add('hidden'));
-                registerLinks.forEach(link => link.classList.add('hidden'));
-                memberLinks.forEach(link => link.classList.remove('hidden'));
-                chatLinks.forEach(link => link.classList.remove('hidden'));
-            } else {
-                loginLinks.forEach(link => link.classList.remove('hidden'));
-                registerLinks.forEach(link => link.classList.remove('hidden'));
-                memberLinks.forEach(link => link.classList.add('hidden'));
-                chatLinks.forEach(link => link.classList.add('hidden'));
-            }
-        });
-
-        function formatNameFromSlug(slug) {
-            return String(slug || '')
-                .replace(/[-_]+/g, ' ')
-                .split(' ')
-                .filter(Boolean)
-                .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-                .join(' ');
+    auth.onAuthStateChanged(async (user) => {
+      try {
+        const data = await resolveProfile();
+        if (!data) {
+          els.title.textContent = 'Profil introuvable';
+          els.subtitle.textContent = 'Aucun membre ne correspond à cette recherche.';
+          els.status.textContent = 'Aucun résultat';
+          els.name.textContent = 'Introuvable';
+          els.poste.textContent = '-';
+          els.bio.textContent = 'Vérifie le nom recherché ou retourne à la communauté.';
+          els.sector.textContent = '-';
+          els.location.textContent = '-';
+          els.since.textContent = '-';
+          els.accountState.textContent = '-';
+          els.badges.innerHTML = '';
+          hideSensitiveLinks();
+          return;
         }
 
-        // Load member profile from URL params
-        function loadMemberProfile() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const memberSlug = urlParams.get('member');
-            const memberName = urlParams.get('name');
-            const secteur = urlParams.get('secteur');
-            const pays = urlParams.get('pays');
-            const poste = urlParams.get('poste');
-            const organisation = urlParams.get('organisation');
-            const expertises = urlParams.get('expertises');
-            const email = urlParams.get('email');
-            const linkedin = urlParams.get('linkedin');
-            const bio = urlParams.get('bio');
-            const depuis = urlParams.get('depuis');
-
-            const displayName = memberName || formatNameFromSlug(memberSlug) || 'Membre GREC';
-            document.getElementById('profile-name').textContent = displayName;
-            document.getElementById('profile-avatar').textContent = displayName.charAt(0).toUpperCase();
-
-            document.getElementById('field-secteur').textContent = secteur || 'Non renseigné';
-            document.getElementById('field-pays').textContent = pays || 'Non renseigné';
-            document.getElementById('field-poste').textContent = poste || 'Non renseigné';
-            document.getElementById('field-organisation').textContent = organisation || 'Non renseigné';
-            document.getElementById('field-expertises').textContent = expertises || 'Non renseigné';
-            document.getElementById('field-email').textContent = email || 'Non renseigné';
-            document.getElementById('field-linkedin').innerHTML = linkedin ? `<a href="${escapeHTML(linkedin)}" target="_blank" rel="noopener">${escapeHTML(linkedin)}</a>` : 'Non renseigné';
-            document.getElementById('field-bio').textContent = bio || 'Aucune description publique n’est disponible.';
-            document.getElementById('field-depuis').textContent = depuis || 'Date de membre non précisée';
-
-            // Placeholder stats
-            document.getElementById('stat-events').textContent = '1';
-            document.getElementById('stat-connections').textContent = '1';
+        state.data = data;
+        renderProfile(data, user);
+        const isOwner = Boolean(user && (
+          (state.uid && user.uid === state.uid) ||
+          (state.data && state.data.email && user.email && state.data.email === user.email) ||
+          (state.data && state.data.slug && state.data.slug === slugify(user.displayName || ''))
+        ));
+        if (isOwner) {
+          els.editLink.classList.remove('hidden');
+          els.editLink.href = 'profil.html';
         }
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-                navbar.classList.remove('transparent');
-            } else {
-                navbar.classList.remove('scrolled');
-                navbar.classList.add('transparent');
-            }
-        });
-
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        window.toggleMobileMenu = toggleMobileMenu;
-
-        // Load profile on page load
-        loadMemberProfile();
-    </script>
+      } catch (err) {
+        els.title.textContent = 'Erreur de chargement';
+        els.subtitle.textContent = 'Impossible de charger ce profil public pour le moment.';
+        els.status.textContent = err.message || 'Erreur inconnue';
+        hideSensitiveLinks();
+      }
+    });
+  </script>
 </body>
 
 </html>

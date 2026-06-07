@@ -1,1190 +1,777 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mon profil — GREC Bénin</title>
-    <meta name="description" content="Gérez votre profil et vos paramètres au sein du réseau GREC." />
-    <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
-        rel="stylesheet" />
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#C8893A', 'gold-light': '#E5A84B',
-                        navy: '#0D1B2A', 'navy-mid': '#1A2E42',
-                        cream: '#F2EDE3', 'off-white': '#F8F5EF',
-                    },
-                    fontFamily: {
-                        display: ['"Playfair Display"', 'Georgia', 'serif'],
-                        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
-                    }
-                }
-            }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon profil - GREC Bénin</title>
+  <meta name="description" content="Gérer votre profil membre GREC." />
+  <link rel="icon" href="../Assets/images/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#C8893A',
+            'gold-light': '#E5A84B',
+            navy: '#0D1B2A',
+            'navy-mid': '#1A2E42',
+            cream: '#F2EDE3',
+            'off-white': '#F8F5EF',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          }
         }
-    </script>
-    <link rel="stylesheet" href="../css/style.css" />
-
-    <style>
-        .profile-container {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 32px;
-        }
-
-        @media (max-width: 768px) {
-            .profile-container {
-                grid-template-columns: 1fr;
-            }
-
-            .profile-sidebar {
-                position: static;
-                top: auto;
-            }
-
-            .profile-sidebar .stat-card {
-                display: none;
-            }
-        }
-
-        .profile-sidebar {
-            background: #F8F5EF;
-            border-radius: 12px;
-            padding: 24px;
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #C8893A, #E5A84B);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 48px;
-            font-weight: 600;
-            margin: 0 auto 16px;
-            box-shadow: 0 4px 12px rgba(200, 137, 58, 0.2);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .profile-avatar:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(200, 137, 58, 0.3);
-        }
-
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .avatar-upload-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            color: white;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .profile-avatar:hover .avatar-upload-overlay {
-            opacity: 1;
-        }
-
-        .profile-sidebar h2 {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            font-size: 18px;
-            font-weight: 600;
-            color: #0D1B2A;
-            margin-bottom: 4px;
-        }
-
-        .profile-sidebar .role {
-            text-align: center;
-            font-size: 13px;
-            color: #718096;
-            margin-bottom: 20px;
-        }
-
-        .profile-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 20px;
-        }
-
-        .profile-menu a,
-        .profile-menu button {
-            padding: 10px 14px;
-            border-radius: 8px;
-            background: #fff;
-            border: none;
-            color: #4A5568;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: left;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .profile-menu a:hover,
-        .profile-menu button:hover {
-            background: #fff;
-            color: #C8893A;
-        }
-
-        .profile-menu a.active {
-            background: #C8893A;
-            color: #fff;
-        }
-
-        .logout-btn {
-            background: #FEE2E2 !important;
-            color: #B91C1C !important;
-            margin-top: auto;
-        }
-
-        .logout-btn:hover {
-            background: #FECACA !important;
-        }
-
-        .profile-content {
-            background: #fff;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .content-section {
-            display: none;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: #0D1B2A;
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #E2E8F0;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #0D1B2A;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 11px 14px;
-            border: 1.5px solid #E2E8F0;
-            border-radius: 8px;
-            font-family: 'DM Sans', system-ui, sans-serif;
-            font-size: 14px;
-            color: #0D1B2A;
-            transition: border-color 0.2s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #C8893A;
-            box-shadow: 0 0 0 3px rgba(200, 137, 58, 0.1);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .btn-save {
-            background: #C8893A;
-            color: #fff;
-            padding: 12px 32px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-top: 20px;
-        }
-
-        .btn-save:hover {
-            background: #B47A2C;
-            transform: translateY(-1px);
-        }
-
-        .btn-save:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .stat-card {
-            background: #F8F5EF;
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .stat-card .number {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: #C8893A;
-            display: block;
-        }
-
-        .stat-card .label {
-            font-size: 12px;
-            color: #718096;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .section-expander {
-            display: none;
-            width: 100%;
-            border: 1px solid #E2E8F0;
-            border-radius: 16px;
-            background: #fff;
-            color: #0D1B2A;
-            font-weight: 600;
-            padding: 18px 20px;
-            cursor: pointer;
-            text-align: left;
-            transition: background 0.2s ease, border-color 0.2s ease;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .section-expander:hover {
-            border-color: #C8893A;
-            background: rgba(200, 137, 58, 0.08);
-        }
-
-        .section-expander.active {
-            background: #C8893A;
-            color: #fff;
-            border-color: #C8893A;
-        }
-
-        .section-expander svg {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.25s ease;
-            flex-shrink: 0;
-        }
-
-        .section-expander.active svg {
-            transform: rotate(180deg);
-        }
-
-        .section-inner {
-            display: block;
-            padding: 20px;
-            padding-top: 16px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 14px;
-            color: #0D1B2A;
-            cursor: pointer;
-            line-height: 1.5;
-        }
-
-        .form-group input[type="checkbox"] {
-            margin-top: 3px;
-            flex-shrink: 0;
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
-        }
-
-        .form-group input[type="checkbox"]+label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            .profile-sidebar {
-                position: relative;
-                top: auto;
-                padding: 20px;
-            }
-
-            .profile-sidebar .profile-menu {
-                display: none;
-            }
-
-            .profile-sidebar .stat-card {
-                display: none;
-            }
-
-            .profile-content {
-                padding: 0;
-                background: transparent;
-                box-shadow: none;
-            }
-
-            .profile-container {
-                gap: 20px;
-            }
-
-            .content-section {
-                display: block;
-                border-radius: 18px;
-                background: #fff;
-                border: 1px solid #E2E8F0;
-                margin-bottom: 16px;
-                overflow: hidden;
-            }
-
-            .content-section:not(.active) .section-inner {
-                display: none;
-            }
-
-            .content-section.active .section-inner {
-                display: block;
-            }
-
-            .section-title {
-                display: none;
-            }
-
-            .section-expander {
-                display: flex;
-            }
-
-            .section-inner {
-                display: block;
-                padding: 18px 16px;
-                background: #fff;
-            }
-
-            .section-inner .section-title {
-                margin-bottom: 20px;
-                padding-bottom: 12px;
-                border-bottom: 1px solid #E2E8F0;
-                font-size: 16px;
-                font-weight: 600;
-                color: #0D1B2A;
-            }
-
-            .form-group {
-                margin-bottom: 18px;
-                padding: 0;
-            }
-
-            .form-group label {
-                display: flex;
-                align-items: flex-start;
-                gap: 12px;
-                font-size: 14px;
-                margin: 0;
-                line-height: 1.6;
-                padding: 0;
-            }
-
-            .form-group label span {
-                flex: 1;
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                hyphens: auto;
-            }
-
-            .form-group input[type="checkbox"] {
-                margin-top: 2px;
-                flex-shrink: 0;
-                width: 20px;
-                height: 20px;
-                cursor: pointer;
-                accent-color: #C8893A;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                font-size: 14px;
-                padding: 10px 12px;
-            }
-
-            .btn-save {
-                width: 100%;
-                padding: 12px;
-                font-size: 14px;
-            }
-
-            .section-expander {
-                padding: 14px 16px;
-                font-size: 15px;
-            }
-
-            h4 {
-                font-size: 14px;
-                margin: 16px 0 12px;
-            }
-
-            hr {
-                margin: 12px 0;
-            }
-
-            #navbar .max-w-7xl {
-                padding-left: 14px;
-                padding-right: 14px;
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
-
-            #navbar .brand-lockup img {
-                height: 32px;
-            }
-
-            #navbar .brand-title,
-            #navbar .logo-subtitle {
-                display: none;
-            }
-
-            #mobile-menu {
-                padding: 0 0 14px;
-            }
-
-            #mobile-menu a,
-            #mobile-menu .btn {
-                font-size: 14px;
-                padding: 12px 14px;
-            }
-
-            #mobile-menu-btn {
-                padding: 10px;
-            }
-        }
-    </style>
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(200, 137, 58, 0.14), transparent 28%),
+        radial-gradient(circle at top right, rgba(13, 27, 42, 0.12), transparent 24%),
+        linear-gradient(180deg, #f8f5ef 0%, #fffdf9 100%);
+    }
+
+    .profile-shell {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-shell::before,
+    .profile-shell::after {
+      content: '';
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      filter: blur(2px);
+    }
+
+    .profile-shell::before {
+      width: 260px;
+      height: 260px;
+      background: rgba(200, 137, 58, 0.12);
+      top: -110px;
+      right: -80px;
+    }
+
+    .profile-shell::after {
+      width: 180px;
+      height: 180px;
+      background: rgba(13, 27, 42, 0.06);
+      bottom: -70px;
+      left: -60px;
+    }
+
+    .profile-panel {
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(16, 32, 45, 0.08);
+      box-shadow: 0 18px 46px rgba(13, 27, 42, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .profile-avatar-frame {
+      width: 180px;
+      height: 180px;
+      border-radius: 32px;
+      padding: 8px;
+      background: linear-gradient(145deg, rgba(200, 137, 58, 0.22), rgba(26, 46, 66, 0.12));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    }
+
+    .profile-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 26px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0d1b2a, #1a2e42 52%, #c8893a);
+      color: #fff;
+      position: relative;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .profile-avatar .avatar-initials {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .profile-avatar-meta {
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .profile-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.05;
+      color: #0d1b2a;
+      font-weight: 700;
+    }
+
+    .profile-subtitle {
+      color: rgba(13, 27, 42, 0.68);
+    }
+
+    .profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border-radius: 999px;
+      padding: 0.45rem 0.85rem;
+      border: 1px solid rgba(200, 137, 58, 0.2);
+      background: rgba(200, 137, 58, 0.08);
+      color: #9a6121;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .profile-section-title {
+      font-family: 'Playfair Display', serif;
+      color: #0d1b2a;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .soft-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200, 137, 58, 0.45), transparent);
+    }
+
+    .profile-input,
+    .profile-textarea,
+    .profile-select {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(16, 32, 45, 0.14);
+      background: rgba(255, 255, 255, 0.96);
+      color: #0d1b2a;
+      padding: 0.88rem 1rem;
+      font-size: 0.95rem;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .profile-input:focus,
+    .profile-textarea:focus,
+    .profile-select:focus {
+      outline: none;
+      border-color: #c8893a;
+      box-shadow: 0 0 0 4px rgba(200, 137, 58, 0.14);
+    }
+
+    .profile-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .profile-label {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(13, 27, 42, 0.54);
+      font-weight: 700;
+      margin-bottom: 0.55rem;
+    }
+
+    .profile-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 46px;
+      border-radius: 14px;
+      padding: 0.8rem 1rem;
+      font-weight: 700;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .profile-action:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(13, 27, 42, 0.12);
+    }
+
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(16, 32, 45, 0.06);
+    }
+
+    .switch-row:last-child {
+      border-bottom: 0;
+    }
+  </style>
 </head>
 
-<body class="font-body bg-off-white text-navy">
-
-    <!-- PAGE START: Profil utilisateur -->
-    <!-- HEADER / NAVBAR -->
-    <!-- ═══════════════════ NAVBAR ═══════════════════ -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="../index.html" class="brand-lockup flex items-center gap-3">
-                <img src="../assets/images/logo.png" alt="GREC" class="h-10 object-contain"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
-                <div
-                    class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
-                    G</div>
-                <div class="hidden sm:block">
-                    <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
-                    <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
-                </div>
-            </a>
-            <div class="hidden lg:flex items-center gap-8">
-                <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
-                <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
-                <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Espace</a>
-                <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
-                <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
-            </div>
-            <div class="hidden lg:flex items-center gap-3">
-                <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
-                    membre</a>
-                <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
-                <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
-                <a href="../admin/index.html" class="auth-admin-link hidden btn btn-gold text-sm py-2 px-4">Admin</a>
-                <button onclick="logout()"
-                    class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
-            </div>
-            <button id="mobile-menu-btn"
-                class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
+<body class="font-body text-navy">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="../index.html" class="brand-lockup flex items-center gap-3">
+        <img src="../Assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+        <div
+          class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
+          G</div>
+        <div class="hidden sm:block">
+          <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+          <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
         </div>
-        <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
-            <div class="px-6 py-4 flex flex-col gap-3">
-                <a href="../index.html"
-                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
-                <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
-                    sommes-nous ?</a>
-                <a href="membres.html"
-                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Espace</a>
-                <a href="actualites.html"
-                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
-                <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
-                <div class="pt-3 flex flex-col gap-2">
-                    <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se
-                        connecter</a>
-                    <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
-                        membre</a>
-                    <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon
-                        profil</a>
-                    <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
-                    <a href="../admin/index.html"
-                        class="auth-admin-link hidden btn btn-gold text-center text-sm">Admin</a>
-                    <button onclick="logout()"
-                        class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- PAGE CONTENT -->
-    <section class="pt-32 pb-20 bg-off-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="profile-container">
-
-                <!-- SIDEBAR -->
-                <div class="profile-sidebar">
-                    <div id="profile-avatar" class="profile-avatar"
-                        onclick="document.getElementById('avatar-input').click()">
-                        👤
-                        <div class="avatar-upload-overlay">
-                            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                            Changer
-                        </div>
-                    </div>
-                    <input type="file" id="avatar-input" accept="image/*" style="display: none;"
-                        onchange="uploadAvatar(event)" />
-                    <h2 id="profile-name">Chargement...</h2>
-                    <p class="role">Membre actif</p>
-
-                    <div class="profile-menu">
-                        <a href="#" onclick="switchSection(event, 'info'); return false;" class="active">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            Mes Informations
-                        </a>
-                        <a href="#" onclick="switchSection(event, 'activity'); return false;">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                            </svg>
-                            Mon Activité
-                        </a>
-                        <a href="#" onclick="switchSection(event, 'settings'); return false;">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            </svg>
-                            Paramètres
-                        </a>
-                        <button onclick="logout()" class="logout-btn">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                            </svg>
-                            Déconnexion
-                        </button>
-                    </div>
-
-                    <div class="stat-card">
-                        <span class="number" id="stat-events">0</span>
-                        <span class="label">Événements</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="number" id="stat-connections">0</span>
-                        <span class="label">Connexions</span>
-                    </div>
-                </div>
-
-                <!-- MAIN CONTENT -->
-                <div class="profile-content">
-
-                    <!-- Section: Information -->
-                    <div id="info" class="content-section active">
-                        <button type="button" class="section-expander active" data-section="info">
-                            <span>Mes Informations</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9" />
-                            </svg>
-                        </button>
-                        <div class="section-inner">
-                            <h3 class="section-title">Mes Informations</h3>
-                            <form id="info-form" onsubmit="saveProfile(event)">
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label>Nom complet</label>
-                                        <input type="text" id="field-nom" required />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="email" id="field-email" required />
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label>Entreprise</label>
-                                        <input type="text" id="field-entreprise"
-                                            placeholder="Nom de votre entreprise" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Poste occupé</label>
-                                        <input type="text" id="field-poste" placeholder="Votre poste actuel" />
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label>Secteur d'activité</label>
-                                        <select id="field-secteur">
-                                            <option value="">Sélectionner</option>
-                                            <option value="Commerce">Commerce</option>
-                                            <option value="Technologie">Technologie</option>
-                                            <option value="Services">Services</option>
-                                            <option value="Santé">Santé</option>
-                                            <option value="Éducation">Éducation</option>
-                                            <option value="Industrie">Industrie</option>
-                                            <option value="Autre">Autre</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Téléphone</label>
-                                        <input type="tel" id="field-telephone" />
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label>Pays</label>
-                                        <input type="text" id="field-pays" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>LinkedIn</label>
-                                        <input type="url" id="field-linkedin"
-                                            placeholder="https://linkedin.com/in/..." />
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label>Domaines d'expertise</label>
-                                        <input type="text" id="field-expertises"
-                                            placeholder="Marketing, finance, export, innovation..." />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Site web / portfolio</label>
-                                        <input type="url" id="field-siteweb" placeholder="https://monsite.com" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Biographie</label>
-                                    <textarea id="field-bio" rows="5"
-                                        placeholder="Parlez-nous de vous et vos activités..."></textarea>
-                                </div>
-
-                                <button type="submit" class="btn-save">Enregistrer les modifications</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Section: Activité -->
-                    <div id="activity" class="content-section">
-                        <button type="button" class="section-expander" data-section="activity">
-                            <span>Mon Activité</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9" />
-                            </svg>
-                        </button>
-                        <div class="section-inner">
-                            <h3 class="section-title">Mon Activité</h3>
-                            <div id="activity-list" class="space-y-4">
-                                <p class="text-slate-500 text-sm">Votre activité récente apparaîtra ici.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section: Paramètres -->
-                    <div id="settings" class="content-section">
-                        <button type="button" class="section-expander" data-section="settings">
-                            <span>Paramètres</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9" />
-                            </svg>
-                        </button>
-                        <div class="section-inner">
-                            <h3 class="section-title">Paramètres</h3>
-
-                            <div class="form-group">
-                                <label for="notif-email">
-                                    <input type="checkbox" id="notif-email" checked />
-                                    <span>Recevoir les emails de notification</span>
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="notif-events">
-                                    <input type="checkbox" id="notif-events" checked />
-                                    <span>M'informer des nouveaux événements</span>
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="notif-members">
-                                    <input type="checkbox" id="notif-members" checked />
-                                    <span>Recevoir les mises à jour membres</span>
-                                </label>
-                            </div>
-
-                            <hr class="my-8" />
-
-                            <h4 class="font-semibold text-navy mb-4">Sécurité</h4>
-                            <button class="btn-save" onclick="changePassword()">Changer mon mot de passe</button>
-
-                            <hr class="my-8" />
-
-                            <h4 class="font-semibold text-navy mb-4 text-red-600">Zone de danger</h4>
-                            <p class="text-sm text-slate-600 mb-4">Supprimer votre compte est irréversible.</p>
-                            <button class="btn-save" style="background: #B91C1C; padding: 8px 16px;"
-                                onclick="deleteAccount()">Supprimer mon compte</button>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-    </section>
-
-    <!-- Toast container -->
-    <div id="toast-container"></div>
-
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/utils.js"></script>
-
-    <script>
-        let currentUser = null;
-        let isPublicMemberView = false;
-
-        function getMemberFromQuery() {
-            const params = new URLSearchParams(window.location.search);
-            const name = params.get('name');
-            if (!name) return null;
-            return {
-                member: params.get('member') || '',
-                nom: name,
-                secteur: params.get('secteur') || '',
-                pays: params.get('pays') || '',
-                poste: params.get('poste') || '',
-                bio: params.get('bio') || '',
-                depuis: params.get('depuis') || '',
-            };
-        }
-
-        function setFieldSafe(id, value) {
-            const el = document.getElementById(id);
-            if (el) el.value = value || '';
-        }
-
-        function renderPublicMemberProfile(member) {
-            isPublicMemberView = true;
-            const initials = (member.nom || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-            document.getElementById('profile-name').textContent = member.nom;
-            document.querySelector('.profile-sidebar .role').textContent = member.poste || 'Membre du réseau';
-            document.getElementById('profile-avatar').textContent = initials;
-            setFieldSafe('field-nom', member.nom);
-            setFieldSafe('field-email', '');
-            setFieldSafe('field-telephone', '');
-            setFieldSafe('field-secteur', member.secteur);
-            setFieldSafe('field-entreprise', '');
-            setFieldSafe('field-poste', member.poste);
-            setFieldSafe('field-pays', member.pays);
-            setFieldSafe('field-linkedin', '');
-            setFieldSafe('field-expertises', member.expertises || '');
-            setFieldSafe('field-siteweb', member.siteweb || '');
-            setFieldSafe('field-bio', member.bio);
-            document.getElementById('stat-events').textContent = member.depuis ? '1' : '0';
-            document.getElementById('stat-connections').textContent = member.pays ? '1' : '0';
-
-            const emailField = document.getElementById('field-email');
-            if (emailField) emailField.placeholder = 'Non communiqué';
-
-            // En mode consultation membre, on bloque l'édition.
-            document.querySelectorAll('#info-form input, #info-form select, #info-form textarea').forEach(el => {
-                el.setAttribute('readonly', 'readonly');
-                el.setAttribute('disabled', 'disabled');
-            });
-            const saveBtn = document.querySelector('#info-form .btn-save');
-            if (saveBtn) saveBtn.style.display = 'none';
-        }
-
-        function switchSection(event, sectionName) {
-            if (typeof event === 'string') {
-                sectionName = event;
-                event = null;
-            }
-            event?.preventDefault();
-            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.profile-menu a').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.section-expander').forEach(el => el.classList.remove('active'));
-
-            const targetSection = document.getElementById(sectionName);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                const expander = targetSection.querySelector('.section-expander');
-                if (expander) expander.classList.add('active');
-            }
-
-            if (event && event.target) {
-                const clickedLink = event.target.closest('a');
-                if (clickedLink) clickedLink.classList.add('active');
-            }
-
-            if (window.matchMedia('(max-width: 768px)').matches) {
-                const section = document.getElementById(sectionName);
-                if (section) {
-                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
-        }
-
-        function initProfileAccordion() {
-            document.querySelectorAll('.section-expander').forEach(button => {
-                button.addEventListener('click', () => {
-                    const sectionName = button.dataset.section;
-                    switchSection(sectionName);
-                });
-            });
-        }
-
-        function renderAvatar(photoURL, initials = 'U') {
-            const avatarEl = document.getElementById('profile-avatar');
-            if (!avatarEl) return;
-            if (photoURL) {
-                const sep = photoURL.includes('?') ? '&' : '?';
-                const bust = `${photoURL}${sep}v=${Date.now()}`;
-                avatarEl.innerHTML = `
-                    <img src="${bust}" alt="Avatar" />
-                    <div class="avatar-upload-overlay">
-                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                        </svg>
-                        Changer
-                    </div>
-                `;
-            } else {
-                avatarEl.textContent = initials;
-            }
-        }
-
-        async function fileToDataUrlCompressed(file, maxSize = 420) {
-            const imageBitmap = await createImageBitmap(file);
-            const ratio = Math.min(1, maxSize / Math.max(imageBitmap.width, imageBitmap.height));
-            const w = Math.max(1, Math.round(imageBitmap.width * ratio));
-            const h = Math.max(1, Math.round(imageBitmap.height * ratio));
-            const canvas = document.createElement('canvas');
-            canvas.width = w;
-            canvas.height = h;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(imageBitmap, 0, 0, w, h);
-            return canvas.toDataURL('image/jpeg', 0.82);
-        }
-
-        async function loadProfile(forceServer = false) {
-            try {
-                const user = auth.currentUser;
-                if (!user) {
-                    window.location.href = 'auth.html';
-                    return;
-                }
-
-                currentUser = user;
-                const docRef = db.collection(COLLECTIONS.MEMBRES).doc(user.uid);
-                const docSnap = forceServer ? await docRef.get({ source: 'server' }) : await docRef.get();
-
-                if (docSnap.exists) {
-                    const data = docSnap.data();
-                    const initials = (data.nom || 'U').split(' ').map(n => n[0]).join('').toUpperCase();
-
-                    // Afficher l'avatar
-                    renderAvatar(data.photoURL || data.photoDataURL, initials);
-
-                    document.getElementById('profile-name').textContent = data.nom || 'Sans nom';
-                    document.getElementById('field-nom').value = data.nom || '';
-                    document.getElementById('field-email').value = user.email;
-                    document.getElementById('field-telephone').value = data.telephone || '';
-                    document.getElementById('field-secteur').value = data.secteur || '';
-                    document.getElementById('field-entreprise').value = data.entreprise || '';
-                    document.getElementById('field-poste').value = data.poste || '';
-                    document.getElementById('field-pays').value = data.pays || '';
-                    document.getElementById('field-linkedin').value = data.linkedIn || '';
-                    document.getElementById('field-expertises').value = data.expertises || '';
-                    document.getElementById('field-siteweb').value = data.siteweb || '';
-                    document.getElementById('field-bio').value = data.bio || '';
-                } else {
-                    const fallbackName = user.displayName || user.email?.split('@')[0] || 'Sans nom';
-                    const initials = fallbackName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                    document.getElementById('profile-name').textContent = fallbackName;
-                    renderAvatar('', initials);
-                    document.getElementById('field-nom').value = fallbackName;
-                    document.getElementById('field-email').value = user.email || '';
-                }
-            } catch (e) {
-                console.error('Erreur:', e);
-                showToast('Erreur lors du chargement du profil', 'error');
-            }
-        }
-
-        async function uploadAvatar(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const activeUser = currentUser || auth.currentUser;
-            if (!activeUser) {
-                showToast('Session expirée: reconnecte-toi puis réessaie.', 'error');
-                return;
-            }
-
-            // Vérifier la taille (max 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                showToast('Image trop grande (max 5MB)', 'error');
-                return;
-            }
-
-            // Vérifier le type
-            if (!file.type.startsWith('image/')) {
-                showToast('Veuillez sélectionner une image', 'error');
-                return;
-            }
-
-            try {
-                showToast('Upload en cours...', 'info');
-                const downloadURL = await uploadFile(file, `${STORAGE_PATHS.MEMBRES}${activeUser.uid}`);
-
-                // Mettre à jour Firestore
-                await db.collection(COLLECTIONS.MEMBRES).doc(activeUser.uid).set({
-                    photoURL: downloadURL,
-                    photoDataURL: '',
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
-                // Affichage immédiat local, même si la lecture Firestore est en retard/cachée.
-                const nomCourant = document.getElementById('field-nom')?.value || document.getElementById('profile-name')?.textContent || 'U';
-                const initials = nomCourant.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                renderAvatar(downloadURL, initials);
-                showToast('Photo de profil mise à jour !', 'success');
-                loadProfile(true); // Recharger depuis le serveur pour confirmer l'état final
-
-            } catch (error) {
-                console.error('Erreur upload:', error);
-                // Fallback si Cloudinary échoue: avatar compressé stocké dans Firestore.
-                try {
-                    const dataUrl = await fileToDataUrlCompressed(file);
-                    await db.collection(COLLECTIONS.MEMBRES).doc(activeUser.uid).set({
-                        photoDataURL: dataUrl,
-                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                    }, { merge: true });
-
-                    const nomCourant = document.getElementById('field-nom')?.value || document.getElementById('profile-name')?.textContent || 'U';
-                    const initials = nomCourant.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                    renderAvatar(dataUrl, initials);
-                    showToast('Photo enregistrée via fallback profil.', 'success');
-                } catch (fallbackErr) {
-                    showToast(`Erreur upload: ${error.message || 'inconnue'}`, 'error');
-                    console.error('Erreur fallback avatar:', fallbackErr);
-                }
-            } finally {
-                if (event && event.target) event.target.value = '';
-            }
-        }
-
-        async function saveProfile(e) {
-            e.preventDefault();
-            if (!currentUser) return;
-            if (isPublicMemberView) return;
-
-            const btn = e.target.querySelector('.btn-save');
-            const originalText = btn.textContent;
-            btn.disabled = true;
-            btn.textContent = 'Enregistrement...';
-
-            try {
-                const newEmail = document.getElementById('field-email').value.trim();
-                const currentEmail = currentUser.email;
-                let emailUpdated = true;
-
-                // Si l'email a changé, mettre à jour dans Firebase Auth
-                if (newEmail !== currentEmail) {
-                    try {
-                        await currentUser.updateEmail(newEmail);
-                        showToast('Email mis à jour ! Vérifiez votre boîte mail pour confirmer.', 'success');
-                    } catch (emailErr) {
-                        emailUpdated = false;
-                        if (emailErr.code === 'auth/requires-recent-login') {
-                            showToast('Email non modifié: reconnectez-vous puis réessayez.', 'error');
-                        } else {
-                            showToast('Email non modifié: ' + emailErr.message, 'error');
-                        }
-                    }
-                }
-
-                // Mettre à jour les autres informations dans Firestore
-                await db.collection(COLLECTIONS.MEMBRES).doc(currentUser.uid).set({
-                    nom: document.getElementById('field-nom').value.trim(),
-                    telephone: document.getElementById('field-telephone').value.trim(),
-                    secteur: document.getElementById('field-secteur').value,
-                    entreprise: document.getElementById('field-entreprise').value.trim(),
-                    poste: document.getElementById('field-poste').value.trim(),
-                    pays: document.getElementById('field-pays').value.trim(),
-                    linkedIn: document.getElementById('field-linkedin').value.trim(),
-                    expertises: document.getElementById('field-expertises').value.trim(),
-                    siteweb: document.getElementById('field-siteweb').value.trim(),
-                    bio: document.getElementById('field-bio').value.trim(),
-                    email: newEmail || currentEmail,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
-                if (emailUpdated) {
-                    showToast('Profil mis à jour avec succès !', 'success');
-                } else {
-                    showToast('Profil enregistré (sauf email).', 'info');
-                }
-                loadProfile(); // Recharger pour mettre à jour l'affichage
-            } catch (err) {
-                console.error('Erreur:', err);
-                showToast('Erreur lors de la mise à jour: ' + err.message, 'error');
-            } finally {
-                btn.disabled = false;
-                btn.textContent = originalText;
-            }
-        }
-
-        function changePassword() {
-            const newPassword = prompt('Entrez votre nouveau mot de passe:');
-            if (!newPassword) return;
-
-            auth.currentUser.updatePassword(newPassword)
-                .then(() => showToast('Mot de passe modifié !', 'success'))
-                .catch(err => showToast(err.message, 'error'));
-        }
-
-        function deleteAccount() {
-            if (!confirm('Êtes-vous vraiment sûr ? Cette action est irréversible.')) return;
-
-            auth.currentUser.delete()
-                .then(() => {
-                    showToast('Compte supprimé', 'success');
-                    setTimeout(() => window.location.href = '../index.html', 1500);
-                })
-                .catch(err => showToast(err.message, 'error'));
-        }
-
-        const memberFromQuery = getMemberFromQuery();
-        if (memberFromQuery) {
-            renderPublicMemberProfile(memberFromQuery);
-        } else {
-            auth.onAuthStateChanged(user => {
-                if (!user) {
-                    window.location.href = 'auth.html';
-                } else {
-                    loadProfile();
-                }
-            });
-        }
-
-        initNavbar();
-        initMobileMenu();
-        initProfileAccordion();
-    </script>
-
-    <!-- Floating Chat Button -->
-    <div class="fixed bottom-6 right-6 z-50">
-        <button id="floating-chat-btn"
-            class="bg-gold hover:bg-gold-light text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-gold/30"
-            aria-label="Accéder au chat">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-        </button>
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
+        <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
+        <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Notre communauté</a>
+        <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
+        <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+        <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
+        <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
+        <button onclick="logout()"
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+      </div>
+      <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
     </div>
+    <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+        <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
+          sommes-nous ?</a>
+        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Notre
+          communauté</a>
+        <a href="actualites.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+        <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+        <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
+        <div class="pt-3 flex flex-col gap-2">
+          <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
+          <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
+          <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
+          <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
+          <button onclick="logout()"
+            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-    <script>
-        // Floating chat button functionality
-        document.getElementById('floating-chat-btn').addEventListener('click', function () {
-            window.location.href = 'chat.html';
+  <main class="profile-shell pt-32 pb-14">
+    <section class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+        <div>
+          <span class="profile-badge mb-3">Espace membre</span>
+          <h1 class="font-display text-4xl md:text-5xl font-semibold text-navy leading-tight">Mon profil</h1>
+          <p class="text-slate-600 mt-3 max-w-2xl">
+            Renseigne ici tes informations de membre. Elles seront enregistrées dans Firestore et pourront alimenter
+            ton profil public visible dans la communauté.
+          </p>
+        </div>
+        <div class="profile-panel px-5 py-4 max-w-xl">
+          <p class="text-xs uppercase tracking-[0.2em] text-slate-500 font-semibold">Statut de session</p>
+          <p id="profile-session-state" class="mt-2 text-sm text-slate-700">Vérification du compte en cours...</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 xl:grid-cols-[360px_minmax(0,1fr)] gap-6 items-start">
+        <aside class="profile-panel p-6 md:p-8">
+          <div class="flex flex-col items-center text-center">
+            <div class="profile-avatar-frame">
+              <div class="profile-avatar">
+                <img id="profile-photo" alt="Photo de profil" />
+                <span id="profile-initials" class="avatar-initials">GM</span>
+              </div>
+            </div>
+
+            <div class="profile-avatar-meta">
+              <div id="profile-name" class="profile-name">Chargement...</div>
+              <p id="profile-role" class="profile-subtitle mt-2">Membre du réseau GREC</p>
+            </div>
+
+            <div id="profile-badges" class="flex flex-wrap justify-center gap-2 mt-5"></div>
+          </div>
+
+          <div class="soft-divider my-7"></div>
+
+          <div class="space-y-3">
+            <a href="profil-public.html" class="profile-action btn btn-outline w-full">Voir mon profil public</a>
+            <a href="chat.html" class="profile-action btn btn-gold w-full">Ouvrir la messagerie</a>
+            <button type="button" onclick="logout()" class="profile-action w-full text-slate-700 border border-slate-200 bg-white">
+              Déconnexion
+            </button>
+          </div>
+        </aside>
+
+        <section class="space-y-6">
+          <form id="profile-form" class="profile-panel p-6 md:p-8 space-y-7">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+              <div>
+                <h2 class="profile-section-title">Modifier mes informations</h2>
+                <p class="text-slate-600 text-sm mt-2 max-w-2xl">
+                  Les champs visibles publiquement servent à la recherche dans la communauté. Les autres restent dans
+                  ta fiche privée.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span id="profile-save-state" class="profile-badge">Aucune modification</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="md:col-span-2">
+                <label class="profile-label" for="profile-name-input">Nom complet</label>
+                <input id="profile-name-input" class="profile-input" type="text" placeholder="Ex. Aïssatou Kéïta" />
+              </div>
+              <div>
+                <label class="profile-label" for="profile-poste-input">Poste / fonction</label>
+                <input id="profile-poste-input" class="profile-input" type="text" placeholder="Ex. Fondatrice, CEO..." />
+              </div>
+              <div>
+                <label class="profile-label" for="profile-sector-input">Secteur</label>
+                <input id="profile-sector-input" class="profile-input" type="text" placeholder="Ex. Commerce, Tech..." />
+              </div>
+              <div>
+                <label class="profile-label" for="profile-phone-input">Téléphone</label>
+                <input id="profile-phone-input" class="profile-input" type="tel" placeholder="+229..." />
+              </div>
+              <div>
+                <label class="profile-label" for="profile-email-input">Email</label>
+                <input id="profile-email-input" class="profile-input" type="email" readonly />
+              </div>
+              <div>
+                <label class="profile-label" for="profile-country-input">Pays</label>
+                <input id="profile-country-input" class="profile-input" type="text" placeholder="Ex. Bénin, France..." />
+              </div>
+              <div>
+                <label class="profile-label" for="profile-city-input">Ville</label>
+                <input id="profile-city-input" class="profile-input" type="text" placeholder="Ex. Cotonou, Paris..." />
+              </div>
+              <div class="md:col-span-2">
+                <label class="profile-label" for="profile-photo-input">Photo de profil</label>
+                <div class="flex flex-col md:flex-row gap-3">
+                  <input id="profile-photo-input" class="profile-input" type="file" accept="image/*" />
+                  <input id="profile-photo-url" class="profile-input md:max-w-xs" type="text"
+                    placeholder="URL d'image (optionnel)" />
+                </div>
+                <p class="text-xs text-slate-500 mt-2">
+                  Tu peux téléverser un fichier ou coller une URL. L'image est envoyée vers Cloudinary puis enregistrée.
+                </p>
+              </div>
+              <div class="md:col-span-2">
+                <label class="profile-label" for="profile-bio-input">Bio</label>
+                <textarea id="profile-bio-input" class="profile-textarea"
+                  placeholder="Présente-toi en quelques lignes..."></textarea>
+              </div>
+            </div>
+
+            <div class="soft-divider"></div>
+
+            <div>
+              <h3 class="profile-section-title text-xl mb-3">Paramètres de visibilité</h3>
+              <div class="profile-panel bg-white/70 border border-slate-200/80 rounded-2xl p-5 shadow-none">
+                <div class="switch-row">
+                  <div>
+                    <p class="font-semibold text-navy">Profil public activé</p>
+                    <p class="text-sm text-slate-500">Permet aux membres de retrouver ta fiche publique dans la communauté.</p>
+                  </div>
+                  <label class="inline-flex items-center cursor-pointer">
+                    <input id="profile-public-enabled" type="checkbox" class="sr-only peer" checked />
+                    <span
+                      class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+                  </label>
+                </div>
+                <div class="switch-row">
+                  <div>
+                    <p class="font-semibold text-navy">Afficher la photo</p>
+                    <p class="text-sm text-slate-500">Ta photo apparaît sur le profil public et dans la communauté.</p>
+                  </div>
+                  <label class="inline-flex items-center cursor-pointer">
+                    <input id="profile-show-photo" type="checkbox" class="sr-only peer" checked />
+                    <span
+                      class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+                  </label>
+                </div>
+                <div class="switch-row">
+                  <div>
+                    <p class="font-semibold text-navy">Afficher la bio</p>
+                    <p class="text-sm text-slate-500">Ta présentation peut aider les autres à te découvrir plus vite.</p>
+                  </div>
+                  <label class="inline-flex items-center cursor-pointer">
+                    <input id="profile-show-bio" type="checkbox" class="sr-only peer" checked />
+                    <span
+                      class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+                  </label>
+                </div>
+                <div class="switch-row">
+                  <div>
+                    <p class="font-semibold text-navy">Afficher la localisation</p>
+                    <p class="text-sm text-slate-500">Ville et pays peuvent apparaître dans les résultats publics.</p>
+                  </div>
+                  <label class="inline-flex items-center cursor-pointer">
+                    <input id="profile-show-location" type="checkbox" class="sr-only peer" checked />
+                    <span
+                      class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button id="profile-save-btn" type="submit" class="profile-action btn btn-gold flex-1">Enregistrer les changements</button>
+              <button id="profile-reset-btn" type="button" class="profile-action btn btn-outline flex-1">Réinitialiser</button>
+            </div>
+          </form>
+
+          <section class="profile-panel p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+              <div>
+                <h2 class="profile-section-title">Aperçu public</h2>
+                <p class="text-slate-600 text-sm mt-2">
+                  C’est la version visible par les autres membres lorsqu’ils cherchent ton nom dans la communauté.
+                </p>
+              </div>
+              <a href="profil-public.html" id="profile-preview-link" class="profile-action btn btn-outline">Ouvrir la vue publique</a>
+            </div>
+
+            <div class="soft-divider my-6"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] gap-6 items-start">
+              <div class="flex flex-col items-center text-center">
+                <div class="profile-avatar-frame w-[240px] h-[240px] max-w-full">
+                  <div class="profile-avatar">
+                    <img id="preview-photo" alt="Aperçu public" />
+                    <span id="preview-initials" class="avatar-initials">GM</span>
+                  </div>
+                </div>
+                <div class="profile-avatar-meta">
+                  <div id="preview-name" class="profile-name text-2xl">Ton nom public</div>
+                  <p id="preview-poste" class="profile-subtitle mt-2">Ton poste public</p>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="flex flex-wrap gap-2" id="preview-badges"></div>
+                <p id="preview-bio" class="text-slate-600 leading-relaxed">
+                  Ta bio publique apparaîtra ici.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="profile-info-value rounded-2xl border border-slate-200 bg-white/80 p-4">
+                    <span class="block text-xs uppercase tracking-[0.16em] text-slate-400 font-bold mb-2">Secteur</span>
+                    <span id="preview-sector" class="font-semibold text-navy">-</span>
+                  </div>
+                  <div class="profile-info-value rounded-2xl border border-slate-200 bg-white/80 p-4">
+                    <span class="block text-xs uppercase tracking-[0.16em] text-slate-400 font-bold mb-2">Localisation</span>
+                    <span id="preview-location" class="font-semibold text-navy">-</span>
+                  </div>
+                </div>
+                <div class="profile-info-value rounded-2xl border border-slate-200 bg-white/80 p-4">
+                  <span class="block text-xs uppercase tracking-[0.16em] text-slate-400 font-bold mb-2">Visibilité</span>
+                  <span id="preview-visibility" class="font-semibold text-navy">Profil public activé</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast-container"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>
+    const profileState = {
+      uid: null,
+      photoURL: '',
+      loaded: false,
+      saving: false
+    };
+
+    const els = {};
+
+    function getInitials(name = 'Membre') {
+      const parts = String(name).trim().split(/\s+/).filter(Boolean);
+      const initials = parts.slice(0, 2).map(part => part[0] || '').join('');
+      return (initials || 'GM').toUpperCase();
+    }
+
+    function setAvatar(photoEl, initialsEl, name, photoURL) {
+      initialsEl.textContent = getInitials(name);
+      if (photoURL) {
+        photoEl.src = photoURL;
+        photoEl.style.display = 'block';
+        initialsEl.style.display = 'none';
+      } else {
+        photoEl.removeAttribute('src');
+        photoEl.style.display = 'none';
+        initialsEl.style.display = 'block';
+      }
+    }
+
+    function safeText(value, fallback = '-') {
+      const text = String(value || '').trim();
+      return text || fallback;
+    }
+
+    function setDirtyState(isDirty) {
+      els.saveState.textContent = isDirty ? 'Modifications en attente' : 'Aucune modification';
+      els.saveState.style.background = isDirty ? 'rgba(200, 137, 58, 0.12)' : '';
+      els.saveState.style.color = isDirty ? '#9a6121' : '';
+    }
+
+    function currentFormData() {
+      return {
+        nom: els.nameInput.value.trim(),
+        poste: els.posteInput.value.trim(),
+        secteur: els.sectorInput.value.trim(),
+        telephone: els.phoneInput.value.trim(),
+        email: els.emailInput.value.trim(),
+        pays: els.countryInput.value.trim(),
+        ville: els.cityInput.value.trim(),
+        bio: els.bioInput.value.trim(),
+        photoURL: profileState.photoURL || els.photoUrlInput.value.trim(),
+        publicProfileEnabled: els.publicEnabled.checked,
+        showPhoto: els.showPhoto.checked,
+        showBio: els.showBio.checked,
+        showLocation: els.showLocation.checked,
+        slug: slugify(els.nameInput.value || 'membre'),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+    }
+
+    function updatePreview() {
+      const data = currentFormData();
+      const name = data.nom || 'Ton nom public';
+      const photoURL = data.showPhoto ? data.photoURL : '';
+      setAvatar(els.previewPhoto, els.previewInitials, name, photoURL);
+      els.profileName.textContent = name;
+      els.profileRole.textContent = data.poste || data.secteur || 'Membre du réseau GREC';
+      els.previewName.textContent = name;
+      els.previewPoste.textContent = data.poste || 'Ton poste public';
+      els.previewSector.textContent = data.secteur || '-';
+      els.previewLocation.textContent = data.showLocation
+        ? [data.ville, data.pays].filter(Boolean).join(', ') || '-'
+        : 'Masqué';
+      els.previewBio.textContent = data.showBio
+        ? (data.bio || 'Ta bio publique apparaîtra ici.')
+        : 'Bio masquée dans le profil public.';
+      els.previewVisibility.textContent = data.publicProfileEnabled
+        ? 'Profil public activé'
+        : 'Profil public masqué';
+      els.previewBadges.innerHTML = '';
+      const badges = [];
+      if (data.secteur) badges.push(data.secteur);
+      if (data.showLocation && (data.ville || data.pays)) badges.push([data.ville, data.pays].filter(Boolean).join(' · '));
+      badges.push(data.publicProfileEnabled ? 'Visible dans la communauté' : 'Profil masqué');
+      badges.forEach(text => {
+        const badge = document.createElement('span');
+        badge.className = 'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-white border border-slate-200 text-slate-700 shadow-sm';
+        badge.textContent = text;
+        els.previewBadges.appendChild(badge);
+      });
+    }
+
+    function populateForm(doc, user) {
+      const data = doc || {};
+      profileState.photoURL = data.photoURL || data.photoDataURL || user.photoURL || '';
+      els.nameInput.value = data.nom || user.displayName || '';
+      els.posteInput.value = data.poste || '';
+      els.sectorInput.value = data.secteur || '';
+      els.phoneInput.value = data.telephone || '';
+      els.emailInput.value = data.email || user.email || '';
+      els.countryInput.value = data.pays || '';
+      els.cityInput.value = data.ville || '';
+      els.bioInput.value = data.bio || '';
+      els.photoUrlInput.value = profileState.photoURL;
+      els.publicEnabled.checked = data.publicProfileEnabled !== false;
+      els.showPhoto.checked = data.showPhoto !== false;
+      els.showBio.checked = data.showBio !== false;
+      els.showLocation.checked = data.showLocation !== false;
+      setAvatar(els.avatarPhoto, els.avatarInitials, els.nameInput.value || user.displayName || user.email, profileState.photoURL);
+      els.profileName.textContent = els.nameInput.value || user.displayName || user.email || 'Membre';
+      els.profileRole.textContent = data.poste || data.secteur || 'Membre du réseau GREC';
+      els.badges.innerHTML = '';
+      const badges = [];
+      if (data.secteur) badges.push(data.secteur);
+      if (data.pays) badges.push(data.pays);
+      if (data.publicProfileEnabled !== false) badges.push('Profil public');
+      badges.forEach(text => {
+        const badge = document.createElement('span');
+        badge.className = 'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-white border border-slate-200 text-slate-700 shadow-sm';
+        badge.textContent = text;
+        els.badges.appendChild(badge);
+      });
+      updatePreview();
+      setDirtyState(false);
+    }
+
+    async function loadProfile(user) {
+      const snap = await db.collection(COLLECTIONS.MEMBRES).doc(user.uid).get();
+      const data = snap.exists ? (snap.data() || {}) : {};
+      populateForm(data, user);
+      els.sessionState.textContent = `Connecté en tant que ${safeText(data.nom || user.displayName || user.email, 'Membre')}.`;
+      els.saveState.textContent = 'Aucune modification';
+      els.previewLink.href = `profil-public.html?uid=${encodeURIComponent(user.uid)}`;
+    }
+
+    async function handlePhotoUpload(file) {
+      if (!file) return;
+      els.saveBtn.disabled = true;
+      els.saveBtn.textContent = 'Upload de la photo...';
+      try {
+        const url = await uploadFile(file, STORAGE_PATHS.MEMBRES);
+        profileState.photoURL = url;
+        els.photoUrlInput.value = url;
+        setAvatar(els.avatarPhoto, els.avatarInitials, els.nameInput.value || 'Membre', url);
+        updatePreview();
+        setDirtyState(true);
+        showToast('Photo préparée avec succès.', 'success');
+      } catch (err) {
+        showToast(err.message || 'Upload impossible.', 'error');
+      } finally {
+        els.saveBtn.disabled = false;
+        els.saveBtn.textContent = 'Enregistrer les changements';
+      }
+    }
+
+    async function saveProfile(e) {
+      e.preventDefault();
+      if (!profileState.uid) return;
+      els.saveBtn.disabled = true;
+      els.saveBtn.textContent = 'Enregistrement...';
+      const data = currentFormData();
+      try {
+        await db.collection(COLLECTIONS.MEMBRES).doc(profileState.uid).set(data, { merge: true });
+        if (auth.currentUser) {
+          await auth.currentUser.updateProfile({
+            displayName: data.nom || auth.currentUser.displayName || '',
+            photoURL: data.photoURL || null
+          });
+        }
+        setDirtyState(false);
+        els.sessionState.textContent = `Profil enregistré pour ${safeText(data.nom, 'Membre')}.`;
+        showToast('Profil mis à jour avec succès.', 'success');
+      } catch (err) {
+        showToast(err.message || 'Enregistrement impossible.', 'error');
+      } finally {
+        els.saveBtn.disabled = false;
+        els.saveBtn.textContent = 'Enregistrer les changements';
+      }
+    }
+
+    function bindLivePreview() {
+      ['input', 'change'].forEach(evt => {
+        els.form.addEventListener(evt, () => {
+          updatePreview();
+          setDirtyState(true);
         });
-    </script>
+      });
+      els.photoInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (file) handlePhotoUpload(file);
+      });
+      els.photoUrlInput.addEventListener('input', () => {
+        profileState.photoURL = els.photoUrlInput.value.trim();
+        updatePreview();
+        setDirtyState(true);
+      });
+      els.resetBtn.addEventListener('click', () => {
+        if (auth.currentUser) loadProfile(auth.currentUser);
+      });
+      els.publicEnabled.addEventListener('change', updatePreview);
+      els.showPhoto.addEventListener('change', updatePreview);
+      els.showBio.addEventListener('change', updatePreview);
+      els.showLocation.addEventListener('change', updatePreview);
+    }
+
+    function cacheElements() {
+      els.form = document.getElementById('profile-form');
+      els.sessionState = document.getElementById('profile-session-state');
+      els.saveState = document.getElementById('profile-save-state');
+      els.saveBtn = document.getElementById('profile-save-btn');
+      els.resetBtn = document.getElementById('profile-reset-btn');
+      els.nameInput = document.getElementById('profile-name-input');
+      els.posteInput = document.getElementById('profile-poste-input');
+      els.sectorInput = document.getElementById('profile-sector-input');
+      els.phoneInput = document.getElementById('profile-phone-input');
+      els.emailInput = document.getElementById('profile-email-input');
+      els.countryInput = document.getElementById('profile-country-input');
+      els.cityInput = document.getElementById('profile-city-input');
+      els.photoInput = document.getElementById('profile-photo-input');
+      els.photoUrlInput = document.getElementById('profile-photo-url');
+      els.bioInput = document.getElementById('profile-bio-input');
+      els.publicEnabled = document.getElementById('profile-public-enabled');
+      els.showPhoto = document.getElementById('profile-show-photo');
+      els.showBio = document.getElementById('profile-show-bio');
+      els.showLocation = document.getElementById('profile-show-location');
+      els.avatarPhoto = document.getElementById('profile-photo');
+      els.avatarInitials = document.getElementById('profile-initials');
+      els.profileName = document.getElementById('profile-name');
+      els.profileRole = document.getElementById('profile-role');
+      els.badges = document.getElementById('profile-badges');
+      els.previewLink = document.getElementById('profile-preview-link');
+      els.previewPhoto = document.getElementById('preview-photo');
+      els.previewInitials = document.getElementById('preview-initials');
+      els.previewName = document.getElementById('preview-name');
+      els.previewPoste = document.getElementById('preview-poste');
+      els.previewBadges = document.getElementById('preview-badges');
+      els.previewBio = document.getElementById('preview-bio');
+      els.previewSector = document.getElementById('preview-sector');
+      els.previewLocation = document.getElementById('preview-location');
+      els.previewVisibility = document.getElementById('preview-visibility');
+    }
+
+    cacheElements();
+    bindLivePreview();
+
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        window.location.href = 'auth.html';
+        return;
+      }
+      profileState.uid = user.uid;
+      const immediateName = user.displayName || user.email || 'Membre';
+      els.profileName.textContent = immediateName;
+      setAvatar(els.avatarPhoto, els.avatarInitials, immediateName, user.photoURL || '');
+      els.sessionState.textContent = `Connecté en tant que ${immediateName}.`;
+      await loadProfile(user);
+    });
+
+    els.form.addEventListener('submit', saveProfile);
+  </script>
 </body>
 
 </html>

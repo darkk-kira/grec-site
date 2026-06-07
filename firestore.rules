@@ -3,55 +3,53 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Membres - Utilisateurs peuvent lire tous les profils, mais modifier seulement le leur
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'admin@grec.com';
+    }
+
+    // Membres - chacun peut gérer son propre profil, lecture publique
     match /membres/{userId} {
-      allow read: if true; // Tout le monde peut voir les profils
-      allow create: if request.auth != null && request.auth.uid == userId;
-      allow update: if request.auth != null && request.auth.uid == userId;
-      allow delete: if request.auth != null && request.auth.uid == userId;
+      allow read: if true;
+      allow create, update, delete: if request.auth != null && request.auth.uid == userId;
     }
 
-    // Admins - Seulement les admins peuvent lire/écrire
+    // Admins - bootstrap et contrôle d'accès admin
     match /admins/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if request.auth != null && request.auth.uid == userId && isAdmin();
     }
 
-    // Actualités - Tout le monde peut lire, seulement admins peuvent créer/modifier
+    // Actualites - lecture publique, écriture admin
     match /actualites/{articleId} {
       allow read: if true;
-      allow write: if request.auth != null &&
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      allow create, update, delete: if isAdmin();
     }
 
-    // Galerie - Tout le monde peut lire, seulement admins peuvent créer/modifier
+    // Galerie - lecture publique, écriture admin
     match /galerie/{imageId} {
       allow read: if true;
-      allow write: if request.auth != null &&
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      allow create, update, delete: if isAdmin();
     }
 
-    // Evenements - Tout le monde peut lire, seulement admins peuvent creer/modifier
+    // Evenements - lecture publique, écriture admin
     match /evenements/{eventId} {
       allow read: if true;
-      allow write: if request.auth != null &&
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      allow create, update, delete: if isAdmin();
     }
 
-    // Newsletter - Tout le monde peut s'inscrire
+    // Newsletter - inscription publique, lecture admin
     match /newsletter/{email} {
-      allow read: if request.auth != null &&
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
       allow create: if true;
+      allow read, update, delete: if isAdmin();
     }
 
-    // Contacts - Tout le monde peut envoyer, admins peuvent lire
+    // Contacts - message public, lecture admin
     match /contacts/{contactId} {
       allow create: if true;
-      allow read: if request.auth != null &&
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      allow read, update, delete: if isAdmin();
     }
 
-    // Chats - Utilisateurs connectés peuvent lire/écrire leurs propres messages
+    // Chats - utilisateurs connectes
     match /chats/{chatId} {
       allow read, write: if request.auth != null;
     }

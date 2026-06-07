@@ -27,10 +27,10 @@ db.settings({ experimentalForceLongPolling: false });
 // ── Collections References ──────────────────────────────────
 const COLLECTIONS = {
   MEMBRES:     "membres",
+  ADMINS:      "admins",
   ACTUALITES:  "actualites",
   EVENEMENTS:  "evenements",
   GALERIE:     "galerie",
-  ADMINS:      "admins",
   NEWSLETTER:  "newsletter",
   CONTACTS:    "contacts",
   CHATS:       "chats"
@@ -41,6 +41,11 @@ const ROLES = {
   ADMIN:   "admin",
   MEMBRE:  "membre"
 };
+
+// ── Admin Allowlist ──────────────────────────────────────────
+const ADMIN_EMAILS = [
+  "admin@grec.com"
+];
 
 // ── Storage Paths ────────────────────────────────────────────
 const STORAGE_PATHS = {

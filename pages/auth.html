@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion / Inscription — GREC Bénin</title>
     <meta name="description" content="Connectez-vous ou inscrivez-vous au réseau GREC." />
-    <link rel="icon" href="../assets/images/favicon.png" type="image/png" />
+    <link rel="icon" href="../Assets/images/favicon.png" type="image/png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -181,6 +181,7 @@
             border-color: #C8893A;
             box-shadow: 0 0 0 3px rgba(200, 137, 58, 0.1);
         }
+
         .password-group {
             position: relative;
         }
@@ -207,6 +208,7 @@
         .password-toggle:hover {
             color: #6B7280;
         }
+
         .form-group input::placeholder {
             color: #A0AEC0;
         }
@@ -348,7 +350,7 @@
             <!-- Header -->
             <div class="auth-header">
                 <div class="brand-lockup">
-                    <img src="../assets/images/logo.png" alt="GREC" />
+                    <img src="../Assets/images/logo.png" alt="GREC" />
                     <div>
                         <div class="text-lg font-semibold text-[#0D1B2A]">GREC</div>
                         <div class="logo-subtitle text-xs text-slate-500">Bénin · Diaspora</div>
@@ -360,13 +362,7 @@
             <!-- Body -->
             <div class="auth-body">
 
-                <!-- Tabs -->
-                <div class="tabs">
-                    <button class="tab active" onclick="switchTab('login')">Connexion</button>
-                    <button class="tab" onclick="switchTab('register')">Inscription</button>
-                </div>
-
-                <!-- LOGIN TAB -->
+                <!-- Login / Register content -->
                 <div id="login" class="tab-content active">
                     <form id="login-form" onsubmit="handleLogin(event)">
                         <div class="form-group">
@@ -379,10 +375,14 @@
                             <label>Mot de passe</label>
                             <div class="password-group">
                                 <input type="password" id="login-password" placeholder="••••••••" required />
-                                <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+                                <button type="button" class="password-toggle"
+                                    onclick="togglePassword('login-password')">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                        </path>
                                     </svg>
                                 </button>
                             </div>
@@ -421,10 +421,6 @@
                             </button>
                         </div>
 
-                        <p style="text-align: center; font-size: 13px; color: #718096; margin-top: 20px;">
-                            Pas de compte ? <a href="#" onclick="switchTab('register'); return false;"
-                                style="color: #C8893A; font-weight: 600;">S'inscrire ici</a>
-                        </p>
                     </form>
                 </div>
 
@@ -465,10 +461,14 @@
                             <label>Mot de passe</label>
                             <div class="password-group">
                                 <input type="password" id="register-password" placeholder="••••••••" required />
-                                <button type="button" class="password-toggle" onclick="togglePassword('register-password')">
+                                <button type="button" class="password-toggle"
+                                    onclick="togglePassword('register-password')">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                        </path>
                                     </svg>
                                 </button>
                             </div>
@@ -479,10 +479,14 @@
                             <label>Confirmer le mot de passe</label>
                             <div class="password-group">
                                 <input type="password" id="register-confirm" placeholder="••••••••" required />
-                                <button type="button" class="password-toggle" onclick="togglePassword('register-confirm')">
+                                <button type="button" class="password-toggle"
+                                    onclick="togglePassword('register-confirm')">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                        </path>
                                     </svg>
                                 </button>
                             </div>
@@ -496,10 +500,6 @@
 
                         <button type="submit" class="btn-auth" id="register-btn">Créer mon compte</button>
 
-                        <p style="text-align: center; font-size: 13px; color: #718096; margin-top: 20px;">
-                            Déjà membre ? <a href="#" onclick="switchTab('login'); return false;"
-                                style="color: #C8893A; font-weight: 600;">Se connecter ici</a>
-                        </p>
                     </form>
                 </div>
 
@@ -527,12 +527,11 @@
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName)?.classList.add('active');
 
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-
-            window.history.pushState({}, '', '?tab=' + tabName);
+            const currentQuery = new URLSearchParams(window.location.search);
+            currentQuery.set('tab', tabName);
+            window.history.replaceState({}, '', '?' + currentQuery.toString());
         }
 
         // Password toggle function
@@ -569,12 +568,10 @@
             try {
                 const result = await auth.signInWithEmailAndPassword(email, password);
 
-                // Vérifier si l'utilisateur est admin
-                const adminDoc = await db.collection(COLLECTIONS.ADMINS).doc(result.user.uid).get();
-                const redirectUrl = adminDoc.exists ? '../admin/index.html' : '../index.html';
-
                 showToast('Connexion réussie !', 'success');
-                setTimeout(() => window.location.href = redirectUrl, 1500);
+                await ensureAdminBootstrap(result.user);
+                const isAdmin = await isCurrentUserAdmin(result.user);
+                setTimeout(() => window.location.href = isAdmin ? '../admin/index.html' : '../index.html', 1200);
             } catch (err) {
                 showToast(err.message, 'error');
                 document.getElementById('login-email-error').textContent = err.message;
@@ -612,6 +609,18 @@
                     email: email,
                     telephone: phone,
                     secteur: sector,
+                    ville: '',
+                    pays: '',
+                    poste: '',
+                    bio: '',
+                    photoURL: '',
+                    publicProfile: true,
+                    showEmail: false,
+                    showPhone: false,
+                    showLocation: true,
+                    showBio: true,
+                    showPhoto: true,
+                    slug: slugify(name),
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     statut: 'actif',
                     role: ROLES.MEMBRE
@@ -640,15 +649,9 @@
         // Check if user already logged in
         auth.onAuthStateChanged(async user => {
             if (user) {
-                // Vérifier si l'utilisateur est admin
-                try {
-                    const adminDoc = await db.collection(COLLECTIONS.ADMINS).doc(user.uid).get();
-                    const redirectUrl = adminDoc.exists ? '../admin/index.html' : '../index.html';
-                    window.location.href = redirectUrl;
-                } catch (e) {
-                    // En cas d'erreur, rediriger vers index par défaut
-                    window.location.href = '../index.html';
-                }
+                await ensureAdminBootstrap(user);
+                const isAdmin = await isCurrentUserAdmin(user);
+                window.location.href = isAdmin ? '../admin/index.html' : '../index.html';
             }
         });
 

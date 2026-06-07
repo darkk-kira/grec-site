@@ -87,18 +87,155 @@ function initMobileMenu() {
   });
 }
 
+function getAuthLoginHref() {
+  const path = window.location.pathname.replace(/\\/g, '/');
+  if (path.includes('/admin/')) return '../pages/auth.html';
+  if (path.includes('/pages/')) return 'auth.html';
+  return 'pages/auth.html';
+}
+
+function getAdminHref() {
+  const path = window.location.pathname.replace(/\\/g, '/');
+  if (path.includes('/admin/')) return 'index.html';
+  if (path.includes('/pages/')) return '../admin/index.html';
+  return 'admin/index.html';
+}
+
+function getAdminName(user) {
+  return (user?.displayName || user?.email || 'Admin').toString().trim();
+}
+
+function isAllowlistedAdmin(user) {
+  if (!user || !user.email) return false;
+  return (ADMIN_EMAILS || []).map(email => String(email).toLowerCase()).includes(String(user.email).toLowerCase());
+}
+
+async function ensureAdminBootstrap(user) {
+  if (!user || !isAllowlistedAdmin(user)) return false;
+  try {
+    const ref = db.collection(COLLECTIONS.ADMINS).doc(user.uid);
+    const snap = await ref.get();
+    if (!snap.exists) {
+      await ref.set({
+        uid: user.uid,
+        email: user.email || '',
+        name: getAdminName(user),
+        photoURL: user.photoURL || '',
+        role: ROLES.ADMIN,
+        active: true,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+    }
+    return true;
+  } catch (error) {
+    console.warn('Bootstrap admin impossible:', error);
+    return false;
+  }
+}
+
+async function isCurrentUserAdmin(user) {
+  if (!user) return false;
+  if (isAllowlistedAdmin(user)) return true;
+  try {
+    const snap = await db.collection(COLLECTIONS.ADMINS).doc(user.uid).get();
+    if (!snap.exists) return false;
+    const data = snap.data() || {};
+    return data.active !== false;
+  } catch (error) {
+    console.warn('Lecture admin impossible:', error);
+    return false;
+  }
+}
+
+function ensureAdminButtons() {
+  const path = window.location.pathname.replace(/\\/g, '/');
+  if (path.includes('/admin/')) return;
+
+  const adminHref = getAdminHref();
+  const adminSpecs = [
+    { container: '#navbar', classes: 'auth-admin-link hidden btn btn-outline text-sm py-2 px-4', label: 'Dashboard' },
+    { container: '#mobile-menu', classes: 'auth-admin-link hidden btn btn-outline text-center text-sm', label: 'Dashboard' }
+  ];
+
+  adminSpecs.forEach(({ container, classes, label }) => {
+    const root = document.querySelector(container);
+    if (!root) return;
+
+    const existing = root.querySelector('.auth-admin-link');
+    if (existing) {
+      existing.href = adminHref;
+      existing.textContent = label;
+      return;
+    }
+
+    const refNode = root.querySelector('.auth-logout-link') || root.querySelector('.auth-chat-link') || root.querySelector('.auth-member-link') || root.querySelector('.auth-register-link');
+    if (!refNode) return;
+
+    const link = document.createElement('a');
+    link.href = adminHref;
+    link.className = classes;
+    link.textContent = label;
+    refNode.insertAdjacentElement('beforebegin', link);
+  });
+}
+
+function ensureAuthLoginButtons() {
+  const loginHref = getAuthLoginHref();
+  const loginSpecs = [
+    { container: '#navbar', classes: 'auth-login-link hidden btn btn-outline text-sm py-2 px-4', label: 'Se connecter' },
+    { container: '#mobile-menu', classes: 'auth-login-link hidden btn btn-outline text-center text-sm', label: 'Se connecter' }
+  ];
+
+  loginSpecs.forEach(({ container, classes, label }) => {
+    const root = document.querySelector(container);
+    if (!root) return;
+
+    const existing = root.querySelector('.auth-login-link');
+    if (existing) {
+      existing.href = loginHref;
+      existing.textContent = label;
+      return;
+    }
+
+    const registerLink = root.querySelector('.auth-register-link');
+    if (!registerLink) return;
+
+    const link = document.createElement('a');
+    link.href = loginHref;
+    link.className = classes;
+    link.textContent = label;
+    registerLink.insertAdjacentElement('beforebegin', link);
+  });
+}
+
 // ── Auth State Observer ───────────────────────────────────────
 function initAuthState() {
   // Met à jour l'interface et les liens visibles selon l'état d'authentification
+  ensureAuthLoginButtons();
+  ensureAdminButtons();
   auth.onAuthStateChanged(async (user) => {
     const loginLinks  = document.querySelectorAll('.auth-login-link');
     const logoutLinks = document.querySelectorAll('.auth-logout-link');
     const memberLinks = document.querySelectorAll('.auth-member-link');
-    const adminLinks  = document.querySelectorAll('.auth-admin-link');
+    const navbarMemberLinks = document.querySelectorAll('#navbar .auth-member-link');
     const chatLinks   = document.querySelectorAll('.auth-chat-link');
+    const adminLinks  = document.querySelectorAll('.auth-admin-link');
     const registerLinks = document.querySelectorAll('.auth-register-link');
     const show = (links) => links.forEach(el => el.classList.remove('hidden'));
     const hide = (links) => links.forEach(el => el.classList.add('hidden'));
+    const profileIconSvg = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 21a8 8 0 10-16 0" />
+        <circle cx="12" cy="8" r="4" />
+      </svg>
+    `;
+    const renderNavbarProfileIcon = (el) => {
+      el.innerHTML = profileIconSvg;
+      el.setAttribute('aria-label', 'Mon profil');
+      el.setAttribute('title', 'Mon profil');
+      el.classList.add('profile-icon-link');
+    };
 
     const setVisitorView = () => {
       show(loginLinks);
@@ -118,46 +255,42 @@ function initAuthState() {
       show(logoutLinks);
     };
 
-    const setAdminView = () => {
-      hide(loginLinks);
-      hide(registerLinks);
-      show(memberLinks);
-      show(chatLinks);
-      show(adminLinks);
-      show(logoutLinks);
-    };
-
     if (!user) {
       setVisitorView();
       return;
     }
 
+    await ensureAdminBootstrap(user);
+    const isAdmin = await isCurrentUserAdmin(user);
+
     // Utilisateur connecté : masquer immédiatement les liens de visiteur
     hide(loginLinks);
     hide(registerLinks);
-    hide(adminLinks);
 
     // Base : utilisateur connecté standard
     setMemberView();
+    if (isAdmin) {
+      show(adminLinks);
+    }
 
     // Afficher le prénom dans "Mon profil"
     try {
       const membreDoc = await db.collection(COLLECTIONS.MEMBRES).doc(user.uid).get();
       const nomComplet = membreDoc.exists ? (membreDoc.data().nom || '').trim() : '';
       const prenom = nomComplet ? nomComplet.split(' ')[0] : '';
+      navbarMemberLinks.forEach(renderNavbarProfileIcon);
       memberLinks.forEach(el => {
-        el.textContent = prenom ? `Profil (${prenom})` : 'Mon profil';
+        if (!el.closest('#navbar')) {
+          el.textContent = prenom ? `Profil (${prenom})` : 'Mon profil';
+        }
       });
     } catch (e) {
-      memberLinks.forEach(el => { el.textContent = 'Mon profil'; });
-    }
-
-    // Upgrade en vue admin si l'utilisateur est admin
-    try {
-      const adminDoc = await db.collection(COLLECTIONS.ADMINS).doc(user.uid).get();
-      if (adminDoc.exists) setAdminView();
-    } catch (e) {
-      setMemberView();
+      navbarMemberLinks.forEach(renderNavbarProfileIcon);
+      memberLinks.forEach(el => {
+        if (!el.closest('#navbar')) {
+          el.textContent = 'Mon profil';
+        }
+      });
     }
   });
 }

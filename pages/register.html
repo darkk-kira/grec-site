@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Connexion — GREC Bénin</title>
-  <meta name="description" content="Connectez-vous ou rejoignez le réseau GREC d'entrepreneurs béninois." />
+  <title>Créer un compte — GREC Bénin</title>
+  <meta name="description" content="Rejoignez le réseau GREC d'entrepreneurs béninois et de la diaspora." />
   <link rel="icon" href="../Assets/images/favicon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -167,7 +167,7 @@
 
     .auth-form-inner {
       width: 100%;
-      max-width: 420px;
+      max-width: 480px;
     }
 
     .auth-form-panel .brand-lockup {
@@ -622,29 +622,103 @@
 
       <!-- Navigation auth (separate pages - tabs removed) -->
 
-      <!-- ── LOGIN ── -->
+      <!-- ── REGISTER ── -->
       <div>
         <div class="welcome-badge">
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round"
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
           </svg>
-          Espace sécurisé membres
+          Adhésion gratuite
         </div>
-        <h1 class="form-section-title">Bon retour !</h1>
-        <p class="form-section-sub">Connectez-vous à votre espace GREC</p>
+        <h1 class="form-section-title">Rejoindre le GREC</h1>
+        <p class="form-section-sub">Créez votre profil et accédez au réseau</p>
 
-        <form id="login-form" onsubmit="handleLogin(event)">
+        <div style="background:#F8F5EF;border-radius:10px;padding:14px 16px;margin-bottom:24px;">
+          <div class="benefit-item">
+            <div class="benefit-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C8893A"
+                stroke-width="3">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>
+            Accès à l'annuaire complet des membres
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C8893A"
+                stroke-width="3">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>
+            Invitations aux événements exclusifs
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C8893A"
+                stroke-width="3">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>
+            Opportunités d'affaires et mises en relation
+          </div>
+        </div>
+
+        <form id="register-form" onsubmit="handleRegister(event)">
+          <div class="form-row">
+            <div class="form-field">
+              <label>Prénom</label>
+              <input type="text" id="reg-prenom" placeholder="Jean" required autocomplete="given-name" />
+            </div>
+            <div class="form-field">
+              <label>Nom</label>
+              <input type="text" id="reg-nom" placeholder="Dupont" required autocomplete="family-name" />
+            </div>
+          </div>
+
           <div class="form-field">
-            <label>Adresse email</label>
+            <label>Email professionnel</label>
             <div class="input-icon-wrap">
               <svg class="icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <input type="email" id="login-email" placeholder="vous@exemple.com" required autocomplete="email" />
+              <input type="email" id="reg-email" placeholder="vous@entreprise.com" required autocomplete="email" />
             </div>
-            <div class="field-error" id="login-email-err"></div>
+            <div class="field-error" id="reg-email-err"></div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>Téléphone</label>
+              <input type="tel" id="reg-phone" placeholder="+229 01 XX XX XX" autocomplete="tel" />
+            </div>
+            <div class="form-field">
+              <label>Pays de résidence</label>
+              <select id="reg-pays">
+                <option value="">Sélectionner</option>
+                <option>Bénin</option>
+                <option>France</option>
+                <option>Canada</option>
+                <option>États-Unis</option>
+                <option>Allemagne</option>
+                <option>Belgique</option>
+                <option>Côte d'Ivoire</option>
+                <option>Autre</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>Secteur d'activité</label>
+            <select id="reg-sector" required>
+              <option value="">Choisir votre secteur</option>
+              <option>Commerce & Distribution</option>
+              <option>Technologie & Digital</option>
+              <option>Finance & Investissement</option>
+              <option>Agroalimentaire</option>
+              <option>Santé & Pharmacie</option>
+              <option>Immobilier & BTP</option>
+              <option>Éducation & Formation</option>
+              <option>Industrie & Manufacture</option>
+              <option>Tourisme & Hôtellerie</option>
+              <option>Conseil & Services</option>
+              <option>Autre</option>
+            </select>
           </div>
 
           <div class="form-field">
@@ -654,9 +728,9 @@
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
-              <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password"
+              <input type="password" id="reg-password" placeholder="Minimum 8 caractères" required
                 style="padding-right:44px" />
-              <button type="button" class="password-toggle" onclick="togglePwd('login-password', this)" tabindex="-1">
+              <button type="button" class="password-toggle" onclick="togglePwd('reg-password',this)" tabindex="-1">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -664,50 +738,32 @@
                 </svg>
               </button>
             </div>
-            <div class="field-error" id="login-pwd-err"></div>
+            <div class="field-error" id="reg-pwd-err"></div>
           </div>
 
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-            <label class="check-row" style="margin-bottom:0">
-              <input type="checkbox" id="login-remember" />
-              <span>Se souvenir de moi</span>
-            </label>
-            <a href="#" class="forgot-link" style="margin:0" onclick="showForgot();return false;">Mot de passe oublié
-              ?</a>
+          <div class="form-field">
+            <label>Confirmer le mot de passe</label>
+            <div class="input-icon-wrap">
+              <svg class="icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <input type="password" id="reg-confirm" placeholder="Répéter le mot de passe" required
+                style="padding-right:44px" />
+            </div>
+            <div class="field-error" id="reg-confirm-err"></div>
           </div>
 
-          <button type="submit" class="btn-submit" id="login-btn">
-            Se connecter
+          <div class="check-row" style="margin-bottom:20px">
+            <input type="checkbox" id="reg-ethics" required />
+            <span>J'accepte le <a href="#">code d'éthique du GREC</a> et les <a href="#">conditions
+                d'utilisation</a></span>
+          </div>
+
+          <button type="submit" class="btn-submit" id="register-btn">
+            Créer mon compte membre
           </button>
         </form>
-
-        <div class="or-divider">ou continuer avec</div>
-        <div class="social-grid">
-          <button class="btn-social" onclick="loginGoogle()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                fill="#4285F4" />
-              <path
-                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                fill="#34A853" />
-              <path
-                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                fill="#FBBC05" />
-              <path
-                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                fill="#EA4335" />
-            </svg>
-            Google
-          </button>
-          <button class="btn-social" onclick="loginLinkedin()">
-            <svg width="16" height="16" fill="#0A66C2" viewBox="0 0 24 24">
-              <path
-                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.469v6.766z" />
-            </svg>
-            LinkedIn
-          </button>
-        </div>
 
         <!-- Switch link removed to keep pages separate -->
       </div>
@@ -724,53 +780,53 @@
   <script src="../js/utils.js"></script>
 
   <script>
-    if (new URLSearchParams(location.search).get('tab') === 'register') {
-      window.location.replace('register.html');
-    }
-
-    // Password toggle
-    function togglePwd(id, btn) {
+    function togglePwd(id) {
       const input = document.getElementById(id);
-      const isText = input.type === 'text';
-      input.type = isText ? 'password' : 'text';
+      input.type = input.type === 'text' ? 'password' : 'text';
     }
 
-    // Login
-    async function handleLogin(e) {
+    async function handleRegister(e) {
       e.preventDefault();
-      const email = document.getElementById('login-email').value.trim();
-      const pwd = document.getElementById('login-password').value;
-      const btn = document.getElementById('login-btn');
-      ['login-email-err', 'login-pwd-err'].forEach(id => document.getElementById(id).textContent = '');
+      const prenom = document.getElementById('reg-prenom').value.trim();
+      const nomFamille = document.getElementById('reg-nom').value.trim();
+      const fullName = `${prenom} ${nomFamille}`.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const pays = document.getElementById('reg-pays').value;
+      const sector = document.getElementById('reg-sector').value;
+      const pwd = document.getElementById('reg-password').value;
+      const confirm = document.getElementById('reg-confirm').value;
+      const btn = document.getElementById('register-btn');
+
+      document.getElementById('reg-email-err').textContent = '';
+      document.getElementById('reg-pwd-err').textContent = '';
+      document.getElementById('reg-confirm-err').textContent = '';
+
+      if (pwd.length < 8) { document.getElementById('reg-pwd-err').textContent = 'Minimum 8 caractères requis.'; return; }
+      if (pwd !== confirm) { document.getElementById('reg-confirm-err').textContent = 'Les mots de passe ne correspondent pas.'; return; }
 
       btn.disabled = true;
-      btn.innerHTML = '<div class="spin"></div> Connexion…';
+      btn.innerHTML = '<div class="spin"></div> Création du compte…';
       try {
-        await auth.signInWithEmailAndPassword(email, pwd);
-        showToast('Connexion réussie ! Bienvenue.', 'success');
-        setTimeout(() => window.location.href = getHomeHref(), 1200);
+        const cred = await auth.createUserWithEmailAndPassword(email, pwd);
+        await cred.user.updateProfile({ displayName: fullName });
+        await db.collection(COLLECTIONS.MEMBRES).doc(cred.user.uid).set({
+          nom: fullName, prenom, nomFamille, email, telephone: phone, pays, secteur: sector,
+          statut: 'actif', codeEthique: true, role: ROLES.MEMBRE,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        showToast('Bienvenue au GREC ' + prenom + ' ! 🎉', 'success');
+        setTimeout(() => window.location.href = getHomeHref(), 1500);
       } catch (err) {
-        const msg = { 'auth/user-not-found': 'Aucun compte avec cet email.', 'auth/wrong-password': 'Mot de passe incorrect.', 'auth/invalid-email': 'Email invalide.' }[err.code] || err.message;
-        document.getElementById('login-email-err').textContent = msg;
+        const msg = { 'auth/email-already-in-use': 'Cet email est déjà utilisé.', 'auth/invalid-email': 'Email invalide.', 'auth/weak-password': 'Mot de passe trop faible.' }[err.code] || err.message;
+        document.getElementById('reg-email-err').textContent = msg;
         showToast(msg, 'error');
       } finally {
         btn.disabled = false;
-        btn.innerHTML = 'Se connecter';
+        btn.innerHTML = 'Créer mon compte membre';
       }
     }
 
-    function showForgot() {
-      const email = document.getElementById('login-email').value.trim();
-      if (!email) { showToast('Saisissez votre email d\'abord.', 'info'); return; }
-      auth.sendPasswordResetEmail(email)
-        .then(() => showToast('Email de réinitialisation envoyé !', 'success'))
-        .catch(e => showToast(e.message, 'error'));
-    }
-
-    function loginGoogle() { showToast('Google OAuth — fonctionnalité à activer dans Firebase.', 'info'); }
-    function loginLinkedin() { showToast('LinkedIn OAuth — fonctionnalité à activer dans Firebase.', 'info'); }
-
-    // Redirect if already logged in — go to homepage
     auth.onAuthStateChanged(user => { if (user) window.location.href = getHomeHref(); });
   </script>
 </body>

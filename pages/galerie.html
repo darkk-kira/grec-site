@@ -322,12 +322,20 @@
                 <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
             </div>
             <div class="hidden lg:flex items-center gap-3">
-                <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
+                <a href="auth.html" class="auth-login-link hidden btn btn-outline text-sm py-2 px-4">Se connecter</a>
+                <a href="register.html" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
                     membre</a>
                 <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
                 <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
                 <button onclick="logout()"
-                    class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+                    class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors"
+                    aria-label="Déconnexion" title="Déconnexion">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+                    </svg>
+                </button>
             </div>
             <button id="mobile-menu-btn"
                 class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors" aria-label="Menu">
@@ -351,13 +359,20 @@
                 <div class="pt-3 flex flex-col gap-2">
                     <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se
                         connecter</a>
-                    <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
+                    <a href="register.html" class="auth-register-link btn btn-gold text-center text-sm">Devenir
                         membre</a>
                     <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon
                         profil</a>
                     <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
                     <button onclick="logout()"
-                        class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
+                        class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors"
+                        aria-label="Déconnexion" title="Déconnexion">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -378,7 +393,8 @@
                         GREC.</p>
                 </div>
                 <button id="add-photo-btn"
-                    class="bg-gold hover:bg-gold-light text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap">
+                    class="bg-gold hover:bg-gold-light text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap hidden"
+                    aria-hidden="true">
                     + Ajouter une photo
                 </button>
             </div>
@@ -466,7 +482,7 @@
             <h2 class="font-display text-white text-3xl font-semibold mb-4">Rejoignez nos événements</h2>
             <p class="text-white/55 mb-8 text-sm">Participez à nos rencontres, formations et opportunités de networking.
             </p>
-            <a href="auth.html?tab=register" class="btn btn-gold inline-flex">Devenir membre ?</a>
+            <a href="register.html" class="btn btn-gold inline-flex">Devenir membre ?</a>
         </div>
     </section>
 
@@ -530,7 +546,7 @@
                     <li><a href="profil.html"
                             class="auth-member-link hidden text-white/45 hover:text-gold text-sm transition-colors">Mon
                             profil</a></li>
-                    <li><a href="auth.html?tab=register"
+                    <li><a href="register.html"
                             class="text-white/45 hover:text-gold text-sm transition-colors">S'inscrire</a></li>
                 </ul>
             </div>
@@ -719,6 +735,11 @@
         document.getElementById('form-add-photo').addEventListener('submit', async (e) => {
             e.preventDefault();
 
+            // Ensure only admins can submit uploads
+            if (!auth.currentUser) { showToast('Connectez-vous pour uploader.', 'error'); return; }
+            const isAdmin = await isCurrentUserAdmin(auth.currentUser);
+            if (!isAdmin) { showToast('Seul l\'administrateur peut ajouter des images.', 'error'); return; }
+
             const file = document.getElementById('photo-input').files[0];
             const title = document.getElementById('photo-title').value;
             const desc = document.getElementById('photo-desc').value;
@@ -784,13 +805,36 @@
                 setTimeout(() => loadGallery(), 500);
             } catch (err) {
                 console.error('Erreur upload:', err);
-                showToast('Erreur lors de l\'upload : ' + (err.message || 'Vérifiez votre configuration Cloudinary/Firestore'), 'error');
+                showToast('Erreur lors de l\'upload : ' + (err.message || 'Vérifiez que le preset Cloudinary "grec-upload" existe et que le compte Cloudinary est configuré.'), 'error');
             } finally {
                 const submitBtn = document.querySelector('#form-add-photo button[type="submit"]');
                 if (submitBtn) {
                     submitBtn.textContent = originalText || 'Uploader';
                     submitBtn.disabled = false;
                 }
+            }
+        });
+
+        // Show/hide upload controls depending on admin status
+        auth.onAuthStateChanged(async (user) => {
+            try {
+                const btn = document.getElementById('add-photo-btn');
+                const modal = document.getElementById('modal-add-photo');
+                if (!user) {
+                    btn.classList.add('hidden');
+                    btn.setAttribute('aria-hidden', 'true');
+                    return;
+                }
+                const admin = await isCurrentUserAdmin(user);
+                if (admin) {
+                    btn.classList.remove('hidden');
+                    btn.removeAttribute('aria-hidden');
+                } else {
+                    btn.classList.add('hidden');
+                    btn.setAttribute('aria-hidden', 'true');
+                }
+            } catch (e) {
+                console.warn('Impossible de vérifier le rôle admin:', e);
             }
         });
     </script>

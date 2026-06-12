@@ -10,7 +10,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -94,10 +96,25 @@
       text-transform: uppercase;
     }
 
-    .badge-gold { background: rgba(200, 137, 58, 0.12); color: #9a6520; }
-    .badge-green { background: rgba(16, 185, 129, 0.12); color: #047857; }
-    .badge-slate { background: rgba(100, 116, 139, 0.12); color: #475569; }
-    .badge-red { background: rgba(239, 68, 68, 0.12); color: #b91c1c; }
+    .badge-gold {
+      background: rgba(200, 137, 58, 0.12);
+      color: #9a6520;
+    }
+
+    .badge-green {
+      background: rgba(16, 185, 129, 0.12);
+      color: #047857;
+    }
+
+    .badge-slate {
+      background: rgba(100, 116, 139, 0.12);
+      color: #475569;
+    }
+
+    .badge-red {
+      background: rgba(239, 68, 68, 0.12);
+      color: #b91c1c;
+    }
 
     .mini-btn {
       border-radius: 9999px;
@@ -107,11 +124,65 @@
       transition: transform .15s ease, opacity .15s ease, background .15s ease;
     }
 
-    .mini-btn:hover { transform: translateY(-1px); }
+    .mini-btn:hover {
+      transform: translateY(-1px);
+    }
 
-    .scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
-    .scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(13, 27, 42, 0.2); border-radius: 9999px; }
-    .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: rgba(13, 27, 42, 0.2);
+      border-radius: 9999px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Dashboard inner spacing to avoid text touching edges */
+    .section-card .overflow-auto {
+      padding: 0.6rem;
+    }
+
+    .section-card table th,
+    .section-card table td {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .section-card .rounded-2xl.bg-navy>div,
+    .section-card .rounded-2xl.bg-white>div {
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+
+    /* Responsive: ensure horizontal padding on smaller screens so text doesn't touch edges */
+    @media (max-width: 1024px) {
+      .section-card {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+
+      .section-card .overflow-auto {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
+
+      .section-card table th,
+      .section-card table td {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
+
+      .section-card .rounded-2xl.bg-navy>div,
+      .section-card .rounded-2xl.bg-white>div {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+    }
   </style>
 </head>
 
@@ -128,7 +199,9 @@
 
       <div class="rounded-2xl bg-navy text-white p-4 mb-6">
         <div class="flex items-center gap-3">
-          <div id="sidebar-avatar" class="w-12 h-12 rounded-2xl bg-gold text-white flex items-center justify-center font-display font-bold text-lg">A</div>
+          <div id="sidebar-avatar"
+            class="w-12 h-12 rounded-2xl bg-gold text-white flex items-center justify-center font-display font-bold text-lg">
+            A</div>
           <div class="min-w-0">
             <div id="sidebar-name" class="font-semibold truncate">Chargement...</div>
             <div id="sidebar-email" class="text-xs text-white/60 truncate">-</div>
@@ -137,18 +210,28 @@
       </div>
 
       <nav class="dashboard-nav flex-1 space-y-2 text-sm font-medium">
-        <a href="#overview" class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors active">Vue d'ensemble</a>
-        <a href="#actualites" class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Actualités</a>
-        <a href="#evenements" class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Événements</a>
-        <a href="#galerie" class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Galerie</a>
-        <a href="#membres" class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Membres</a>
-        <a href="#messages" class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Messages</a>
-        <a href="#settings" class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Paramètres</a>
+        <a href="#overview"
+          class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors active">Vue d'ensemble</a>
+        <a href="#moderation"
+          class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Modération</a>
+        <a href="#actualites"
+          class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Actualités</a>
+        <a href="#evenements"
+          class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Événements</a>
+        <a href="#galerie"
+          class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Galerie</a>
+        <a href="#membres"
+          class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Membres</a>
+        <a href="#messages"
+          class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Messages</a>
+        <a href="#settings"
+          class="block rounded-xl px-4 py-3 hover:bg-navy hover:text-white transition-colors">Paramètres</a>
       </nav>
 
       <div class="space-y-3 pt-4">
         <button id="refresh-btn" class="w-full mini-btn bg-gold text-white">Rafraîchir</button>
-        <button onclick="logout()" class="w-full mini-btn border border-slate-200 text-slate-700 bg-white">Déconnexion</button>
+        <button onclick="logout()"
+          class="w-full mini-btn border border-slate-200 text-slate-700 bg-white">Déconnexion</button>
       </div>
     </aside>
 
@@ -156,7 +239,8 @@
       <header class="glass-panel sticky top-0 z-30 border-b border-white/60">
         <div class="px-5 lg:px-8 py-4 flex items-center justify-between gap-4">
           <div class="flex items-center gap-3">
-            <button id="mobile-nav-btn" class="lg:hidden w-11 h-11 rounded-xl border border-slate-200 bg-white flex items-center justify-center">
+            <button id="mobile-nav-btn"
+              class="lg:hidden w-11 h-11 rounded-xl border border-slate-200 bg-white flex items-center justify-center">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -175,6 +259,7 @@
         <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white/95 px-5 py-4">
           <div class="grid grid-cols-2 gap-2 text-sm font-medium dashboard-nav">
             <a href="#overview" class="rounded-xl px-4 py-3 bg-slate-100">Vue d'ensemble</a>
+            <a href="#moderation" class="rounded-xl px-4 py-3 bg-slate-100">Modération</a>
             <a href="#actualites" class="rounded-xl px-4 py-3 bg-slate-100">Actualités</a>
             <a href="#evenements" class="rounded-xl px-4 py-3 bg-slate-100">Événements</a>
             <a href="#galerie" class="rounded-xl px-4 py-3 bg-slate-100">Galerie</a>
@@ -185,7 +270,8 @@
           </div>
           <div class="mt-3 flex gap-2">
             <button id="refresh-mobile-btn" class="flex-1 mini-btn bg-gold text-white">Rafraîchir</button>
-            <button onclick="logout()" class="flex-1 mini-btn border border-slate-200 bg-white text-slate-700">Déconnexion</button>
+            <button onclick="logout()"
+              class="flex-1 mini-btn border border-slate-200 bg-white text-slate-700">Déconnexion</button>
           </div>
         </div>
       </header>
@@ -196,7 +282,8 @@
             <div>
               <span class="badge badge-gold mb-3">Admin only</span>
               <h2 class="font-display text-3xl font-bold text-navy">Vue d'ensemble</h2>
-              <p class="text-slate-500 mt-2 max-w-3xl">Surveille les contenus du site, gère les publications et modère les profils publics depuis un seul espace.</p>
+              <p class="text-slate-500 mt-2 max-w-3xl">Surveille les contenus du site, gère les publications et modère
+                les profils publics depuis un seul espace.</p>
             </div>
             <div id="admin-state" class="badge badge-slate">Connexion en cours...</div>
           </div>
@@ -205,6 +292,7 @@
             <div class="rounded-2xl bg-navy text-white p-4">
               <div class="text-white/60 text-xs uppercase tracking-widest">Membres</div>
               <div id="stat-membres" class="font-display text-3xl font-bold mt-2">0</div>
+              <div id="new-members-count" class="text-xs text-white/70 mt-1">0 nouvelles (7j)</div>
             </div>
             <div class="rounded-2xl bg-white border border-slate-200 p-4">
               <div class="text-slate-500 text-xs uppercase tracking-widest">Publications</div>
@@ -229,13 +317,51 @@
           </div>
         </section>
 
+        <section id="moderation" class="section-card p-6 lg:p-8">
+          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
+            <div>
+              <span class="badge badge-gold mb-3">Validation requise</span>
+              <h2 class="font-display text-3xl font-bold text-navy">Modération</h2>
+              <p class="text-slate-500 mt-2 max-w-3xl">Valide ou refuse les articles, événements et contributions
+                proposés par les membres avant publication sur le site.</p>
+            </div>
+            <div id="moderation-pending-count" class="badge badge-gold">0 en attente</div>
+          </div>
+
+          <div class="grid xl:grid-cols-3 gap-6">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold text-lg">Articles en attente</h3>
+                <span id="pending-articles-count" class="text-sm text-slate-500">0 article</span>
+              </div>
+              <div id="pending-articles-list" class="space-y-3 max-h-[520px] overflow-auto scrollbar-thin pr-2"></div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold text-lg">Événements en attente</h3>
+                <span id="pending-events-count" class="text-sm text-slate-500">0 événement</span>
+              </div>
+              <div id="pending-events-list" class="space-y-3 max-h-[520px] overflow-auto scrollbar-thin pr-2"></div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold text-lg">Contributions en attente</h3>
+                <span id="pending-contributions-count" class="text-sm text-slate-500">0 contribution</span>
+              </div>
+              <div id="pending-contributions-list" class="space-y-3 max-h-[520px] overflow-auto scrollbar-thin pr-2">
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="actualites" class="section-card p-6 lg:p-8">
           <div class="flex flex-col xl:flex-row gap-6">
             <div class="xl:w-[460px]">
               <div class="flex items-start justify-between gap-4 mb-5">
                 <div>
                   <h2 class="font-display text-2xl font-bold text-navy">Actualités</h2>
-                  <p class="text-sm text-slate-500">Créer, publier, modifier ou supprimer les articles de la page Actualités.</p>
+                  <p class="text-sm text-slate-500">Créer, publier, modifier ou supprimer les articles de la page
+                    Actualités.</p>
                 </div>
                 <span class="badge badge-gold">CRUD</span>
               </div>
@@ -248,11 +374,13 @@
                 </div>
                 <div>
                   <label class="block text-sm font-semibold mb-2">Résumé</label>
-                  <textarea id="article-resume" class="field min-h-[90px]" required placeholder="Résumé visible dans les cartes"></textarea>
+                  <textarea id="article-resume" class="field min-h-[90px]" required
+                    placeholder="Résumé visible dans les cartes"></textarea>
                 </div>
                 <div>
                   <label class="block text-sm font-semibold mb-2">Contenu</label>
-                  <textarea id="article-content" class="field min-h-[150px]" placeholder="Texte complet de l'article"></textarea>
+                  <textarea id="article-content" class="field min-h-[150px]"
+                    placeholder="Texte complet de l'article"></textarea>
                 </div>
                 <div class="grid md:grid-cols-2 gap-4">
                   <div>
@@ -268,6 +396,10 @@
                   <input id="article-publie" type="checkbox" class="w-4 h-4 accent-[#C8893A]" checked />
                   <label for="article-publie" class="text-sm font-medium">Publier immédiatement</label>
                 </div>
+                <div class="flex items-center gap-3">
+                  <input id="article-une" type="checkbox" class="w-4 h-4 accent-[#C8893A]" />
+                  <label for="article-une" class="text-sm font-medium">Mettre en "une"</label>
+                </div>
                 <div class="flex flex-wrap gap-3">
                   <button type="submit" class="mini-btn bg-gold text-white">Enregistrer</button>
                   <button type="button" id="article-reset" class="mini-btn bg-slate-100 text-slate-700">Nouveau</button>
@@ -280,6 +412,7 @@
                 <h3 class="font-semibold text-lg">Derniers articles</h3>
                 <span id="article-count" class="text-sm text-slate-500">0 article</span>
               </div>
+              <input id="article-search" class="field mb-3" placeholder="Rechercher un article..." />
               <div id="article-list" class="space-y-3 max-h-[720px] overflow-auto scrollbar-thin pr-2"></div>
             </div>
           </div>
@@ -309,12 +442,13 @@
                   </div>
                   <div>
                     <label class="block text-sm font-semibold mb-2">Lieu</label>
-                    <input id="event-location" class="field" placeholder="Cotonou, Paris, ..."/>
+                    <input id="event-location" class="field" placeholder="Cotonou, Paris, ..." />
                   </div>
                 </div>
                 <div>
                   <label class="block text-sm font-semibold mb-2">Description</label>
-                  <textarea id="event-description" class="field min-h-[120px]" placeholder="Détails de l'événement"></textarea>
+                  <textarea id="event-description" class="field min-h-[120px]"
+                    placeholder="Détails de l'événement"></textarea>
                 </div>
                 <div>
                   <label class="block text-sm font-semibold mb-2">Image (optionnelle)</label>
@@ -336,6 +470,7 @@
                 <h3 class="font-semibold text-lg">Calendrier publié</h3>
                 <span id="event-count" class="text-sm text-slate-500">0 événement</span>
               </div>
+              <input id="event-search" class="field mb-3" placeholder="Rechercher un événement..." />
               <div id="event-list" class="space-y-3 max-h-[720px] overflow-auto scrollbar-thin pr-2"></div>
             </div>
           </div>
@@ -347,7 +482,8 @@
               <div class="flex items-start justify-between gap-4 mb-5">
                 <div>
                   <h2 class="font-display text-2xl font-bold text-navy">Galerie</h2>
-                  <p class="text-sm text-slate-500">Ajoute des photos avec un titre, une description et une catégorie.</p>
+                  <p class="text-sm text-slate-500">Ajoute des photos avec un titre, une description et une catégorie.
+                  </p>
                 </div>
                 <span class="badge badge-slate">Visuel</span>
               </div>
@@ -360,7 +496,8 @@
                 </div>
                 <div>
                   <label class="block text-sm font-semibold mb-2">Description</label>
-                  <textarea id="gallery-description" class="field min-h-[90px]" placeholder="Description courte"></textarea>
+                  <textarea id="gallery-description" class="field min-h-[90px]"
+                    placeholder="Description courte"></textarea>
                 </div>
                 <div class="grid md:grid-cols-2 gap-4">
                   <div>
@@ -397,7 +534,61 @@
                 <h3 class="font-semibold text-lg">Photos publiées</h3>
                 <span id="gallery-count" class="text-sm text-slate-500">0 photo</span>
               </div>
-              <div id="gallery-list" class="grid md:grid-cols-2 gap-4 max-h-[720px] overflow-auto scrollbar-thin pr-2"></div>
+              <input id="gallery-search" class="field mb-3" placeholder="Rechercher une photo..." />
+              <div id="gallery-list" class="grid md:grid-cols-2 gap-4 max-h-[720px] overflow-auto scrollbar-thin pr-2">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="partenaires" class="section-card p-6 lg:p-8">
+          <div class="flex flex-col xl:flex-row gap-6">
+            <div class="xl:w-[420px]">
+              <div class="flex items-start justify-between gap-4 mb-5">
+                <div>
+                  <h2 class="font-display text-2xl font-bold text-navy">Partenaires</h2>
+                  <p class="text-sm text-slate-500">Ajoute, modifie et supprime les partenaires (logo + nom + lien).</p>
+                </div>
+                <span class="badge badge-gold">Logos</span>
+              </div>
+
+              <form id="partner-form" class="space-y-4">
+                <input type="hidden" id="partner-id" />
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Nom du partenaire</label>
+                  <input id="partner-name" class="field" required placeholder="Nom du partenaire" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Site / Lien (optionnel)</label>
+                  <input id="partner-url" class="field" placeholder="https://..." />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Fichier logo</label>
+                  <input id="partner-file" type="file" accept="image/*" class="field pt-2.5" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Lien image (optionnel)</label>
+                  <input id="partner-image-url" class="field" placeholder="https://..." />
+                </div>
+                <div class="flex items-center gap-3">
+                  <input id="partner-active" type="checkbox" class="w-4 h-4 accent-[#C8893A]" checked />
+                  <label for="partner-active" class="text-sm font-medium">Afficher sur le site</label>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                  <button type="submit" class="mini-btn bg-gold text-white">Enregistrer</button>
+                  <button type="button" id="partner-reset" class="mini-btn bg-slate-100 text-slate-700">Nouveau</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="flex-1 overflow-hidden">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold text-lg">Partenaires enregistrés</h3>
+                <span id="partner-count" class="text-sm text-slate-500">0 partenaire</span>
+              </div>
+              <input id="partner-search" class="field mb-3" placeholder="Rechercher un partenaire..." />
+              <div id="partners-list" class="grid md:grid-cols-2 gap-4 max-h-[720px] overflow-auto scrollbar-thin pr-2">
+              </div>
             </div>
           </div>
         </section>
@@ -456,6 +647,7 @@
                 </div>
                 <span id="contact-count" class="text-sm text-slate-500">0 message</span>
               </div>
+              <input id="contact-search" class="field mb-3" placeholder="Rechercher un contact..." />
               <div id="contact-list" class="space-y-3 max-h-[460px] overflow-auto scrollbar-thin pr-2"></div>
             </div>
 
@@ -467,6 +659,7 @@
                 </div>
                 <span id="newsletter-count" class="text-sm text-slate-500">0 inscription</span>
               </div>
+              <input id="newsletter-search" class="field mb-3" placeholder="Rechercher un abonné..." />
               <div id="newsletter-list" class="space-y-3 max-h-[460px] overflow-auto scrollbar-thin pr-2"></div>
             </div>
           </div>
@@ -476,7 +669,28 @@
           <div class="grid lg:grid-cols-[1fr_380px] gap-6 items-start">
             <div>
               <h2 class="font-display text-2xl font-bold text-navy mb-3">Paramètres admin</h2>
-              <p class="text-sm text-slate-500 max-w-3xl">Ce tableau de bord est accessible uniquement au compte admin autorisé. Les documents `admins/{uid}` sont générés automatiquement pour ce compte afin que les règles de sécurité du site restent cohérentes.</p>
+              <p class="text-sm text-slate-500 max-w-3xl mb-6">Ce tableau de bord est accessible uniquement au compte
+                admin
+                autorisé. Les documents `admins/{uid}` sont générés automatiquement pour ce compte afin que les règles
+                de sécurité du site restent cohérentes.</p>
+
+              <div class="space-y-4">
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <h3 class="font-semibold text-navy mb-2">Gestion des comptes admin</h3>
+                  <p class="text-sm text-slate-600 mb-4">Créez des comptes administrateurs supplémentaires pour gérer le
+                    contenu du site.</p>
+                  <button onclick="createAdminAccount()" class="mini-btn bg-gold text-white w-full">+ Créer un compte
+                    admin</button>
+                </div>
+
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <h3 class="font-semibold text-navy mb-2">Sauvegarde des données</h3>
+                  <p class="text-sm text-slate-600 mb-4">Tous les contenus sont sauvegardés automatiquement dans
+                    Firestore.</p>
+                  <button id="refresh-btn-settings" onclick="refreshAll()"
+                    class="mini-btn bg-slate-700 text-white w-full">↻ Rafraîchir maintenant</button>
+                </div>
+              </div>
             </div>
             <div class="rounded-2xl bg-navy text-white p-5">
               <div class="text-xs uppercase tracking-[0.24em] text-white/55">Compte connecté</div>
@@ -486,6 +700,32 @@
                 <span class="badge badge-gold">Admin validé</span>
                 <span class="text-white/55 text-xs">Accès complet aux contenus</span>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="audit-log" class="section-card p-6 lg:p-8">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h2 class="font-display text-2xl font-bold text-navy">Journal d'audit</h2>
+                <p class="text-sm text-slate-500">Suivi de toutes les actions administrateur (dernières 100).</p>
+              </div>
+              <span id="audit-count" class="text-sm text-slate-500">0 action</span>
+            </div>
+            <div class="overflow-auto scrollbar-thin max-h-[600px] rounded-2xl border border-slate-200 bg-white">
+              <table class="w-full text-sm">
+                <thead class="sticky top-0 bg-white">
+                  <tr class="text-left text-slate-500 border-b border-slate-200">
+                    <th class="px-4 py-3">Heure</th>
+                    <th class="px-4 py-3">Admin</th>
+                    <th class="px-4 py-3">Action</th>
+                    <th class="px-4 py-3">Document</th>
+                    <th class="px-4 py-3">Détails</th>
+                  </tr>
+                </thead>
+                <tbody id="audit-list"></tbody>
+              </table>
             </div>
           </div>
         </section>
@@ -509,17 +749,55 @@
       article: null,
       event: null,
       gallery: null,
+      members: [],
+      partners: [],
+      articles: [],
+      events: [],
+      galleryItems: [],
+      contacts: [],
+      newsletter: [],
+      contributions: [],
+      collectionListeners: [],
+      refreshTimer: null,
       counts: {
         membres: 0,
         actualites: 0,
         evenements: 0,
         galerie: 0,
         contacts: 0,
-        newsletter: 0
+        newsletter: 0,
+        pending: 0
       }
     };
 
     const els = {};
+
+    function scheduleRefreshAll(delay = 200) {
+      clearTimeout(adminState.refreshTimer);
+      adminState.refreshTimer = setTimeout(() => {
+        if (adminState.user) {
+          refreshAll();
+        }
+      }, delay);
+    }
+
+    function cleanupDashboardListeners() {
+      adminState.collectionListeners.forEach(unsubscribe => {
+        try { unsubscribe(); } catch (e) { /* ignore */ }
+      });
+      adminState.collectionListeners = [];
+      clearTimeout(adminState.refreshTimer);
+      adminState.refreshTimer = null;
+    }
+
+    function getSearchValue(inputEl) {
+      return String(inputEl?.value || '').trim().toLowerCase();
+    }
+
+    function itemMatchesQuery(item, query, fields) {
+      if (!query) return true;
+      return fields.some((field) => String(item?.[field] || '').toLowerCase().includes(query));
+    }
 
     function escapeHtml(value) {
       return String(value ?? '').replace(/[&<>"']/g, (c) => ({
@@ -592,94 +870,262 @@
 
     async function saveArticle(event) {
       event.preventDefault();
-      const id = els.articleId.value.trim();
-      const url = await uploadIfNeeded(els.articleImageFile, els.articleImageUrl.value.trim(), STORAGE_PATHS.ACTUALITES);
-      const payload = {
-        titre: els.articleTitle.value.trim(),
-        resume: els.articleResume.value.trim(),
-        contenu: els.articleContent.value.trim(),
-        imageURL: url,
-        image: url,
-        publie: els.articlePublie.checked,
-        auteur: adminState.user?.displayName || adminState.user?.email || 'GREC',
-        categorie: 'actualite',
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
+      try {
+        const id = els.articleId.value.trim();
+        const url = await uploadIfNeeded(els.articleImageFile, els.articleImageUrl.value.trim(), STORAGE_PATHS.ACTUALITES);
+        const isPublished = els.articlePublie.checked;
+        const isUne = els.articleUne.checked;
+        const payload = {
+          titre: els.articleTitle.value.trim(),
+          resume: els.articleResume.value.trim(),
+          contenu: els.articleContent.value.trim(),
+          imageURL: url,
+          image: url,
+          publie: isPublished,
+          une: isUne,
+          validationStatus: isPublished ? VALIDATION_STATUS.APPROVED : VALIDATION_STATUS.PENDING,
+          auteur: adminState.user?.displayName || adminState.user?.email || 'GREC',
+          authorUid: adminState.user?.uid || '',
+          authorName: getAdminName(adminState.user),
+          authorEmail: adminState.user?.email || '',
+          categorie: 'actualite',
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
 
-      if (payload.publie && !adminState.article?.publishedAt) {
-        payload.publishedAt = firebase.firestore.FieldValue.serverTimestamp();
+        if (isPublished && !adminState.article?.publishedAt) {
+          payload.publishedAt = firebase.firestore.FieldValue.serverTimestamp();
+          payload.reviewedAt = firebase.firestore.FieldValue.serverTimestamp();
+          payload.reviewedBy = adminState.user?.uid || '';
+        }
+
+        if (id) {
+          await db.collection(COLLECTIONS.ACTUALITES).doc(id).set(payload, { merge: true });
+          logAdminAction('update-article', id, { titre: payload.titre });
+          showToast('Actualité mise à jour', 'success');
+        } else {
+          const docRef = await db.collection(COLLECTIONS.ACTUALITES).add({
+            ...payload,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            publishedAt: isPublished ? firebase.firestore.FieldValue.serverTimestamp() : null,
+            reviewedAt: isPublished ? firebase.firestore.FieldValue.serverTimestamp() : null,
+            reviewedBy: isPublished ? (adminState.user?.uid || '') : ''
+          });
+          logAdminAction('create-article', docRef.id, { titre: payload.titre });
+          showToast('Actualité créée', 'success');
+        }
+
+        resetArticleForm();
+        await refreshAll();
+      } catch (error) {
+        console.error('Erreur saveArticle:', error);
+        showToast('Erreur: ' + error.message, 'error');
       }
-
-      if (id) {
-        await db.collection(COLLECTIONS.ACTUALITES).doc(id).set(payload, { merge: true });
-        showToast('Actualité mise à jour', 'success');
-      } else {
-        await db.collection(COLLECTIONS.ACTUALITES).add({
-          ...payload,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          publishedAt: payload.publie ? firebase.firestore.FieldValue.serverTimestamp() : null
-        });
-        showToast('Actualité créée', 'success');
-      }
-
-      resetArticleForm();
-      await refreshAll();
     }
 
     async function saveEvent(event) {
       event.preventDefault();
-      const id = els.eventId.value.trim();
-      const payload = {
-        titre: els.eventTitle.value.trim(),
-        date: els.eventDate.value,
-        lieu: els.eventLocation.value.trim(),
-        description: els.eventDescription.value.trim(),
-        imageURL: els.eventImageUrl.value.trim(),
-        publie: els.eventPublie.checked,
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
+      try {
+        const id = els.eventId.value.trim();
+        const isPublished = els.eventPublie.checked;
+        const payload = {
+          titre: els.eventTitle.value.trim(),
+          date: els.eventDate.value,
+          lieu: els.eventLocation.value.trim(),
+          description: els.eventDescription.value.trim(),
+          imageURL: els.eventImageUrl.value.trim(),
+          publie: isPublished,
+          validationStatus: isPublished ? VALIDATION_STATUS.APPROVED : VALIDATION_STATUS.PENDING,
+          authorUid: adminState.user?.uid || '',
+          authorName: getAdminName(adminState.user),
+          authorEmail: adminState.user?.email || '',
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
 
-      if (id) {
-        await db.collection(COLLECTIONS.EVENEMENTS).doc(id).set(payload, { merge: true });
-        showToast('Événement mis à jour', 'success');
-      } else {
-        await db.collection(COLLECTIONS.EVENEMENTS).add({
-          ...payload,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        showToast('Événement créé', 'success');
+        if (isPublished) {
+          payload.reviewedAt = firebase.firestore.FieldValue.serverTimestamp();
+          payload.reviewedBy = adminState.user?.uid || '';
+        }
+
+        if (id) {
+          await db.collection(COLLECTIONS.EVENEMENTS).doc(id).set(payload, { merge: true });
+          logAdminAction('update-event', id, { titre: payload.titre });
+          showToast('Événement mis à jour', 'success');
+        } else {
+          const docRef = await db.collection(COLLECTIONS.EVENEMENTS).add({
+            ...payload,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            reviewedAt: isPublished ? firebase.firestore.FieldValue.serverTimestamp() : null,
+            reviewedBy: isPublished ? (adminState.user?.uid || '') : ''
+          });
+          logAdminAction('create-event', docRef.id, { titre: payload.titre });
+          showToast('Événement créé', 'success');
+        }
+
+        resetEventForm();
+        await refreshAll();
+      } catch (error) {
+        console.error('Erreur saveEvent:', error);
+        showToast('Erreur: ' + error.message, 'error');
+      }
+    }
+
+    async function moderateContent(collectionName, id, action, contribType) {
+      let rejectionReason = '';
+      if (action === 'reject') {
+        rejectionReason = prompt('Motif du refus (optionnel) :', '') || '';
       }
 
-      resetEventForm();
+      // Special handling for contributions collection: on approve, create target doc in actualites or evenements
+      if (collectionName === COLLECTIONS.CONTRIBUTIONS) {
+        const docRef = db.collection(COLLECTIONS.CONTRIBUTIONS).doc(id);
+        const snap = await docRef.get();
+        if (!snap.exists) { showToast('Contribution introuvable.', 'error'); return; }
+        const data = snap.data() || {};
+
+        if (action === 'approve') {
+          const type = contribType || data.type || (data.date ? 'event' : 'article');
+          if (type === 'event') {
+            // create event
+            const eventPayload = {
+              titre: data.titre || data.titre,
+              date: data.date || data.date || null,
+              lieu: data.lieu || data.lieu || '',
+              description: data.description || data.resume || data.contenu || '',
+              imageURL: data.imageURL || data.image || '',
+              publie: true,
+              validationStatus: VALIDATION_STATUS.APPROVED,
+              authorUid: data.authorUid || data.author || '',
+              authorName: data.authorName || data.auteur || '',
+              authorEmail: data.authorEmail || data.email || '',
+              createdAt: data.createdAt || firebase.firestore.FieldValue.serverTimestamp(),
+              publishedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              reviewedBy: adminState.user?.uid || ''
+            };
+            const newDoc = await db.collection(COLLECTIONS.EVENEMENTS).add(eventPayload);
+            await docRef.set({
+              validationStatus: VALIDATION_STATUS.APPROVED,
+              publie: true,
+              publishedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              reviewedBy: adminState.user?.uid || '',
+              publishedDocId: newDoc.id
+            }, { merge: true });
+            showToast('Contribution validée et publiée en événement', 'success');
+
+          } else {
+            // create article
+            const articlePayload = {
+              titre: data.titre || '',
+              resume: data.resume || data.description || '',
+              contenu: data.contenu || data.content || data.description || '',
+              imageURL: data.imageURL || data.image || '',
+              image: data.imageURL || data.image || '',
+              publie: true,
+              validationStatus: VALIDATION_STATUS.APPROVED,
+              auteur: data.authorName || data.auteur || '',
+              authorUid: data.authorUid || '',
+              authorName: data.authorName || '',
+              authorEmail: data.authorEmail || '',
+              categorie: 'actualite',
+              createdAt: data.createdAt || firebase.firestore.FieldValue.serverTimestamp(),
+              publishedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              reviewedBy: adminState.user?.uid || ''
+            };
+            const newDoc = await db.collection(COLLECTIONS.ACTUALITES).add(articlePayload);
+            await docRef.set({
+              validationStatus: VALIDATION_STATUS.APPROVED,
+              publie: true,
+              publishedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              reviewedBy: adminState.user?.uid || '',
+              publishedDocId: newDoc.id
+            }, { merge: true });
+            showToast('Contribution validée et publiée en actualité', 'success');
+          }
+
+          await refreshAll();
+          return;
+        }
+
+        // Reject contribution
+        if (action === 'reject') {
+          await docRef.set({
+            validationStatus: VALIDATION_STATUS.REJECTED,
+            publie: false,
+            rejectionReason: rejectionReason,
+            reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            reviewedBy: adminState.user?.uid || ''
+          }, { merge: true });
+          showToast('Contribution refusée', 'success');
+          await refreshAll();
+          return;
+        }
+
+        return;
+      }
+
+      // Default handling for articles/events
+      const payload = {
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        reviewedBy: adminState.user?.uid || ''
+      };
+
+      if (action === 'approve') {
+        payload.validationStatus = VALIDATION_STATUS.APPROVED;
+        payload.publie = true;
+        if (collectionName === COLLECTIONS.ACTUALITES) {
+          payload.publishedAt = firebase.firestore.FieldValue.serverTimestamp();
+        }
+      } else {
+        payload.validationStatus = VALIDATION_STATUS.REJECTED;
+        payload.publie = false;
+        payload.rejectionReason = rejectionReason;
+      }
+
+      await db.collection(collectionName).doc(id).set(payload, { merge: true });
+      showToast(action === 'approve' ? 'Contribution validée' : 'Contribution refusée', 'success');
       await refreshAll();
     }
 
     async function saveGallery(event) {
       event.preventDefault();
-      const id = els.galleryId.value.trim();
-      const url = await uploadIfNeeded(els.galleryFile, els.galleryUrl.value.trim());
-      const payload = {
-        titre: els.galleryTitle.value.trim(),
-        description: els.galleryDescription.value.trim(),
-        categorie: els.galleryCategory.value,
-        url,
-        publie: els.galleryPublie.checked,
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
+      try {
+        const id = els.galleryId.value.trim();
+        const url = await uploadIfNeeded(els.galleryFile, els.galleryUrl.value.trim());
+        if (!url) {
+          throw new Error('Ajoute une image ou une URL avant d’enregistrer la photo.');
+        }
+        const payload = {
+          titre: els.galleryTitle.value.trim(),
+          description: els.galleryDescription.value.trim(),
+          categorie: els.galleryCategory.value,
+          url,
+          publie: els.galleryPublie.checked,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
 
-      if (id) {
-        await db.collection(COLLECTIONS.GALERIE).doc(id).set(payload, { merge: true });
-        showToast('Photo mise à jour', 'success');
-      } else {
-        await db.collection(COLLECTIONS.GALERIE).add({
-          ...payload,
-          uploadedAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        showToast('Photo ajoutée', 'success');
+        if (id) {
+          await db.collection(COLLECTIONS.GALERIE).doc(id).set(payload, { merge: true });
+          logAdminAction('update-gallery', id, { titre: payload.titre });
+          showToast('Photo mise à jour', 'success');
+        } else {
+          const docRef = await db.collection(COLLECTIONS.GALERIE).add({
+            ...payload,
+            uploadedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          logAdminAction('create-gallery', docRef.id, { titre: payload.titre });
+          showToast('Photo ajoutée', 'success');
+        }
+
+        resetGalleryForm();
+        await refreshAll();
+      } catch (error) {
+        console.error('Erreur saveGallery:', error);
+        showToast('Erreur: ' + error.message, 'error');
       }
-
-      resetGalleryForm();
-      await refreshAll();
     }
 
     function bindEditButtons() {
@@ -693,6 +1139,7 @@
           els.articleContent.value = data.contenu || data.content || data.details || '';
           els.articleImageUrl.value = data.imageURL || data.image || '';
           els.articlePublie.checked = data.publie !== false;
+          els.articleUne.checked = data.une === true;
           els.articleReset.textContent = 'Annuler';
           window.location.hash = '#actualites';
         });
@@ -732,27 +1179,48 @@
       document.querySelectorAll('[data-action="delete-article"]').forEach(btn => {
         btn.addEventListener('click', async () => {
           if (!confirm('Supprimer cette actualité ?')) return;
-          await db.collection(COLLECTIONS.ACTUALITES).doc(btn.dataset.id).delete();
-          showToast('Actualité supprimée', 'success');
-          await refreshAll();
+          const id = btn.dataset.id;
+          try {
+            await db.collection(COLLECTIONS.ACTUALITES).doc(id).delete();
+            logAdminAction('delete-article', id, { collection: COLLECTIONS.ACTUALITES });
+            showToast('Actualité supprimée', 'success');
+            await refreshAll();
+          } catch (error) {
+            console.error('Erreur delete-article:', error);
+            showToast('Erreur: ' + error.message, 'error');
+          }
         });
       });
 
       document.querySelectorAll('[data-action="delete-event"]').forEach(btn => {
         btn.addEventListener('click', async () => {
           if (!confirm('Supprimer cet événement ?')) return;
-          await db.collection(COLLECTIONS.EVENEMENTS).doc(btn.dataset.id).delete();
-          showToast('Événement supprimé', 'success');
-          await refreshAll();
+          const id = btn.dataset.id;
+          try {
+            await db.collection(COLLECTIONS.EVENEMENTS).doc(id).delete();
+            logAdminAction('delete-event', id, { collection: COLLECTIONS.EVENEMENTS });
+            showToast('Événement supprimé', 'success');
+            await refreshAll();
+          } catch (error) {
+            console.error('Erreur delete-event:', error);
+            showToast('Erreur: ' + error.message, 'error');
+          }
         });
       });
 
       document.querySelectorAll('[data-action="delete-gallery"]').forEach(btn => {
         btn.addEventListener('click', async () => {
           if (!confirm('Supprimer cette photo ?')) return;
-          await db.collection(COLLECTIONS.GALERIE).doc(btn.dataset.id).delete();
-          showToast('Photo supprimée', 'success');
-          await refreshAll();
+          const id = btn.dataset.id;
+          try {
+            await db.collection(COLLECTIONS.GALERIE).doc(id).delete();
+            logAdminAction('delete-gallery', id, { collection: COLLECTIONS.GALERIE });
+            showToast('Photo supprimée', 'success');
+            await refreshAll();
+          } catch (error) {
+            console.error('Erreur delete-gallery:', error);
+            showToast('Erreur: ' + error.message, 'error');
+          }
         });
       });
 
@@ -777,33 +1245,170 @@
             publicProfileEnabled: next,
             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
           }, { merge: true });
+          logAdminAction('toggle-member-public', id, { next });
           showToast('Visibilité du profil mise à jour', 'success');
           await refreshAll();
+        });
+      });
+
+      document.querySelectorAll('[data-action="delete-member"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.dataset.id;
+          const memberName = adminState.members?.find(m => m.id === id)?.nom || 'Membre';
+          const confirmed = confirm(`⚠️ ATTENTION - Suppression définitive\n\nMembre: "${memberName}"\n\nCette action supprimera le profil et ne peut pas être annulée.\n\nConfirmer la suppression ?`);
+          if (!confirmed) return;
+
+          try {
+            await db.collection(COLLECTIONS.MEMBRES).doc(id).delete();
+            logAdminAction('delete-member', id, { memberName });
+            showToast(`Membre "${memberName}" supprimé définitivement`, 'success');
+            await refreshAll();
+          } catch (error) {
+            console.error('Erreur delete-member:', error);
+            showToast('Erreur: ' + error.message, 'error');
+          }
         });
       });
 
       document.querySelectorAll('[data-action="delete-contact"]').forEach(btn => {
         btn.addEventListener('click', async () => {
           if (!confirm('Supprimer ce contact ?')) return;
-          await db.collection(COLLECTIONS.CONTACTS).doc(btn.dataset.id).delete();
-          showToast('Contact supprimé', 'success');
-          await refreshAll();
+          const id = btn.dataset.id;
+          try {
+            await db.collection(COLLECTIONS.CONTACTS).doc(id).delete();
+            logAdminAction('delete-contact', id, { collection: COLLECTIONS.CONTACTS });
+            showToast('Contact supprimé', 'success');
+            await refreshAll();
+          } catch (error) {
+            console.error('Erreur delete-contact:', error);
+            showToast('Erreur: ' + error.message, 'error');
+          }
         });
       });
 
       document.querySelectorAll('[data-action="delete-newsletter"]').forEach(btn => {
         btn.addEventListener('click', async () => {
           if (!confirm('Supprimer cette inscription ?')) return;
-          await db.collection(COLLECTIONS.NEWSLETTER).doc(btn.dataset.id).delete();
-          showToast('Inscription supprimée', 'success');
+          const id = btn.dataset.id;
+          try {
+            await db.collection(COLLECTIONS.NEWSLETTER).doc(id).delete();
+            logAdminAction('delete-newsletter', id, { collection: COLLECTIONS.NEWSLETTER });
+            showToast('Inscription supprimée', 'success');
+            await refreshAll();
+          } catch (error) {
+            console.error('Erreur delete-newsletter:', error);
+            showToast('Erreur: ' + error.message, 'error');
+          }
+        });
+      });
+
+      document.querySelectorAll('[data-action="delete-contribution"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Supprimer cette contribution ?')) return;
+          await db.collection(COLLECTIONS.CONTRIBUTIONS).doc(btn.dataset.id).delete();
+          showToast('Contribution supprimée', 'success');
           await refreshAll();
+        });
+      });
+
+      document.querySelectorAll('[data-action="approve-content"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          await moderateContent(btn.dataset.collection, btn.dataset.id, 'approve', btn.dataset.type);
+        });
+      });
+
+      document.querySelectorAll('[data-action="reject-content"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Refuser cette contribution ?')) return;
+          await moderateContent(btn.dataset.collection, btn.dataset.id, 'reject', btn.dataset.type);
         });
       });
     }
 
+    function renderValidationBadge(item) {
+      const status = normalizeValidationStatus(item.validationStatus, item.publie);
+      return `<span class="badge ${getValidationBadgeClass(status)}">${escapeHtml(getValidationLabel(status))}</span>`;
+    }
+
+    function renderAuthorLine(item) {
+      const author = item.authorName || item.auteur || item.authorEmail || 'Membre';
+      return `<div class="text-xs text-slate-500 mt-1">Par ${escapeHtml(author)}</div>`;
+    }
+
+    function renderModerationCard(item, type) {
+      const collectionName = type === 'article' ? COLLECTIONS.ACTUALITES : COLLECTIONS.EVENEMENTS;
+      const subtitle = type === 'article'
+        ? escapeHtml(item.resume || '')
+        : `${escapeHtml(item.lieu || '-')} · ${escapeHtml(formatTimestamp(item.date))}`;
+      return `
+        <article class="rounded-2xl border border-amber-200 bg-amber-50/40 p-4">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="font-semibold text-navy">${escapeHtml(item.titre || (type === 'article' ? 'Article' : 'Événement'))}</span>
+            ${renderValidationBadge(item)}
+          </div>
+          ${renderAuthorLine(item)}
+          <p class="text-sm text-slate-600 mt-2 line-clamp-3">${subtitle}</p>
+          ${item.rejectionReason ? `<p class="text-sm text-red-600 mt-2">Dernier refus : ${escapeHtml(item.rejectionReason)}</p>` : ''}
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button data-action="approve-content" data-collection="${collectionName}" data-id="${escapeHtml(item.id)}" class="mini-btn bg-green-600 text-white">Valider</button>
+            <button data-action="reject-content" data-collection="${collectionName}" data-id="${escapeHtml(item.id)}" class="mini-btn bg-red-50 text-red-600">Refuser</button>
+            <button data-action="edit-${type === 'article' ? 'article' : 'event'}" data-payload='${escapeHtml(JSON.stringify(item))}' class="mini-btn bg-slate-100 text-slate-700">Voir / modifier</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderContributionModerationCard(item) {
+      const type = item.type === 'event' ? 'event' : 'article';
+      const subtitle = type === 'article'
+        ? escapeHtml(item.resume || item.description || '')
+        : `${escapeHtml(item.lieu || '-')} · ${escapeHtml(formatTimestamp(item.date))}`;
+      return `
+        <article class="rounded-2xl border border-amber-200 bg-amber-50/40 p-4">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="font-semibold text-navy">${escapeHtml(item.titre || (type === 'article' ? 'Article' : 'Événement'))}</span>
+            ${renderValidationBadge(item)}
+          </div>
+          ${renderAuthorLine(item)}
+          <p class="text-sm text-slate-600 mt-2 line-clamp-3">${subtitle}</p>
+          ${item.rejectionReason ? `<p class="text-sm text-red-600 mt-2">Dernier refus : ${escapeHtml(item.rejectionReason)}</p>` : ''}
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button data-action="approve-content" data-collection="${COLLECTIONS.CONTRIBUTIONS}" data-type="${type}" data-id="${escapeHtml(item.id)}" class="mini-btn bg-green-600 text-white">Valider</button>
+            <button data-action="reject-content" data-collection="${COLLECTIONS.CONTRIBUTIONS}" data-type="${type}" data-id="${escapeHtml(item.id)}" class="mini-btn bg-red-50 text-red-600">Refuser</button>
+            <button data-action="delete-contribution" data-id="${escapeHtml(item.id)}" class="mini-btn bg-red-50 text-red-600">Supprimer</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderPendingLists(articles, events, contributions = []) {
+      const pendingArticles = articles.filter(item => normalizeValidationStatus(item.validationStatus, item.publie) === VALIDATION_STATUS.PENDING);
+      const pendingEvents = events.filter(item => normalizeValidationStatus(item.validationStatus, item.publie) === VALIDATION_STATUS.PENDING);
+      const pendingContributions = contributions.filter(item => normalizeValidationStatus(item.status || item.validationStatus, item.publie) === VALIDATION_STATUS.PENDING);
+      const pendingTotal = pendingArticles.length + pendingEvents.length + pendingContributions.length;
+
+      document.getElementById('moderation-pending-count').textContent = `${pendingTotal} en attente`;
+      document.getElementById('pending-articles-count').textContent = `${pendingArticles.length} article${pendingArticles.length > 1 ? 's' : ''}`;
+      document.getElementById('pending-events-count').textContent = `${pendingEvents.length} événement${pendingEvents.length > 1 ? 's' : ''}`;
+      document.getElementById('pending-contributions-count').textContent = `${pendingContributions.length} contribution${pendingContributions.length > 1 ? 's' : ''}`;
+
+      els.pendingArticlesList.innerHTML = pendingArticles.length
+        ? pendingArticles.map(item => renderModerationCard(item, 'article')).join('')
+        : '<p class="text-sm text-slate-500 rounded-2xl border border-dashed border-slate-200 p-4">Aucun article en attente.</p>';
+      els.pendingEventsList.innerHTML = pendingEvents.length
+        ? pendingEvents.map(item => renderModerationCard(item, 'event')).join('')
+        : '<p class="text-sm text-slate-500 rounded-2xl border border-dashed border-slate-200 p-4">Aucun événement en attente.</p>';
+      els.pendingContributionsList.innerHTML = pendingContributions.length
+        ? pendingContributions.map(item => renderContributionModerationCard(item)).join('')
+        : '<p class="text-sm text-slate-500 rounded-2xl border border-dashed border-slate-200 p-4">Aucune contribution en attente.</p>';
+    }
+
     function renderArticleList(items) {
-      els.articleCount.textContent = `${items.length} article${items.length > 1 ? 's' : ''}`;
-      els.articleList.innerHTML = items.map(item => `
+      const q = getSearchValue(els.articleSearch);
+      const filtered = items.filter(item => itemMatchesQuery(item, q, ['titre', 'resume', 'contenu', 'auteur', 'authorName', 'categorie']));
+      const displayItems = q ? filtered : items.slice(0, 6);
+      els.articleCount.textContent = `${filtered.length} article${filtered.length > 1 ? 's' : ''}`;
+      els.articleList.innerHTML = displayItems.length ? displayItems.map(item => `
         <article class="rounded-2xl border border-slate-200 bg-white p-4">
           <div class="flex gap-4">
             <div class="w-24 h-24 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0">
@@ -812,9 +1417,12 @@
             <div class="flex-1 min-w-0">
               <div class="flex flex-wrap items-center gap-2 mb-2">
                 <span class="font-semibold text-navy">${escapeHtml(item.titre || 'Sans titre')}</span>
-                <span class="badge ${item.publie ? 'badge-green' : 'badge-slate'}">${item.publie ? 'Publié' : 'Brouillon'}</span>
+                ${item.une ? '<span class="badge badge-gold">Une</span>' : ''}
+                ${renderValidationBadge(item)}
+                <span class="badge ${item.publie ? 'badge-green' : 'badge-slate'}">${item.publie ? 'Publié' : 'Masqué'}</span>
               </div>
-              <p class="text-sm text-slate-500 line-clamp-3">${escapeHtml(item.resume || '')}</p>
+              ${renderAuthorLine(item)}
+              <p class="text-sm text-slate-500 line-clamp-2">${escapeHtml(item.resume || '')}</p>
               <div class="mt-3 flex flex-wrap gap-2">
                 <button data-action="edit-article" data-payload='${escapeHtml(JSON.stringify(item))}' class="mini-btn bg-slate-100 text-slate-700">Modifier</button>
                 <button data-action="delete-article" data-id="${escapeHtml(item.id)}" class="mini-btn bg-red-50 text-red-600">Supprimer</button>
@@ -822,20 +1430,25 @@
             </div>
           </div>
         </article>
-      `).join('');
+      `).join('') : '<p class="text-sm text-slate-500 rounded-2xl border border-dashed border-slate-200 p-4">Aucun article trouvé.</p>';
       bindEditButtons();
     }
 
     function renderEventList(items) {
-      els.eventCount.textContent = `${items.length} événement${items.length > 1 ? 's' : ''}`;
-      els.eventList.innerHTML = items.map(item => `
+      const q = getSearchValue(els.eventSearch);
+      const filtered = items.filter(item => itemMatchesQuery(item, q, ['titre', 'lieu', 'description', 'auteur', 'authorName']));
+      const displayItems = q ? filtered : items.slice(0, 6);
+      els.eventCount.textContent = `${filtered.length} événement${filtered.length > 1 ? 's' : ''}`;
+      els.eventList.innerHTML = displayItems.length ? displayItems.map(item => `
         <article class="rounded-2xl border border-slate-200 bg-white p-4">
           <div class="flex items-start justify-between gap-4">
             <div>
               <div class="flex flex-wrap items-center gap-2 mb-2">
                 <span class="font-semibold text-navy">${escapeHtml(item.titre || 'Événement')}</span>
+                ${renderValidationBadge(item)}
                 <span class="badge ${item.publie ? 'badge-green' : 'badge-slate'}">${item.publie ? 'Visible' : 'Masqué'}</span>
               </div>
+              ${renderAuthorLine(item)}
               <div class="text-sm text-slate-500">${escapeHtml(item.lieu || '-')} · ${escapeHtml(formatTimestamp(item.date))}</div>
               <p class="text-sm text-slate-500 mt-2 line-clamp-3">${escapeHtml(item.description || '')}</p>
             </div>
@@ -845,13 +1458,16 @@
             <button data-action="delete-event" data-id="${escapeHtml(item.id)}" class="mini-btn bg-red-50 text-red-600">Supprimer</button>
           </div>
         </article>
-      `).join('');
+      `).join('') : '<p class="text-sm text-slate-500 rounded-2xl border border-dashed border-slate-200 p-4">Aucun événement trouvé.</p>';
       bindEditButtons();
     }
 
     function renderGalleryList(items) {
-      els.galleryCount.textContent = `${items.length} photo${items.length > 1 ? 's' : ''}`;
-      els.galleryList.innerHTML = items.map(item => `
+      const q = getSearchValue(els.gallerySearch);
+      const filtered = items.filter(item => itemMatchesQuery(item, q, ['titre', 'description', 'categorie']));
+      const displayItems = q ? filtered : items.slice(0, 6);
+      els.galleryCount.textContent = `${filtered.length} photo${filtered.length > 1 ? 's' : ''}`;
+      els.galleryList.innerHTML = displayItems.length ? displayItems.map(item => `
         <article class="rounded-2xl border border-slate-200 bg-white overflow-hidden">
           <div class="aspect-[4/3] bg-slate-100">
             ${item.url ? `<img src="${escapeHtml(item.url)}" alt="${escapeHtml(item.titre)}" class="w-full h-full object-cover" />` : `<div class="w-full h-full flex items-center justify-center text-slate-400 text-sm">Aucune image</div>`}
@@ -868,8 +1484,99 @@
             </div>
           </div>
         </article>
-      `).join('');
+      `).join('') : '<p class="text-sm text-slate-500 rounded-2xl border border-dashed border-slate-200 p-4 md:col-span-2">Aucune photo trouvée.</p>';
       bindEditButtons();
+    }
+
+    function renderPartnersList(items) {
+      const q = getSearchValue(els.partnerSearch);
+      const filtered = items.filter(item => itemMatchesQuery(item, q, ['nom', 'url']));
+      const displayItems = q ? filtered : items.slice(0, 24);
+      const countEl = document.getElementById('partner-count');
+      if (countEl) countEl.textContent = `${filtered.length} partenaire${filtered.length > 1 ? 's' : ''}`;
+      const container = document.getElementById('partners-list');
+      if (!container) return;
+      container.innerHTML = displayItems.length ? displayItems.map(item => `
+        <article class="rounded-2xl border border-slate-200 bg-white p-4 flex items-center gap-4">
+          <div class="w-24 h-24 bg-slate-50 rounded-lg overflow-hidden flex items-center justify-center">
+            ${item.logoURL ? `<img src="${escapeHtml(item.logoURL)}" alt="${escapeHtml(item.nom)}" class="w-full h-full object-contain" />` : `<div class="text-slate-400 text-xs">Aucun logo</div>`}
+          </div>
+          <div class="flex-1">
+            <div class="font-semibold text-navy">${escapeHtml(item.nom || 'Partenaire')}</div>
+            ${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" class="text-sm text-slate-500">${escapeHtml(item.url)}</a>` : `<div class="text-sm text-slate-500">&nbsp;</div>`}
+          </div>
+          <div class="flex flex-col gap-2">
+            <button data-action="edit-partner" data-payload='${escapeHtml(JSON.stringify(item))}' class="mini-btn bg-slate-100 text-slate-700">Modifier</button>
+            <button data-action="delete-partner" data-id="${escapeHtml(item.id)}" class="mini-btn bg-red-50 text-red-600">Supprimer</button>
+          </div>
+        </article>
+      `).join('') : '<p class="text-sm text-slate-500 rounded-2xl border border-dashed border-slate-200 p-4 md:col-span-2">Aucun partenaire trouvé.</p>';
+      bindPartnerButtons();
+    }
+
+    function bindPartnerButtons() {
+      document.querySelectorAll('[data-action="edit-partner"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const data = JSON.parse(btn.dataset.payload || '{}');
+          els.partnerId.value = data.id || '';
+          els.partnerName.value = data.nom || '';
+          els.partnerImageUrl.value = data.logoURL || '';
+          els.partnerUrl.value = data.url || '';
+          els.partnerActive.checked = data.publie !== false;
+          els.partnerReset.textContent = 'Annuler';
+          window.location.hash = '#partenaires';
+        });
+      });
+
+      document.querySelectorAll('[data-action="delete-partner"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Supprimer ce partenaire ?')) return;
+          const id = btn.dataset.id;
+          try {
+            await db.collection(COLLECTIONS.PARTENAIRES).doc(id).delete();
+            logAdminAction('delete-partner', id, { collection: COLLECTIONS.PARTENAIRES });
+            showToast('Partenaire supprimé', 'success');
+            await refreshAll();
+          } catch (error) {
+            console.error('Erreur delete-partner:', error);
+            showToast('Erreur: ' + error.message, 'error');
+          }
+        });
+      });
+    }
+
+    async function savePartner(event) {
+      event.preventDefault();
+      try {
+        const id = (els.partnerId.value || '').trim();
+        const name = (els.partnerName.value || '').trim();
+        if (!name) { showToast('Le nom du partenaire est requis', 'error'); return; }
+        const url = (els.partnerUrl.value || '').trim();
+        const logoUrl = await uploadIfNeeded(els.partnerFile, els.partnerImageUrl.value.trim(), STORAGE_PATHS.PARTENAIRES);
+        const payload = {
+          nom: name,
+          url: url || '',
+          logoURL: logoUrl || els.partnerImageUrl.value.trim() || '',
+          publie: els.partnerActive.checked,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        if (id) {
+          await db.collection(COLLECTIONS.PARTENAIRES).doc(id).set(payload, { merge: true });
+          logAdminAction('update-partner', id, { nom: name });
+          showToast('Partenaire mis à jour', 'success');
+        } else {
+          const docRef = await db.collection(COLLECTIONS.PARTENAIRES).add({ ...payload, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+          logAdminAction('create-partner', docRef.id, { nom: name });
+          showToast('Partenaire ajouté', 'success');
+        }
+        els.partnerForm.reset();
+        els.partnerId.value = '';
+        els.partnerReset.textContent = 'Nouveau';
+        await refreshAll();
+      } catch (error) {
+        console.error('Erreur savePartner:', error);
+        showToast('Erreur: ' + error.message, 'error');
+      }
     }
 
     function renderMemberList(items) {
@@ -903,6 +1610,7 @@
             <div class="flex flex-wrap gap-2">
               <button data-action="toggle-member" data-id="${escapeHtml(item.id)}" data-status="${escapeHtml(item.statut || 'actif')}" class="mini-btn bg-slate-100 text-slate-700">${String(item.statut || 'actif') === 'actif' ? 'Suspendre' : 'Réactiver'}</button>
               <button data-action="toggle-member-public" data-id="${escapeHtml(item.id)}" data-current="${item.publicProfileEnabled === false ? 'false' : 'true'}" class="mini-btn bg-slate-100 text-slate-700">${item.publicProfileEnabled === false ? 'Afficher' : 'Masquer'}</button>
+              <button data-action="delete-member" data-id="${escapeHtml(item.id)}" class="mini-btn bg-red-50 text-red-600">Supprimer</button>
             </div>
           </td>
         </tr>
@@ -911,44 +1619,105 @@
     }
 
     function renderMessageList(items, type) {
-      return items.map(item => `
+      const q = type === 'contact' ? getSearchValue(els.contactSearch) : getSearchValue(els.newsletterSearch);
+      const filtered = items.filter(item => {
+        if (type === 'contact') return itemMatchesQuery(item, q, ['nom', 'email', 'message']);
+        return itemMatchesQuery(item, q, ['email', 'nom']);
+      });
+      const displayItems = q ? filtered : items.slice(0, 8);
+      if (!displayItems.length) {
+        return `<p class="text-sm text-slate-500 rounded-2xl border border-dashed border-slate-200 p-4">Aucun ${type === 'contact' ? 'contact' : 'abonné'} trouvé.</p>`;
+      }
+      return displayItems.map(item => {
+        const timestamp = item.createdAt || item.subscribedAt;
+        return `
         <article class="rounded-2xl border border-slate-200 bg-white p-4">
           <div class="flex items-start justify-between gap-3">
             <div>
               <div class="font-semibold text-navy">${escapeHtml(item.nom || item.email || 'Message')}</div>
-              <div class="text-xs text-slate-500">${escapeHtml(item.email || '')} ${item.createdAt ? `· ${escapeHtml(formatTimestamp(item.createdAt))}` : ''}</div>
+              <div class="text-xs text-slate-500">${escapeHtml(item.email || '')} ${timestamp ? `· ${escapeHtml(formatTimestamp(timestamp))}` : ''}</div>
             </div>
             <button data-action="delete-${type}" data-id="${escapeHtml(item.id)}" class="mini-btn bg-red-50 text-red-600">Supprimer</button>
           </div>
           ${item.message ? `<p class="text-sm text-slate-600 mt-3 whitespace-pre-line">${escapeHtml(item.message)}</p>` : ''}
         </article>
-      `).join('');
+      `;
+      }).join('');
     }
 
     async function fetchCollection(collectionName, orderField, direction = 'desc') {
+      const snap = await db.collection(collectionName).get();
+      const docs = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return docs.sort((a, b) => {
+        const av = a?.[orderField]?.toDate ? a[orderField].toDate().getTime() : new Date(a?.[orderField] || 0).getTime() || 0;
+        const bv = b?.[orderField]?.toDate ? b[orderField].toDate().getTime() : new Date(b?.[orderField] || 0).getTime() || 0;
+        return direction === 'asc' ? av - bv : bv - av;
+      });
+    }
+
+    async function loadAuditLog() {
+      // Charge les 100 derniers logs d'actions pour l'audit trail
       try {
-        const snap = await db.collection(collectionName).orderBy(orderField, direction).get();
-        return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const snap = await db.collection('ACTION_LOG')
+          .orderBy('timestamp', 'desc')
+          .limit(100)
+          .get();
+
+        const logs = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        els.auditCount.textContent = `${logs.length} action${logs.length > 1 ? 's' : ''}`;
+
+        els.auditList.innerHTML = logs.map(log => {
+          const timestamp = log.timestamp?.toDate?.() || new Date(log.createdAt);
+          const time = timestamp.toLocaleString('fr-FR', {
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit', second: '2-digit'
+          });
+          const details = log.details ? Object.entries(log.details)
+            .map(([k, v]) => `${escapeHtml(String(k))}=${escapeHtml(String(v))}`)
+            .join(' ') : '-';
+
+          return `
+            <tr class="border-b border-slate-100 hover:bg-slate-50">
+              <td class="px-4 py-3 text-xs text-slate-600">${escapeHtml(time)}</td>
+              <td class="px-4 py-3 text-sm text-slate-600">${escapeHtml(log.adminEmail || log.adminUid || '-')}</td>
+              <td class="px-4 py-3">
+                <span class="badge badge-slate">${escapeHtml(log.action || '-')}</span>
+              </td>
+              <td class="px-4 py-3 text-xs text-slate-500 font-mono">${escapeHtml(log.documentId?.substring(0, 8) || '-')}</td>
+              <td class="px-4 py-3 text-xs text-slate-600 max-w-xs truncate">${details}</td>
+            </tr>
+          `;
+        }).join('');
       } catch (error) {
-        const snap = await db.collection(collectionName).get();
-        const docs = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        return docs.sort((a, b) => {
-          const av = a?.[orderField]?.toDate ? a[orderField].toDate().getTime() : new Date(a?.[orderField] || 0).getTime() || 0;
-          const bv = b?.[orderField]?.toDate ? b[orderField].toDate().getTime() : new Date(b?.[orderField] || 0).getTime() || 0;
-          return direction === 'asc' ? av - bv : bv - av;
-        });
+        console.error('Erreur loadAuditLog:', error);
+        els.auditList.innerHTML = `<tr><td colspan="5" class="px-4 py-3 text-center text-red-600">Erreur: ${escapeHtml(error.message)}</td></tr>`;
       }
     }
 
     async function refreshAll() {
-      const [members, articles, events, gallery, contacts, newsletter] = await Promise.all([
+      const [members, articles, events, gallery, contacts, newsletter, contributions, partners] = await Promise.all([
         fetchCollection(COLLECTIONS.MEMBRES, 'createdAt', 'desc'),
         fetchCollection(COLLECTIONS.ACTUALITES, 'publishedAt', 'desc'),
         fetchCollection(COLLECTIONS.EVENEMENTS, 'date', 'desc'),
         fetchCollection(COLLECTIONS.GALERIE, 'uploadedAt', 'desc'),
         fetchCollection(COLLECTIONS.CONTACTS, 'createdAt', 'desc'),
-        fetchCollection(COLLECTIONS.NEWSLETTER, 'subscribedAt', 'desc')
+        fetchCollection(COLLECTIONS.NEWSLETTER, 'subscribedAt', 'desc'),
+        fetchCollection(COLLECTIONS.CONTRIBUTIONS, 'createdAt', 'desc'),
+        fetchCollection(COLLECTIONS.PARTENAIRES, 'createdAt', 'desc')
       ]);
+
+      adminState.members = members;
+      adminState.articles = articles;
+      adminState.events = events;
+      adminState.galleryItems = gallery;
+      adminState.contacts = contacts;
+      adminState.newsletter = newsletter;
+      adminState.contributions = contributions;
+      adminState.partners = partners;
+
+      const pendingCount = [...articles, ...events, ...contributions]
+        .filter(item => normalizeValidationStatus(item.validationStatus || item.status, item.publie) === VALIDATION_STATUS.PENDING)
+        .length;
 
       adminState.counts = {
         membres: members.length,
@@ -956,55 +1725,108 @@
         evenements: events.length,
         galerie: gallery.length,
         contacts: contacts.length,
-        newsletter: newsletter.length
+        newsletter: newsletter.length,
+        pending: pendingCount
       };
 
       document.getElementById('stat-membres').textContent = members.length;
+      // Count new members in the last 7 days
+      try {
+        const weekMs = 7 * 24 * 60 * 60 * 1000;
+        const now = Date.now();
+        const newCount = members.filter(m => {
+          if (!m.createdAt) return false;
+          const t = typeof m.createdAt.toDate === 'function' ? m.createdAt.toDate().getTime() : new Date(m.createdAt).getTime();
+          if (Number.isNaN(t)) return false;
+          return (now - t) <= weekMs;
+        }).length;
+        const el = document.getElementById('new-members-count');
+        if (el) el.textContent = `${newCount} nouvelle${newCount > 1 ? 's' : ''} (7j)`;
+      } catch (e) { /* ignore */ }
       document.getElementById('stat-actualites').textContent = articles.length;
       document.getElementById('stat-evenements').textContent = events.length;
       document.getElementById('stat-galerie').textContent = gallery.length;
       document.getElementById('stat-contacts').textContent = contacts.length;
       document.getElementById('stat-newsletter').textContent = newsletter.length;
 
-      const recentArticles = articles.slice(0, 6);
-      const recentEvents = events.slice(0, 6);
-      const recentGallery = gallery.slice(0, 6);
-      const recentContacts = contacts.slice(0, 8);
-      const recentNewsletter = newsletter.slice(0, 8);
+      renderPendingLists(articles, events, contributions);
+      renderArticleList(articles);
+      renderEventList(events);
+      renderGalleryList(gallery);
 
-      renderArticleList(recentArticles);
-      renderEventList(recentEvents);
-      renderGalleryList(recentGallery);
+      renderPartnersList(partners);
 
-      els.memberList.innerHTML = '';
       renderMemberList(members);
 
       els.contactCount.textContent = `${contacts.length} message${contacts.length > 1 ? 's' : ''}`;
-      els.contactList.innerHTML = renderMessageList(recentContacts, 'contact');
+      els.contactList.innerHTML = renderMessageList(contacts, 'contact');
       els.newsletterCount.textContent = `${newsletter.length} inscription${newsletter.length > 1 ? 's' : ''}`;
-      els.newsletterList.innerHTML = renderMessageList(recentNewsletter, 'newsletter');
+      els.newsletterList.innerHTML = renderMessageList(newsletter, 'newsletter');
+
+      await loadAuditLog();
+
       bindEditButtons();
     }
 
-    async function gateAdminAccess() {
-      const user = auth.currentUser;
-      if (!user) {
-        window.location.href = '../pages/auth.html';
-        return false;
-      }
+    async function createAdminAccount() {
+      const email = prompt('Email du nouveau compte admin :');
+      if (!email) return;
 
-      await ensureAdminBootstrap(user);
-      const isAdmin = await isCurrentUserAdmin(user);
-      if (!isAdmin) {
-        showToast('Accès réservé à l\'administrateur', 'error');
-        setTimeout(() => window.location.href = '../index.html', 1200);
-        return false;
-      }
+      try {
+        const adminData = {
+          email: email.toLowerCase().trim(),
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          createdBy: adminState.user?.uid || '',
+          role: ROLES.ADMIN,
+          status: 'actif'
+        };
 
-      adminState.user = user;
-      setAdminHeader(user);
-      document.getElementById('admin-state').textContent = 'Accès administrateur confirmé';
-      return true;
+        await db.collection(COLLECTIONS.ADMINS).add(adminData);
+        showToast(`Compte admin créé pour ${email}`, 'success');
+        await refreshAll();
+      } catch (error) {
+        showToast('Erreur lors de la création du compte admin', 'error');
+        console.error(error);
+      }
+    }
+    const user = auth.currentUser;
+    if (!user) {
+      window.location.href = '../pages/auth.html';
+      return false;
+    }
+
+    await ensureAdminBootstrap(user);
+    const isAdmin = await isCurrentUserAdmin(user);
+    if (!isAdmin) {
+      showToast('Accès réservé à l\'administrateur', 'error');
+      setTimeout(() => window.location.href = '../index.html', 1200);
+      return false;
+    }
+
+    adminState.user = user;
+    setAdminHeader(user);
+    document.getElementById('admin-state').textContent = 'Accès administrateur confirmé';
+    return true;
+    }
+
+    async function logAdminAction(action, documentId, details = {}) {
+      // Enregistre chaque action admin dans la collection ACTION_LOG pour audit trail
+      try {
+        const adminUser = adminState.user;
+        if (!adminUser) return;
+
+        await db.collection('ACTION_LOG').add({
+          adminUid: adminUser.uid,
+          adminEmail: adminUser.email,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          action: action,
+          documentId: documentId,
+          details: details,
+          createdAt: new Date().toISOString()
+        });
+      } catch (error) {
+        console.error('Erreur lors du log:', error);
+      }
     }
 
     async function boot() {
@@ -1016,9 +1838,11 @@
       els.articleImageUrl = document.getElementById('article-image-url');
       els.articleImageFile = document.getElementById('article-image-file');
       els.articlePublie = document.getElementById('article-publie');
+      els.articleUne = document.getElementById('article-une');
       els.articleReset = document.getElementById('article-reset');
       els.articleList = document.getElementById('article-list');
       els.articleCount = document.getElementById('article-count');
+      els.articleSearch = document.getElementById('article-search');
 
       els.eventForm = document.getElementById('event-form');
       els.eventId = document.getElementById('event-id');
@@ -1031,6 +1855,7 @@
       els.eventReset = document.getElementById('event-reset');
       els.eventList = document.getElementById('event-list');
       els.eventCount = document.getElementById('event-count');
+      els.eventSearch = document.getElementById('event-search');
 
       els.galleryForm = document.getElementById('gallery-form');
       els.galleryId = document.getElementById('gallery-id');
@@ -1043,18 +1868,44 @@
       els.galleryReset = document.getElementById('gallery-reset');
       els.galleryList = document.getElementById('gallery-list');
       els.galleryCount = document.getElementById('gallery-count');
+      els.gallerySearch = document.getElementById('gallery-search');
 
       els.memberSearch = document.getElementById('member-search');
       els.memberStatusFilter = document.getElementById('member-status-filter');
       els.memberList = document.getElementById('member-list');
       els.memberCount = document.getElementById('member-count');
 
+      // Partners elements
+      els.partnerForm = document.getElementById('partner-form');
+      els.partnerId = document.getElementById('partner-id');
+      els.partnerName = document.getElementById('partner-name');
+      els.partnerUrl = document.getElementById('partner-url');
+      els.partnerFile = document.getElementById('partner-file');
+      els.partnerImageUrl = document.getElementById('partner-image-url');
+      els.partnerActive = document.getElementById('partner-active');
+      els.partnerReset = document.getElementById('partner-reset');
+      els.partnersList = document.getElementById('partners-list');
+      els.partnerCount = document.getElementById('partner-count');
+      els.partnerSearch = document.getElementById('partner-search');
+
       els.contactList = document.getElementById('contact-list');
       els.contactCount = document.getElementById('contact-count');
+      els.contactSearch = document.getElementById('contact-search');
       els.newsletterList = document.getElementById('newsletter-list');
       els.newsletterCount = document.getElementById('newsletter-count');
+      els.newsletterSearch = document.getElementById('newsletter-search');
+      els.auditList = document.getElementById('audit-list');
+      els.auditCount = document.getElementById('audit-count');
+      els.pendingArticlesList = document.getElementById('pending-articles-list');
+      els.pendingEventsList = document.getElementById('pending-events-list');
+      els.pendingContributionsList = document.getElementById('pending-contributions-list');
 
       const ready = await gateAdminAccess();
+      // Bind partner form
+      if (els.partnerForm) {
+        els.partnerForm.addEventListener('submit', savePartner);
+        els.partnerReset.addEventListener('click', () => { els.partnerForm.reset(); els.partnerId.value = ''; els.partnerReset.textContent = 'Nouveau'; });
+      }
       if (!ready) return;
 
       els.articleForm.addEventListener('submit', saveArticle);
@@ -1063,8 +1914,18 @@
       els.articleReset.addEventListener('click', resetArticleForm);
       els.eventReset.addEventListener('click', resetEventForm);
       els.galleryReset.addEventListener('click', resetGalleryForm);
-      els.memberSearch.addEventListener('input', refreshAll);
-      els.memberStatusFilter.addEventListener('change', refreshAll);
+      els.memberSearch.addEventListener('input', () => renderMemberList(adminState.members));
+      els.memberStatusFilter.addEventListener('change', () => renderMemberList(adminState.members));
+      els.articleSearch.addEventListener('input', () => renderArticleList(adminState.articles));
+      els.eventSearch.addEventListener('input', () => renderEventList(adminState.events));
+      els.gallerySearch.addEventListener('input', () => renderGalleryList(adminState.galleryItems || []));
+      els.partnerSearch.addEventListener('input', () => renderPartnersList(adminState.partners));
+      els.contactSearch.addEventListener('input', () => {
+        els.contactList.innerHTML = renderMessageList(adminState.contacts, 'contact');
+      });
+      els.newsletterSearch.addEventListener('input', () => {
+        els.newsletterList.innerHTML = renderMessageList(adminState.newsletter, 'newsletter');
+      });
       document.getElementById('refresh-btn').addEventListener('click', refreshAll);
       document.getElementById('refresh-mobile-btn').addEventListener('click', refreshAll);
       document.getElementById('mobile-nav-btn').addEventListener('click', () => {
@@ -1072,10 +1933,30 @@
       });
 
       await refreshAll();
+
+      if (!adminState.collectionListeners.length) {
+        [
+          COLLECTIONS.MEMBRES,
+          COLLECTIONS.ACTUALITES,
+          COLLECTIONS.EVENEMENTS,
+          COLLECTIONS.GALERIE,
+          COLLECTIONS.CONTACTS,
+          COLLECTIONS.NEWSLETTER,
+          COLLECTIONS.CONTRIBUTIONS,
+          COLLECTIONS.PARTENAIRES
+        ].forEach((collectionName) => {
+          const unsubscribe = db.collection(collectionName).onSnapshot(() => {
+            scheduleRefreshAll();
+          });
+          adminState.collectionListeners.push(unsubscribe);
+        });
+      }
     }
 
     auth.onAuthStateChanged(async (user) => {
       if (!user) {
+        cleanupDashboardListeners();
+        adminState.user = null;
         window.location.href = '../pages/auth.html';
         return;
       }
@@ -1083,6 +1964,8 @@
         await boot();
       }
     });
+
+    window.addEventListener('beforeunload', cleanupDashboardListeners);
 
     document.querySelectorAll('.dashboard-nav a').forEach(link => {
       link.addEventListener('click', () => {

@@ -40,7 +40,11 @@ function initScrollReveal() {
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.dataset.revealInit === 'true') return;
+    el.dataset.revealInit = 'true';
+    observer.observe(el);
+  });
 }
 
 // ── Navbar Scroll Effect ─────────────────────────────────────
@@ -105,6 +109,36 @@ function getAdminName(user) {
   return (user?.displayName || user?.email || 'Admin').toString().trim();
 }
 
+function getMemberDisplayName(data = {}, user = null) {
+  const stored = String(data.nom || '').trim();
+  const prenom = String(data.prenom || '').trim();
+  const nomFamille = String(data.nomFamille || '').trim();
+
+  if (stored && stored.includes(' ')) return stored;
+  if (prenom && nomFamille) return `${prenom} ${nomFamille}`.trim();
+  if (prenom && stored && prenom.toLowerCase() !== stored.toLowerCase()) return `${prenom} ${stored}`.trim();
+  if (user?.displayName) return String(user.displayName).trim();
+  if (stored) return stored;
+  return user?.email || 'Membre';
+}
+
+function getValidationLabel(status) {
+  return VALIDATION_LABELS[status] || VALIDATION_LABELS[VALIDATION_STATUS.PENDING];
+}
+
+function getValidationBadgeClass(status) {
+  if (status === VALIDATION_STATUS.APPROVED) return 'badge-green';
+  if (status === VALIDATION_STATUS.REJECTED) return 'badge-red';
+  return 'badge-gold';
+}
+
+function normalizeValidationStatus(value, publie) {
+  if (value === VALIDATION_STATUS.APPROVED || value === VALIDATION_STATUS.REJECTED) return value;
+  if (value === VALIDATION_STATUS.PENDING) return VALIDATION_STATUS.PENDING;
+  if (publie === true) return VALIDATION_STATUS.APPROVED;
+  return VALIDATION_STATUS.PENDING;
+}
+
 function isAllowlistedAdmin(user) {
   if (!user || !user.email) return false;
   return (ADMIN_EMAILS || []).map(email => String(email).toLowerCase()).includes(String(user.email).toLowerCase());
@@ -134,6 +168,39 @@ async function ensureAdminBootstrap(user) {
   }
 }
 
+async function ensureMemberProfile(user) {
+  if (!user) return false;
+  try {
+    const ref = db.collection(COLLECTIONS.MEMBRES).doc(user.uid);
+    const snap = await ref.get();
+    if (!snap.exists) {
+      await ref.set({
+        nom: user.displayName || user.email?.split('@')[0] || 'Membre',
+        prenom: '',
+        nomFamille: '',
+        email: user.email || '',
+        telephone: '',
+        pays: '',
+        secteur: '',
+        statut: 'actif',
+        codeEthique: true,
+        role: ROLES.MEMBRE,
+        publicProfileEnabled: true,
+        showPhoto: true,
+        showBio: true,
+        showLocation: true,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.warn('Sync membre impossible:', error);
+    return false;
+  }
+}
+
 async function isCurrentUserAdmin(user) {
   if (!user) return false;
   if (isAllowlistedAdmin(user)) return true;
@@ -154,7 +221,7 @@ function ensureAdminButtons() {
 
   const adminHref = getAdminHref();
   const adminSpecs = [
-    { container: '#navbar', classes: 'auth-admin-link hidden btn btn-outline text-sm py-2 px-4', label: 'Dashboard' },
+    { container: '#navbar > div > div.hidden.lg\\:flex.gap-3', classes: 'auth-admin-link hidden btn btn-outline text-sm py-2 px-4', label: 'Dashboard' },
     { container: '#mobile-menu', classes: 'auth-admin-link hidden btn btn-outline text-center text-sm', label: 'Dashboard' }
   ];
 
@@ -183,7 +250,7 @@ function ensureAdminButtons() {
 function ensureAuthLoginButtons() {
   const loginHref = getAuthLoginHref();
   const loginSpecs = [
-    { container: '#navbar', classes: 'auth-login-link hidden btn btn-outline text-sm py-2 px-4', label: 'Se connecter' },
+    { container: '#navbar > div > div.hidden.lg\\:flex.gap-3', classes: 'auth-login-link hidden btn btn-outline text-sm py-2 px-4', label: 'Se connecter' },
     { container: '#mobile-menu', classes: 'auth-login-link hidden btn btn-outline text-center text-sm', label: 'Se connecter' }
   ];
 
@@ -257,10 +324,12 @@ function initAuthState() {
 
     if (!user) {
       setVisitorView();
+      document.body.classList.remove('user-authenticated');
       return;
     }
 
     await ensureAdminBootstrap(user);
+    await ensureMemberProfile(user);
     const isAdmin = await isCurrentUserAdmin(user);
 
     // Utilisateur connecté : masquer immédiatement les liens de visiteur
@@ -269,6 +338,8 @@ function initAuthState() {
 
     // Base : utilisateur connecté standard
     setMemberView();
+    // Marque la page comme 'utilisateur connecté' pour afficher les sections réservées
+    document.body.classList.add('user-authenticated');
     if (isAdmin) {
       show(adminLinks);
     }
@@ -300,8 +371,15 @@ function logout() {
   // Déconnecte l'utilisateur et redirige vers la page d'accueil
   auth.signOut().then(() => {
     showToast('Déconnexion réussie', 'success');
-    setTimeout(() => window.location.href = '/index.html', 1000);
+    setTimeout(() => window.location.href = getHomeHref(), 1000);
   });
+}
+
+function getHomeHref() {
+  const path = window.location.pathname.replace(/\\/g, '/');
+  if (path.includes('/pages/')) return '../index.html';
+  if (path.includes('/admin/')) return '../index.html';
+  return 'index.html';
 }
 
 // ── Format Date FR ───────────────────────────────────────────
@@ -415,13 +493,25 @@ function initLazyLoad() {
 async function uploadFile(file, path) {
   // Upload un fichier image vers Cloudinary et retourne son URL publique (secure_url)
   if (!file) throw new Error('Aucun fichier sélectionné.');
-  if (!CLOUDINARY || !CLOUDINARY.UPLOAD_URL || !CLOUDINARY.UPLOAD_PRESET) {
-    throw new Error('Configuration Cloudinary manquante.');
+  if (!CLOUDINARY) {
+    throw new Error('Configuration Cloudinary manquante. Vérifiez js/firebase-config.js.');
+  }
+
+  if (!CLOUDINARY.UPLOAD_PRESET) {
+    throw new Error('Cloudinary preset manquant. Vérifiez la valeur UPLOAD_PRESET dans js/firebase-config.js.');
+  }
+
+  if (!CLOUDINARY.UPLOAD_URL) {
+    if (!CLOUDINARY.CLOUD_NAME) {
+      throw new Error('URL Cloudinary manquante. Vérifiez CLOUDINARY.UPLOAD_URL ou CLOUDINARY.CLOUD_NAME dans js/firebase-config.js.');
+    }
+    CLOUDINARY.UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY.CLOUD_NAME}/image/upload`;
   }
 
   const formData = new FormData();
   formData.append('file', file);
   formData.append('upload_preset', CLOUDINARY.UPLOAD_PRESET);
+  formData.append('resource_type', 'image');
 
   // Optionnel: ranger par "dossier logique" basé sur le path historique Firebase
   if (path) {
@@ -434,12 +524,37 @@ async function uploadFile(file, path) {
     body: formData
   });
 
-  const data = await response.json();
-  if (!response.ok || !data.secure_url) {
-    const message = data?.error?.message || 'Upload Cloudinary échoué.';
-    throw new Error(message);
+  let data = null;
+  let rawText = '';
+  try {
+    data = await response.json();
+  } catch (jsonError) {
+    rawText = await response.text().catch(() => 'Impossible de lire la réponse Cloudinary.');
+    console.error('Cloudinary upload returned invalid JSON:', jsonError, 'raw response:', rawText);
   }
+
+  if (!response.ok || !data?.secure_url) {
+    console.error('Cloudinary upload failed response:', data || rawText, 'status:', response.status, response.statusText);
+    const message = data?.error?.message || rawText || `Cloudinary upload échoué (${response.status} ${response.statusText}).`;
+    const code = data?.error?.http_code ? ` (${data.error.http_code})` : '';
+    const details = data?.error?.details ? ` — ${data.error.details}` : '';
+    throw new Error(message + code + details);
+  }
+
   return data.secure_url;
+}
+
+async function uploadIfNeeded(fileInput, existingUrl = '', folder = STORAGE_PATHS.GALERIE) {
+  // Upload un fichier s'il est présent, sinon retourne l'URL existante
+  const file = fileInput?.files?.[0];
+  if (!file) return existingUrl || '';
+  try {
+    return await uploadFile(file, folder);
+  } catch (error) {
+    console.error('Erreur upload:', error);
+    showToast('Erreur lors du téléchargement: ' + error.message, 'error');
+    return existingUrl || '';
+  }
 }
 
 // ── Counter Animation ─────────────────────────────────────────

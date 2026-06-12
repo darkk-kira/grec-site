@@ -3,26 +3,59 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
     function isAdmin() {
-      return request.auth != null
-        && request.auth.token.email == 'admin@grec.com';
+      return isAuthenticated() && (
+        request.auth.token.email == 'admin@grec.com'
+        || (
+          exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+          && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.active != false
+        )
+      );
+    }
+
+    function isMemberSubmissionCreate() {
+      return isAuthenticated()
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.validationStatus == 'en_attente'
+        && request.resource.data.publie == false;
+    }
+
+    function isMemberPendingUpdate() {
+      return isAuthenticated()
+        && resource.data.authorUid == request.auth.uid
+        && resource.data.validationStatus == 'en_attente'
+        && request.resource.data.authorUid == resource.data.authorUid
+        && request.resource.data.validationStatus == 'en_attente'
+        && request.resource.data.publie == false;
+    }
+
+    function isMemberPendingDelete() {
+      return isAuthenticated()
+        && resource.data.authorUid == request.auth.uid
+        && resource.data.validationStatus == 'en_attente';
     }
 
     // Membres - chacun peut gérer son propre profil, lecture publique
     match /membres/{userId} {
       allow read: if true;
-      allow create, update, delete: if request.auth != null && request.auth.uid == userId;
+      allow create, update, delete: if isAuthenticated() && request.auth.uid == userId;
     }
 
     // Admins - bootstrap et contrôle d'accès admin
     match /admins/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId && isAdmin();
+      allow read, write: if isAuthenticated() && request.auth.uid == userId && isAdmin();
     }
 
-    // Actualites - lecture publique, écriture admin
+    // Actualites - lecture publique, soumission membres, modération admin
     match /actualites/{articleId} {
       allow read: if true;
-      allow create, update, delete: if isAdmin();
+      allow create: if isAdmin() || isMemberSubmissionCreate();
+      allow update: if isAdmin() || isMemberPendingUpdate();
+      allow delete: if isAdmin() || isMemberPendingDelete();
     }
 
     // Galerie - lecture publique, écriture admin
@@ -31,10 +64,12 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin();
     }
 
-    // Evenements - lecture publique, écriture admin
+    // Evenements - lecture publique, soumission membres, modération admin
     match /evenements/{eventId} {
       allow read: if true;
-      allow create, update, delete: if isAdmin();
+      allow create: if isAdmin() || isMemberSubmissionCreate();
+      allow update: if isAdmin() || isMemberPendingUpdate();
+      allow delete: if isAdmin() || isMemberPendingDelete();
     }
 
     // Newsletter - inscription publique, lecture admin
@@ -51,7 +86,7 @@ service cloud.firestore {
 
     // Chats - utilisateurs connectes
     match /chats/{chatId} {
-      allow read, write: if request.auth != null;
+      allow read, write: if isAuthenticated();
     }
   }
 }

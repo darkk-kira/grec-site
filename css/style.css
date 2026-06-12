@@ -1565,3 +1565,123 @@ footer .max-w-7xl > div:first-child {
   display: none !important;
 }
 
+/* ── Global brand lockup (navbar, footer, auth) ─────────────── */
+.brand-lockup {
+  background: linear-gradient(180deg, #ffffff, #f7f9fc);
+  border: 1px solid rgba(13,27,42,0.12);
+  border-radius: 12px;
+  padding: 8px 12px 8px 8px;
+  box-shadow: 0 10px 24px rgba(7,25,39,0.08);
+  text-decoration: none;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.brand-lockup .brand-title {
+  color: var(--navy);
+  font-family: var(--font-display);
+}
+
+.brand-lockup .logo-subtitle {
+  color: var(--text-muted);
+}
+
+.brand-lockup img {
+  height: 40px;
+  max-width: 120px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ── Responsive safe zone: centered text & edge padding ───── */
+@media (max-width: 768px) {
+  [class*="max-w-"] {
+    padding-left: max(16px, 4vw) !important;
+    padding-right: max(16px, 4vw) !important;
+    box-sizing: border-box;
+  }
+
+  section,
+  main > div,
+  footer .max-w-7xl {
+    box-sizing: border-box;
+  }
+
+  section p,
+  section h1,
+  section h2,
+  section h3,
+  section h4,
+  section li,
+  section blockquote,
+  .section-label,
+  .gold-ornament,
+  footer p,
+  footer h4,
+  footer li {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .text-center,
+  section .text-center,
+  [class*="text-center"] {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-bg h1,
+  .hero-bg p,
+  .hero-about h1,
+  .hero-about p,
+  .hero-actualites h1,
+  .hero-actualites p,
+  .hero-membres h1,
+  .hero-membres p,
+  .hero-galerie h1,
+  .hero-galerie p {
+    max-width: 100%;
+  }
+
+  .card p,
+  .article-card p,
+  .membre-card p,
+  .pilier-card p,
+  .stat-box p {
+    padding-inline: clamp(4px, 1vw, 8px);
+  }
+
+  .gold-ornament {
+    padding-inline: clamp(8px, 2vw, 16px);
+  }
+
+  .auth-form-panel,
+  .auth-form-inner,
+  .profile-container,
+  .profile-content {
+    padding-left: max(16px, 4vw) !important;
+    padding-right: max(16px, 4vw) !important;
+  }
+
+  .auth-visual {
+    padding-left: max(24px, 5vw) !important;
+    padding-right: max(24px, 5vw) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  [class*="max-w-"],
+  .auth-form-panel,
+  .auth-visual {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .brand-lockup img {
+    height: 34px;
+    max-width: 96px;
+  }
+}
+

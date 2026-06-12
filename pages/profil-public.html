@@ -137,6 +137,27 @@
       font-weight: 700;
       margin-bottom: 0.4rem;
     }
+
+    .public-safe-note {
+      border-radius: 18px;
+      border: 1px solid rgba(200, 137, 58, 0.18);
+      background: rgba(200, 137, 58, 0.08);
+      padding: 16px 18px;
+      color: #7a5520;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .public-info-grid .profile-info {
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .public-info-grid .profile-info {
+        text-align: left;
+      }
+    }
   </style>
 </head>
 
@@ -163,11 +184,18 @@
         <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
       </div>
       <div class="hidden lg:flex items-center gap-3">
-        <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="auth.html" class="auth-login-link hidden btn btn-outline text-sm py-2 px-4">Se connecter</a>
+        <a href="register.html" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
         <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
         <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
         <button onclick="logout()"
-          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors"
+          aria-label="Déconnexion" title="Déconnexion">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+          </svg>
+        </button>
       </div>
       <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -182,16 +210,23 @@
           sommes-nous ?</a>
         <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Notre
           communauté</a>
-        <a href="actualites.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+        <a href="actualites.html"
+          class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
         <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
         <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
         <div class="pt-3 flex flex-col gap-2">
           <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
-          <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
+          <a href="register.html" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
           <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
           <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
           <button onclick="logout()"
-            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
+            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors"
+            aria-label="Déconnexion" title="Déconnexion">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
@@ -199,15 +234,17 @@
 
   <main class="pt-32 pb-14">
     <section class="max-w-7xl mx-auto px-6">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
-        <div>
+      <div
+        class="flex flex-col items-center text-center lg:items-start lg:text-left lg:flex-row lg:items-end justify-between gap-6 mb-8">
+        <div class="max-w-3xl">
           <span class="profile-badge mb-3">Profil public</span>
-          <h1 id="public-title" class="font-display text-4xl md:text-5xl font-semibold text-navy leading-tight">Chargement...</h1>
-          <p id="public-subtitle" class="text-slate-600 mt-3 max-w-2xl">
-            Les membres du réseau peuvent consulter ici les informations que tu as choisies de rendre visibles.
+          <h1 id="public-title" class="font-display text-4xl md:text-5xl font-semibold text-navy leading-tight">
+            Chargement...</h1>
+          <p id="public-subtitle" class="text-slate-600 mt-3 max-w-2xl mx-auto lg:mx-0">
+            Fiche communautaire du membre. Les informations sensibles ne sont jamais affichées ici.
           </p>
         </div>
-        <div class="profile-panel px-5 py-4 max-w-xl">
+        <div class="profile-panel px-5 py-4 max-w-xl w-full text-center lg:text-left">
           <p class="text-xs uppercase tracking-[0.2em] text-slate-500 font-semibold">Recherche communautaire</p>
           <p id="public-status" class="mt-2 text-sm text-slate-700">Chargement du profil...</p>
         </div>
@@ -233,55 +270,71 @@
 
           <div class="space-y-3">
             <a href="membres.html" class="btn btn-outline w-full text-center">Retour à la communauté</a>
-            <a id="public-edit-link" href="profil.html" class="btn btn-gold w-full text-center hidden">Modifier mon profil</a>
-            <a id="public-chat-link" href="chat.html" class="btn btn-outline w-full text-center hidden">Contacter via la messagerie</a>
+            <a id="public-edit-link" href="profil.html" class="btn btn-gold w-full text-center hidden">Modifier mon
+              profil</a>
+            <a id="public-chat-link" href="chat.html" class="btn btn-outline w-full text-center hidden">Contacter via la
+              messagerie</a>
           </div>
         </aside>
 
         <section class="space-y-6">
           <article class="profile-panel p-6 md:p-8">
-            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-              <div>
+            <div
+              class="flex flex-col items-center text-center md:flex-row md:items-start md:justify-between md:text-left gap-4">
+              <div class="max-w-2xl">
                 <h2 class="profile-section-title">Présentation</h2>
-                <p class="text-slate-600 text-sm mt-2 max-w-2xl">
-                  Cette fiche publique exclut volontairement les informations sensibles comme l'email ou le téléphone.
+                <p class="text-slate-600 text-sm mt-2">
+                  Informations professionnelles partagées volontairement avec la communauté GREC.
                 </p>
               </div>
-              <span id="public-visibility-pill" class="profile-badge self-start">Visible</span>
+              <span id="public-visibility-pill" class="profile-badge">Visible</span>
             </div>
 
             <div class="soft-divider my-6"></div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="public-safe-note mb-6">
+              Email, téléphone et coordonnées privées ne sont pas affichés sur cette fiche publique.
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 public-info-grid">
               <div class="profile-info">
-                <span class="profile-label">Secteur</span>
+                <span class="profile-label">Poste / fonction</span>
+                <div id="public-poste-detail" class="text-navy font-semibold">-</div>
+              </div>
+              <div class="profile-info">
+                <span class="profile-label">Secteur d'activité</span>
                 <div id="public-sector" class="text-navy font-semibold">-</div>
               </div>
               <div class="profile-info">
                 <span class="profile-label">Localisation</span>
                 <div id="public-location" class="text-navy font-semibold">-</div>
               </div>
+              <div class="profile-info">
+                <span class="profile-label">Pays</span>
+                <div id="public-country" class="text-navy font-semibold">-</div>
+              </div>
               <div class="profile-info md:col-span-2">
                 <span class="profile-label">Bio publique</span>
-                <div id="public-bio" class="text-slate-600 leading-relaxed">-</div>
+                <div id="public-bio" class="text-slate-600 leading-relaxed text-center md:text-left">-</div>
               </div>
               <div class="profile-info">
                 <span class="profile-label">Membre depuis</span>
                 <div id="public-since" class="text-navy font-semibold">-</div>
               </div>
               <div class="profile-info">
-                <span class="profile-label">Statut</span>
+                <span class="profile-label">Statut dans le réseau</span>
                 <div id="public-account-state" class="text-navy font-semibold">-</div>
               </div>
             </div>
           </article>
 
-          <article class="profile-panel p-6 md:p-8">
-            <h2 class="profile-section-title">Profil public sécurisé</h2>
-            <p class="text-slate-600 text-sm mt-3 leading-relaxed">
-              Le profil public est alimenté depuis ta fiche privée, mais il ne montre que les champs que tu as choisis
-              d'afficher dans la communauté.
+          <article class="profile-panel p-6 md:p-8 text-center md:text-left">
+            <h2 class="profile-section-title">Visibilité choisie par le membre</h2>
+            <p id="public-visibility-detail"
+              class="text-slate-600 text-sm mt-3 leading-relaxed max-w-3xl mx-auto md:mx-0">
+              Ce membre contrôle les éléments visibles depuis son espace privé.
             </p>
+            <div id="public-visibility-list" class="flex flex-wrap gap-2 justify-center md:justify-start mt-5"></div>
           </article>
         </section>
       </div>
@@ -344,11 +397,11 @@
     function renderProfile(doc, user) {
       const data = doc || {};
       const visible = data.publicProfileEnabled !== false;
-      const name = data.nom || user?.displayName || user?.email || 'Membre';
+      const name = getMemberDisplayName(data, user);
       const photoURL = data.showPhoto === false ? '' : (data.photoURL || data.photoDataURL || user?.photoURL || '');
-      const secteur = data.secteur || 'Membre';
+      const secteur = data.secteur || 'Non renseigné';
       const location = data.showLocation === false
-        ? 'Masqué'
+        ? 'Masquée'
         : [data.ville, data.pays].filter(Boolean).join(', ') || 'Non renseignée';
       const bio = data.showBio === false
         ? 'Bio masquée par ce membre.'
@@ -358,6 +411,8 @@
       els.title.textContent = name;
       els.name.textContent = name;
       els.poste.textContent = data.poste || data.secteur || 'Membre du réseau GREC';
+      if (els.posteDetail) els.posteDetail.textContent = data.poste || 'Non renseigné';
+      if (els.country) els.country.textContent = data.showLocation === false ? 'Masqué' : (data.pays || 'Non renseigné');
       els.subtitle.textContent = visible
         ? 'Profil public visible par les membres du réseau.'
         : 'Ce membre a rendu son profil public invisible.';
@@ -380,6 +435,27 @@
         badge.textContent = text;
         els.badges.appendChild(badge);
       });
+
+      if (els.visibilityDetail) {
+        els.visibilityDetail.textContent = visible
+          ? 'Ce membre a activé son profil public dans la communauté.'
+          : 'Ce membre a limité la visibilité de son profil public.';
+      }
+      if (els.visibilityList) {
+        els.visibilityList.innerHTML = '';
+        const visibilityItems = [
+          data.showPhoto !== false ? 'Photo visible' : 'Photo masquée',
+          data.showBio !== false ? 'Bio visible' : 'Bio masquée',
+          data.showLocation !== false ? 'Localisation visible' : 'Localisation masquée',
+          'Email et téléphone toujours privés'
+        ];
+        visibilityItems.forEach(text => {
+          const item = document.createElement('span');
+          item.className = 'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-off-white border border-slate-200 text-slate-600';
+          item.textContent = text;
+          els.visibilityList.appendChild(item);
+        });
+      }
 
       const isOwner = Boolean(user && (
         (state.uid && user.uid === state.uid) ||
@@ -415,8 +491,8 @@
       snap.forEach(doc => {
         if (found) return;
         const data = doc.data() || {};
-        const candidate = String(data.nom || '').trim().toLowerCase();
-        const candidateSlug = slugify(data.nom || '');
+        const candidate = getMemberDisplayName(data).toLowerCase();
+        const candidateSlug = slugify(getMemberDisplayName(data));
         const storedSlug = String(data.slug || '').trim().toLowerCase();
         const requestedSlug = slugify(nameValue || '').toLowerCase();
         if (candidate === target || candidateSlug === requestedSlug || storedSlug === requestedSlug) {
@@ -454,10 +530,14 @@
       els.badges = document.getElementById('public-badges');
       els.visibilityPill = document.getElementById('public-visibility-pill');
       els.sector = document.getElementById('public-sector');
+      els.posteDetail = document.getElementById('public-poste-detail');
+      els.country = document.getElementById('public-country');
       els.location = document.getElementById('public-location');
       els.bio = document.getElementById('public-bio');
       els.since = document.getElementById('public-since');
       els.accountState = document.getElementById('public-account-state');
+      els.visibilityDetail = document.getElementById('public-visibility-detail');
+      els.visibilityList = document.getElementById('public-visibility-list');
       els.editLink = document.getElementById('public-edit-link');
       els.chatLink = document.getElementById('public-chat-link');
     }

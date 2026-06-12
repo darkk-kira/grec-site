@@ -88,7 +88,8 @@
       <a href="../index.html" class="brand-lockup flex items-center gap-3">
         <img src="../Assets/images/logo.png" alt="GREC" class="h-10 object-contain"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
-        <div class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
+        <div
+          class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
           G
         </div>
         <div class="hidden sm:block">
@@ -100,17 +101,23 @@
         <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
         <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
         <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Notre communauté</a>
-        <a href="partenaires.html" class="nav-link active text-sm font-medium">Nos partenaires</a>
         <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
         <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+        <a href="partenaires.html" class="nav-link active text-sm font-medium">Nos partenaires</a>
       </div>
       <div class="hidden lg:flex items-center gap-3">
-                <a href="auth.html" class="auth-login-link hidden btn btn-outline text-sm py-2 px-4">Se connecter</a>
-<a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="auth.html" class="auth-login-link hidden btn btn-outline text-sm py-2 px-4">Se connecter</a>
+        <a href="register.html" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
         <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
         <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
         <button onclick="logout()"
-          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors"
+          aria-label="Déconnexion" title="Déconnexion">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+          </svg>
+        </button>
       </div>
       <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,25 +128,34 @@
     <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
       <div class="px-6 py-4 flex flex-col gap-3">
         <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
-        <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui sommes-nous ?</a>
-        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Notre communauté</a>
-        <a href="partenaires.html" class="text-gold py-2 border-b border-slate-300/60 text-sm font-semibold">Nos partenaires</a>
-        <a href="actualites.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
-        <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+        <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
+          sommes-nous ?</a>
+        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Notre
+          communauté</a>
+        <a href="actualites.html"
+          class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+        <a href="galerie.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Galerie</a>
+        <a href="partenaires.html" class="text-gold py-2 text-sm font-semibold">Nos partenaires</a>
         <div class="pt-3 flex flex-col gap-2">
           <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
-          <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
+          <a href="register.html" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
           <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
           <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
           <button onclick="logout()"
-            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
+            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors"
+            aria-label="Déconnexion" title="Déconnexion">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
   </nav>
 
   <main>
-    <section class="partners-hero relative min-h-screen flex items-center overflow-hidden">
+    <section class="partners-hero relative min-h-[440px] flex items-center overflow-hidden">
       <div class="orb w-72 h-72 bg-gold/25 top-20 right-10"></div>
       <div class="orb w-96 h-96 bg-white/10 bottom-10 left-[-96px]"></div>
       <div class="max-w-7xl mx-auto px-6 py-36 w-full relative">
@@ -187,7 +203,8 @@
       <div class="max-w-7xl mx-auto px-6">
         <div class="max-w-3xl mb-12">
           <div class="section-label">Écosystème partenaire</div>
-          <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy mb-4">Des alliances claires et utiles</h2>
+          <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy mb-4">Des alliances claires et utiles
+          </h2>
           <p class="text-slate-600 leading-relaxed">
             Chaque type de partenaire apporte une valeur différente. Nous structurons la collaboration pour qu'elle
             soit lisible, mesurable et bénéfique des deux côtés.
@@ -196,7 +213,9 @@
 
         <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
           <article class="partner-card card p-6 bg-off-white">
-            <div class="w-12 h-12 rounded-2xl bg-navy text-white flex items-center justify-center font-display font-semibold mb-5">01</div>
+            <div
+              class="w-12 h-12 rounded-2xl bg-navy text-white flex items-center justify-center font-display font-semibold mb-5">
+              01</div>
             <h3 class="font-display text-xl font-semibold text-navy mb-3">Institutions & collectivités</h3>
             <p class="text-slate-600 text-sm leading-relaxed mb-4">
               Pour créer des passerelles entre les initiatives du réseau et les programmes à fort impact territorial.
@@ -208,7 +227,9 @@
           </article>
 
           <article class="partner-card card p-6 bg-off-white">
-            <div class="w-12 h-12 rounded-2xl bg-gold text-white flex items-center justify-center font-display font-semibold mb-5">02</div>
+            <div
+              class="w-12 h-12 rounded-2xl bg-gold text-white flex items-center justify-center font-display font-semibold mb-5">
+              02</div>
             <h3 class="font-display text-xl font-semibold text-navy mb-3">Entreprises & sponsors</h3>
             <p class="text-slate-600 text-sm leading-relaxed mb-4">
               Pour associer une marque à des événements premium, à la visibilité du réseau et à des retombées concrètes.
@@ -220,7 +241,9 @@
           </article>
 
           <article class="partner-card card p-6 bg-off-white">
-            <div class="w-12 h-12 rounded-2xl bg-navy-mid text-white flex items-center justify-center font-display font-semibold mb-5">03</div>
+            <div
+              class="w-12 h-12 rounded-2xl bg-navy-mid text-white flex items-center justify-center font-display font-semibold mb-5">
+              03</div>
             <h3 class="font-display text-xl font-semibold text-navy mb-3">Médias & créateurs</h3>
             <p class="text-slate-600 text-sm leading-relaxed mb-4">
               Pour raconter les projets du GREC avec une narration forte, des formats élégants et un vrai relais public.
@@ -232,7 +255,9 @@
           </article>
 
           <article class="partner-card card p-6 bg-off-white">
-            <div class="w-12 h-12 rounded-2xl bg-slate-800 text-white flex items-center justify-center font-display font-semibold mb-5">04</div>
+            <div
+              class="w-12 h-12 rounded-2xl bg-slate-800 text-white flex items-center justify-center font-display font-semibold mb-5">
+              04</div>
             <h3 class="font-display text-xl font-semibold text-navy mb-3">Diaspora & experts</h3>
             <p class="text-slate-600 text-sm leading-relaxed mb-4">
               Pour connecter l'expertise, les opportunités, le mentorat et les expériences utiles à la communauté.
@@ -260,24 +285,33 @@
 
           <div class="space-y-4">
             <div class="card bg-white p-5 flex gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-gold/15 text-gold flex items-center justify-center font-display font-semibold">A</div>
+              <div
+                class="w-12 h-12 rounded-2xl bg-gold/15 text-gold flex items-center justify-center font-display font-semibold">
+                A</div>
               <div>
                 <h3 class="font-semibold text-navy mb-1">Accès à une communauté engagée</h3>
-                <p class="text-sm text-slate-600">Entrepreneurs, porteurs d'initiatives, leaders de terrain et relais diaspora.</p>
+                <p class="text-sm text-slate-600">Entrepreneurs, porteurs d'initiatives, leaders de terrain et relais
+                  diaspora.</p>
               </div>
             </div>
             <div class="card bg-white p-5 flex gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-navy/10 text-navy flex items-center justify-center font-display font-semibold">B</div>
+              <div
+                class="w-12 h-12 rounded-2xl bg-navy/10 text-navy flex items-center justify-center font-display font-semibold">
+                B</div>
               <div>
                 <h3 class="font-semibold text-navy mb-1">Une visibilité premium</h3>
-                <p class="text-sm text-slate-600">Présence sur les temps forts, intégration éditoriale et exposition maîtrisée.</p>
+                <p class="text-sm text-slate-600">Présence sur les temps forts, intégration éditoriale et exposition
+                  maîtrisée.</p>
               </div>
             </div>
             <div class="card bg-white p-5 flex gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-gold/15 text-gold flex items-center justify-center font-display font-semibold">C</div>
+              <div
+                class="w-12 h-12 rounded-2xl bg-gold/15 text-gold flex items-center justify-center font-display font-semibold">
+                C</div>
               <div>
                 <h3 class="font-semibold text-navy mb-1">Une logique d'impact</h3>
-                <p class="text-sm text-slate-600">Chaque action est pensée pour laisser une trace concrète et mesurable.</p>
+                <p class="text-sm text-slate-600">Chaque action est pensée pour laisser une trace concrète et mesurable.
+                </p>
               </div>
             </div>
           </div>
@@ -287,7 +321,8 @@
           <div class="absolute top-0 right-0 w-44 h-44 bg-gold/15 rounded-full blur-3xl"></div>
           <div class="relative">
             <div class="section-label text-gold-light">Format de collaboration</div>
-            <h3 class="font-display text-2xl md:text-3xl font-semibold mb-4">Des formats qui s'adaptent à votre ambition</h3>
+            <h3 class="font-display text-2xl md:text-3xl font-semibold mb-4">Des formats qui s'adaptent à votre ambition
+            </h3>
             <p class="text-white/70 leading-relaxed mb-6">
               Nous co-construisons chaque partenariat autour d'objectifs précis: rayonnement, visibilité, animation,
               mentorat, solidarité ou accompagnement.
@@ -307,7 +342,8 @@
               </div>
               <div class="bg-white/8 border border-white/10 rounded-2xl p-4">
                 <div class="text-gold-light font-semibold mb-2">Actions sociales</div>
-                <p class="text-sm text-white/70">Initiatives à impact, solidarité locale et engagement communautaire.</p>
+                <p class="text-sm text-white/70">Initiatives à impact, solidarité locale et engagement communautaire.
+                </p>
               </div>
             </div>
           </div>
@@ -319,14 +355,17 @@
       <div class="max-w-7xl mx-auto px-6">
         <div class="max-w-3xl mb-12">
           <div class="section-label">Méthode</div>
-          <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy mb-4">Une logique simple, claire et durable</h2>
+          <h2 class="font-display text-3xl md:text-4xl font-semibold text-navy mb-4">Une logique simple, claire et
+            durable</h2>
         </div>
 
         <div class="grid lg:grid-cols-3 gap-6">
           <div class="card p-6 bg-off-white relative">
             <div class="absolute left-6 top-0 w-1 h-14 rounded-b-full timeline-line"></div>
             <div class="pt-6">
-              <div class="w-12 h-12 rounded-2xl bg-navy text-white flex items-center justify-center font-display font-semibold mb-4">1</div>
+              <div
+                class="w-12 h-12 rounded-2xl bg-navy text-white flex items-center justify-center font-display font-semibold mb-4">
+                1</div>
               <h3 class="font-display text-xl font-semibold text-navy mb-3">Écoute & cadrage</h3>
               <p class="text-slate-600 text-sm leading-relaxed">
                 Nous partons de vos objectifs, de votre temporalité et du niveau d'implication souhaité.
@@ -337,7 +376,9 @@
           <div class="card p-6 bg-off-white relative">
             <div class="absolute left-6 top-0 w-1 h-14 rounded-b-full timeline-line"></div>
             <div class="pt-6">
-              <div class="w-12 h-12 rounded-2xl bg-gold text-white flex items-center justify-center font-display font-semibold mb-4">2</div>
+              <div
+                class="w-12 h-12 rounded-2xl bg-gold text-white flex items-center justify-center font-display font-semibold mb-4">
+                2</div>
               <h3 class="font-display text-xl font-semibold text-navy mb-3">Co-construction</h3>
               <p class="text-slate-600 text-sm leading-relaxed">
                 Nous définissons ensemble le format, les livrables, la visibilité et les indicateurs de suivi.
@@ -348,7 +389,9 @@
           <div class="card p-6 bg-off-white relative">
             <div class="absolute left-6 top-0 w-1 h-14 rounded-b-full timeline-line"></div>
             <div class="pt-6">
-              <div class="w-12 h-12 rounded-2xl bg-navy-mid text-white flex items-center justify-center font-display font-semibold mb-4">3</div>
+              <div
+                class="w-12 h-12 rounded-2xl bg-navy-mid text-white flex items-center justify-center font-display font-semibold mb-4">
+                3</div>
               <h3 class="font-display text-xl font-semibold text-navy mb-3">Activation & suivi</h3>
               <p class="text-slate-600 text-sm leading-relaxed">
                 Nous lançons le partenariat avec une exécution propre, des retours réguliers et une relation durable.
@@ -360,7 +403,9 @@
     </section>
 
     <section class="py-20 bg-navy relative overflow-hidden">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(200,137,58,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent_30%)]"></div>
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(200,137,58,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent_30%)]">
+      </div>
       <div class="max-w-7xl mx-auto px-6 relative">
         <div class="grid lg:grid-cols-2 gap-10 items-center">
           <div>
@@ -375,7 +420,8 @@
           </div>
           <div class="card bg-white/95 p-8">
             <h3 class="font-display text-2xl font-semibold text-navy mb-3">Contact partenariat</h3>
-            <p class="text-slate-600 mb-6">Écrivez-nous pour un premier échange, une proposition de sponsoring ou une collaboration de contenu.</p>
+            <p class="text-slate-600 mb-6">Écrivez-nous pour un premier échange, une proposition de sponsoring ou une
+              collaboration de contenu.</p>
             <div class="space-y-4">
               <a href="mailto:contact@grec.com" class="btn btn-gold w-full">contact@grec.com</a>
               <a href="about.html" class="btn btn-outline-gold w-full">Voir notre histoire</a>
@@ -430,10 +476,14 @@
       <div>
         <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Liens utiles</h3>
         <ul class="space-y-3">
-          <li><a href="about.html" class="text-white/50 hover:text-gold text-sm transition-colors">Qui sommes-nous ?</a></li>
-          <li><a href="membres.html" class="text-white/50 hover:text-gold text-sm transition-colors">Notre communauté</a></li>
-          <li><a href="partenaires.html" class="text-white/50 hover:text-gold text-sm transition-colors">Nos partenaires</a></li>
-          <li><a href="actualites.html" class="text-white/50 hover:text-gold text-sm transition-colors">Actualités</a></li>
+          <li><a href="about.html" class="text-white/50 hover:text-gold text-sm transition-colors">Qui sommes-nous ?</a>
+          </li>
+          <li><a href="membres.html" class="text-white/50 hover:text-gold text-sm transition-colors">Notre
+              communauté</a></li>
+          <li><a href="partenaires.html" class="text-white/50 hover:text-gold text-sm transition-colors">Nos
+              partenaires</a></li>
+          <li><a href="actualites.html" class="text-white/50 hover:text-gold text-sm transition-colors">Actualités</a>
+          </li>
           <li><a href="galerie.html" class="text-white/50 hover:text-gold text-sm transition-colors">Galerie</a></li>
         </ul>
       </div>
@@ -441,9 +491,12 @@
       <div>
         <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Notre communauté</h3>
         <ul class="space-y-3">
-          <li><a href="auth.html?tab=register" class="text-white/50 hover:text-gold text-sm transition-colors">Devenir membre</a></li>
+          <li><a href="register.html" class="text-white/50 hover:text-gold text-sm transition-colors">Devenir membre</a>
+          </li>
           <li><a href="auth.html" class="text-white/50 hover:text-gold text-sm transition-colors">Connexion</a></li>
-          <li><a href="profil.html" class="auth-member-link hidden text-white/50 hover:text-gold text-sm transition-colors">Mon profil</a></li>
+          <li><a href="profil.html"
+              class="auth-member-link hidden text-white/50 hover:text-gold text-sm transition-colors">Mon profil</a>
+          </li>
         </ul>
       </div>
 
@@ -466,7 +519,8 @@
 
     <div class="border-t border-white/10 py-5 px-6">
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
-        <p class="text-white/30 text-xs">© 2025 GREC · Groupe de Réflexion sur l'Entrepreneuriat et la Créativité au Bénin · Tous droits réservés</p>
+        <p class="text-white/30 text-xs">© 2025 GREC · Groupe de Réflexion sur l'Entrepreneuriat et la Créativité au
+          Bénin · Tous droits réservés</p>
         <p class="text-white/20 text-xs">Fait avec passion pour les entrepreneurs béninois</p>
       </div>
     </div>
@@ -480,9 +534,40 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
   <script src="../js/firebase-config.js"></script>
   <script src="../js/utils.js"></script>
+  <script>
+    // Render partners from Firestore
+    async function loadPartners() {
+      try {
+        const snap = await db.collection(COLLECTIONS.PARTENAIRES).orderBy('createdAt', 'desc').get();
+        const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        const container = document.createElement('div');
+        const listEl = document.querySelector('.max-w-7xl .grid') || document.querySelector('main');
+        const partnersGrid = document.createElement('div');
+        partnersGrid.className = 'grid md:grid-cols-3 gap-6 mt-10 max-w-7xl mx-auto px-6';
+        if (!items.length) {
+          partnersGrid.innerHTML = `<div class="max-w-7xl mx-auto px-6 text-center py-12">Aucun partenaire pour le moment.</div>`;
+        } else {
+          partnersGrid.innerHTML = items.map(item => `
+            <article class="card p-6 bg-white flex items-center gap-4">
+              <div class="w-24 h-24 bg-slate-50 rounded-lg overflow-hidden flex items-center justify-center">
+                ${item.logoURL ? `<img src="${escapeHtml(item.logoURL)}" alt="${escapeHtml(item.nom)}" class="w-full h-full object-contain" />` : `<div class="text-slate-400 text-xs">Aucun logo</div>`}
+              </div>
+              <div>
+                <div class="font-semibold text-navy">${escapeHtml(item.nom || '')}</div>
+                ${item.url ? `<a href="${escapeHtml(item.url)}" class="text-sm text-slate-500" target="_blank">${escapeHtml(item.url)}</a>` : ''}
+              </div>
+            </article>
+          `).join('');
+        }
+        document.querySelector('main').appendChild(partnersGrid);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.firebase && window.db && window.COLLECTIONS) loadPartners();
+    });
+  </script>
 </body>
 
 </html>
-
-
-

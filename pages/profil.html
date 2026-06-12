@@ -2,776 +2,833 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mon profil - GREC Bénin</title>
-  <meta name="description" content="Gérer votre profil membre GREC." />
-  <link rel="icon" href="../Assets/images/favicon.png" type="image/png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            gold: '#C8893A',
-            'gold-light': '#E5A84B',
-            navy: '#0D1B2A',
-            'navy-mid': '#1A2E42',
-            cream: '#F2EDE3',
-            'off-white': '#F8F5EF',
-          },
-          fontFamily: {
-            display: ['"Playfair Display"', 'Georgia', 'serif'],
-            body: ['"DM Sans"', 'system-ui', 'sans-serif'],
-          }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mon profil - GREC Bénin</title>
+    <meta name="description" content="Gérer votre profil membre GREC." />
+    <link rel="icon" href="../Assets/images/favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#C8893A',
+                        'gold-light': '#E5A84B',
+                        navy: '#0D1B2A',
+                        'navy-mid': '#1A2E42',
+                        cream: '#F2EDE3',
+                        'off-white': '#F8F5EF',
+                    },
+                    fontFamily: {
+                        display: ['"Playfair Display"', 'Georgia', 'serif'],
+                        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
         }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="../css/style.css" />
-  <style>
-    body {
-      background:
-        radial-gradient(circle at top left, rgba(200, 137, 58, 0.14), transparent 28%),
-        radial-gradient(circle at top right, rgba(13, 27, 42, 0.12), transparent 24%),
-        linear-gradient(180deg, #f8f5ef 0%, #fffdf9 100%);
-    }
+    </script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(200, 137, 58, 0.14), transparent 28%),
+                radial-gradient(circle at top right, rgba(13, 27, 42, 0.12), transparent 24%),
+                linear-gradient(180deg, #f8f5ef 0%, #fffdf9 100%);
+        }
 
-    .profile-shell {
-      position: relative;
-      overflow: hidden;
-    }
+        .profile-shell {
+            position: relative;
+            overflow: hidden;
+        }
 
-    .profile-shell::before,
-    .profile-shell::after {
-      content: '';
-      position: absolute;
-      border-radius: 999px;
-      pointer-events: none;
-      filter: blur(2px);
-    }
+        .profile-shell::before,
+        .profile-shell::after {
+            content: '';
+            position: absolute;
+            border-radius: 999px;
+            pointer-events: none;
+            filter: blur(2px);
+        }
 
-    .profile-shell::before {
-      width: 260px;
-      height: 260px;
-      background: rgba(200, 137, 58, 0.12);
-      top: -110px;
-      right: -80px;
-    }
+        .profile-shell::before {
+            width: 260px;
+            height: 260px;
+            background: rgba(200, 137, 58, 0.12);
+            top: -110px;
+            right: -80px;
+        }
 
-    .profile-shell::after {
-      width: 180px;
-      height: 180px;
-      background: rgba(13, 27, 42, 0.06);
-      bottom: -70px;
-      left: -60px;
-    }
+        .profile-shell::after {
+            width: 180px;
+            height: 180px;
+            background: rgba(13, 27, 42, 0.06);
+            bottom: -70px;
+            left: -60px;
+        }
 
-    .profile-panel {
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(16, 32, 45, 0.08);
-      box-shadow: 0 18px 46px rgba(13, 27, 42, 0.1);
-      backdrop-filter: blur(10px);
-    }
+        .profile-panel {
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(16, 32, 45, 0.08);
+            box-shadow: 0 18px 46px rgba(13, 27, 42, 0.1);
+            backdrop-filter: blur(10px);
+        }
 
-    .profile-avatar-frame {
-      width: 180px;
-      height: 180px;
-      border-radius: 32px;
-      padding: 8px;
-      background: linear-gradient(145deg, rgba(200, 137, 58, 0.22), rgba(26, 46, 66, 0.12));
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
-    }
+        .profile-avatar-frame {
+            width: 180px;
+            height: 180px;
+            border-radius: 32px;
+            padding: 8px;
+            background: linear-gradient(145deg, rgba(200, 137, 58, 0.22), rgba(26, 46, 66, 0.12));
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+        }
 
-    .profile-avatar {
-      width: 100%;
-      height: 100%;
-      border-radius: 26px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #0d1b2a, #1a2e42 52%, #c8893a);
-      color: #fff;
-      position: relative;
-    }
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 26px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0d1b2a, #1a2e42 52%, #c8893a);
+            color: #fff;
+            position: relative;
+        }
 
-    .profile-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
 
-    .profile-avatar .avatar-initials {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
+        .profile-avatar .avatar-initials {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
 
-    .profile-avatar-meta {
-      text-align: center;
-      margin-top: 18px;
-    }
+        .profile-avatar-meta {
+            text-align: center;
+            margin-top: 18px;
+        }
 
-    .profile-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      line-height: 1.05;
-      color: #0d1b2a;
-      font-weight: 700;
-    }
+        .profile-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.05;
+            color: #0d1b2a;
+            font-weight: 700;
+        }
 
-    .profile-subtitle {
-      color: rgba(13, 27, 42, 0.68);
-    }
+        .profile-subtitle {
+            color: rgba(13, 27, 42, 0.68);
+        }
 
-    .profile-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      border-radius: 999px;
-      padding: 0.45rem 0.85rem;
-      border: 1px solid rgba(200, 137, 58, 0.2);
-      background: rgba(200, 137, 58, 0.08);
-      color: #9a6121;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
+        .profile-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            border-radius: 999px;
+            padding: 0.45rem 0.85rem;
+            border: 1px solid rgba(200, 137, 58, 0.2);
+            background: rgba(200, 137, 58, 0.08);
+            color: #9a6121;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
 
-    .profile-section-title {
-      font-family: 'Playfair Display', serif;
-      color: #0d1b2a;
-      font-weight: 700;
-      font-size: 1.4rem;
-    }
+        .profile-section-title {
+            font-family: 'Playfair Display', serif;
+            color: #0d1b2a;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
 
-    .soft-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(200, 137, 58, 0.45), transparent);
-    }
+        .soft-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(200, 137, 58, 0.45), transparent);
+        }
 
-    .profile-input,
-    .profile-textarea,
-    .profile-select {
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid rgba(16, 32, 45, 0.14);
-      background: rgba(255, 255, 255, 0.96);
-      color: #0d1b2a;
-      padding: 0.88rem 1rem;
-      font-size: 0.95rem;
-      transition: border-color 150ms ease, box-shadow 150ms ease;
-    }
+        .profile-input,
+        .profile-textarea,
+        .profile-select {
+            width: 100%;
+            border-radius: 14px;
+            border: 1px solid rgba(16, 32, 45, 0.14);
+            background: rgba(255, 255, 255, 0.96);
+            color: #0d1b2a;
+            padding: 0.88rem 1rem;
+            font-size: 0.95rem;
+            transition: border-color 150ms ease, box-shadow 150ms ease;
+        }
 
-    .profile-input:focus,
-    .profile-textarea:focus,
-    .profile-select:focus {
-      outline: none;
-      border-color: #c8893a;
-      box-shadow: 0 0 0 4px rgba(200, 137, 58, 0.14);
-    }
+        .profile-input:focus,
+        .profile-textarea:focus,
+        .profile-select:focus {
+            outline: none;
+            border-color: #c8893a;
+            box-shadow: 0 0 0 4px rgba(200, 137, 58, 0.14);
+        }
 
-    .profile-textarea {
-      min-height: 150px;
-      resize: vertical;
-    }
+        .profile-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
 
-    .profile-label {
-      display: block;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: rgba(13, 27, 42, 0.54);
-      font-weight: 700;
-      margin-bottom: 0.55rem;
-    }
+        .profile-label {
+            display: block;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: rgba(13, 27, 42, 0.54);
+            font-weight: 700;
+            margin-bottom: 0.55rem;
+        }
 
-    .profile-action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.55rem;
-      min-height: 46px;
-      border-radius: 14px;
-      padding: 0.8rem 1rem;
-      font-weight: 700;
-      transition: transform 180ms ease, box-shadow 180ms ease;
-    }
+        .profile-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            min-height: 46px;
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            font-weight: 700;
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
 
-    .profile-action:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(13, 27, 42, 0.12);
-    }
+        .profile-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(13, 27, 42, 0.12);
+        }
 
-    .switch-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.8rem 0;
-      border-bottom: 1px solid rgba(16, 32, 45, 0.06);
-    }
+        .switch-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(16, 32, 45, 0.06);
+        }
 
-    .switch-row:last-child {
-      border-bottom: 0;
-    }
-  </style>
+        .switch-row:last-child {
+            border-bottom: 0;
+        }
+    </style>
 </head>
 
 <body class="font-body text-navy">
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="../index.html" class="brand-lockup flex items-center gap-3">
-        <img src="../Assets/images/logo.png" alt="GREC" class="h-10 object-contain"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
-        <div
-          class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
-          G</div>
-        <div class="hidden sm:block">
-          <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
-          <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
-        </div>
-      </a>
-      <div class="hidden lg:flex items-center gap-8">
-        <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
-        <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
-        <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Notre communauté</a>
-        <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
-        <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
-        <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
-      </div>
-      <div class="hidden lg:flex items-center gap-3">
-        <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
-        <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
-        <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
-        <button onclick="logout()"
-          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
-      </div>
-      <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-    <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
-      <div class="px-6 py-4 flex flex-col gap-3">
-        <a href="../index.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
-        <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
-          sommes-nous ?</a>
-        <a href="membres.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Notre
-          communauté</a>
-        <a href="actualites.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
-        <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
-        <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
-        <div class="pt-3 flex flex-col gap-2">
-          <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
-          <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir membre</a>
-          <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
-          <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
-          <button onclick="logout()"
-            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <main class="profile-shell pt-32 pb-14">
-    <section class="max-w-7xl mx-auto px-6">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
-        <div>
-          <span class="profile-badge mb-3">Espace membre</span>
-          <h1 class="font-display text-4xl md:text-5xl font-semibold text-navy leading-tight">Mon profil</h1>
-          <p class="text-slate-600 mt-3 max-w-2xl">
-            Renseigne ici tes informations de membre. Elles seront enregistrées dans Firestore et pourront alimenter
-            ton profil public visible dans la communauté.
-          </p>
-        </div>
-        <div class="profile-panel px-5 py-4 max-w-xl">
-          <p class="text-xs uppercase tracking-[0.2em] text-slate-500 font-semibold">Statut de session</p>
-          <p id="profile-session-state" class="mt-2 text-sm text-slate-700">Vérification du compte en cours...</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 xl:grid-cols-[360px_minmax(0,1fr)] gap-6 items-start">
-        <aside class="profile-panel p-6 md:p-8">
-          <div class="flex flex-col items-center text-center">
-            <div class="profile-avatar-frame">
-              <div class="profile-avatar">
-                <img id="profile-photo" alt="Photo de profil" />
-                <span id="profile-initials" class="avatar-initials">GM</span>
-              </div>
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="../index.html" class="brand-lockup flex items-center gap-3">
+                <img src="../Assets/images/logo.png" alt="GREC" class="h-10 object-contain"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+                <div
+                    class="hidden items-center justify-center w-10 h-10 rounded-xl bg-gold text-white font-display font-bold text-lg">
+                    G</div>
+                <div class="hidden sm:block">
+                    <div class="brand-title font-display font-semibold text-lg leading-tight">GREC</div>
+                    <div class="logo-subtitle text-xs">Bénin · Diaspora</div>
+                </div>
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="../index.html" class="nav-link text-sm font-medium transition-colors">Accueil</a>
+                <a href="about.html" class="nav-link text-sm font-medium transition-colors">Qui sommes-nous ?</a>
+                <a href="membres.html" class="nav-link text-sm font-medium transition-colors">Notre communauté</a>
+                <a href="actualites.html" class="nav-link text-sm font-medium transition-colors">Actualités</a>
+                <a href="galerie.html" class="nav-link text-sm font-medium transition-colors">Galerie</a>
+                <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
             </div>
-
-            <div class="profile-avatar-meta">
-              <div id="profile-name" class="profile-name">Chargement...</div>
-              <p id="profile-role" class="profile-subtitle mt-2">Membre du réseau GREC</p>
+            <div class="hidden lg:flex items-center gap-3">
+                <a href="auth.html" class="auth-login-link hidden btn btn-outline text-sm py-2 px-4">Se connecter</a>
+                <a href="register.html" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
+                    membre</a>
+                <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
+                <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
+                <button onclick="logout()"
+                    class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors"
+                    aria-label="Déconnexion" title="Déconnexion">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+                    </svg>
+                </button>
             </div>
-
-            <div id="profile-badges" class="flex flex-wrap justify-center gap-2 mt-5"></div>
-          </div>
-
-          <div class="soft-divider my-7"></div>
-
-          <div class="space-y-3">
-            <a href="profil-public.html" class="profile-action btn btn-outline w-full">Voir mon profil public</a>
-            <a href="chat.html" class="profile-action btn btn-gold w-full">Ouvrir la messagerie</a>
-            <button type="button" onclick="logout()" class="profile-action w-full text-slate-700 border border-slate-200 bg-white">
-              Déconnexion
+            <button id="mobile-menu-btn"
+                class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
             </button>
-          </div>
-        </aside>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden backdrop-blur-md border-t border-white/10">
+            <div class="px-6 py-4 flex flex-col gap-3">
+                <a href="../index.html"
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Accueil</a>
+                <a href="about.html" class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Qui
+                    sommes-nous ?</a>
+                <a href="membres.html"
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Notre
+                    communauté</a>
+                <a href="actualites.html"
+                    class="text-slate-700 py-2 border-b border-slate-300/60 text-sm font-medium">Actualités</a>
+                <a href="galerie.html" class="text-slate-700 py-2 text-sm font-medium">Galerie</a>
+                <a href="partenaires.html" class="text-slate-700 py-2 text-sm font-medium">Nos partenaires</a>
+                <div class="pt-3 flex flex-col gap-2">
+                    <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se
+                        connecter</a>
+                    <a href="register.html" class="auth-register-link btn btn-gold text-center text-sm">Devenir
+                        membre</a>
+                    <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon
+                        profil</a>
+                    <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
+                    <button onclick="logout()"
+                        class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors"
+                        aria-label="Déconnexion" title="Déconnexion">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-        <section class="space-y-6">
-          <form id="profile-form" class="profile-panel p-6 md:p-8 space-y-7">
-            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-              <div>
-                <h2 class="profile-section-title">Modifier mes informations</h2>
-                <p class="text-slate-600 text-sm mt-2 max-w-2xl">
-                  Les champs visibles publiquement servent à la recherche dans la communauté. Les autres restent dans
-                  ta fiche privée.
-                </p>
-              </div>
-              <div class="flex flex-wrap gap-2">
-                <span id="profile-save-state" class="profile-badge">Aucune modification</span>
-              </div>
+    <main class="profile-shell pt-32 pb-14">
+        <section class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+                <div>
+                    <span class="profile-badge mb-3">Espace membre</span>
+                    <h1 class="font-display text-4xl md:text-5xl font-semibold text-navy leading-tight">Mon profil</h1>
+                    <p class="text-slate-600 mt-3 max-w-2xl">
+                        Renseigne ici tes informations de membre. Elles seront enregistrées dans Firestore et pourront
+                        alimenter
+                        ton profil public visible dans la communauté.
+                    </p>
+                </div>
+                <div class="profile-panel px-5 py-4 max-w-xl">
+                    <p class="text-xs uppercase tracking-[0.2em] text-slate-500 font-semibold">Statut de session</p>
+                    <p id="profile-session-state" class="mt-2 text-sm text-slate-700">Vérification du compte en cours...
+                    </p>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div class="md:col-span-2">
-                <label class="profile-label" for="profile-name-input">Nom complet</label>
-                <input id="profile-name-input" class="profile-input" type="text" placeholder="Ex. Aïssatou Kéïta" />
-              </div>
-              <div>
-                <label class="profile-label" for="profile-poste-input">Poste / fonction</label>
-                <input id="profile-poste-input" class="profile-input" type="text" placeholder="Ex. Fondatrice, CEO..." />
-              </div>
-              <div>
-                <label class="profile-label" for="profile-sector-input">Secteur</label>
-                <input id="profile-sector-input" class="profile-input" type="text" placeholder="Ex. Commerce, Tech..." />
-              </div>
-              <div>
-                <label class="profile-label" for="profile-phone-input">Téléphone</label>
-                <input id="profile-phone-input" class="profile-input" type="tel" placeholder="+229..." />
-              </div>
-              <div>
-                <label class="profile-label" for="profile-email-input">Email</label>
-                <input id="profile-email-input" class="profile-input" type="email" readonly />
-              </div>
-              <div>
-                <label class="profile-label" for="profile-country-input">Pays</label>
-                <input id="profile-country-input" class="profile-input" type="text" placeholder="Ex. Bénin, France..." />
-              </div>
-              <div>
-                <label class="profile-label" for="profile-city-input">Ville</label>
-                <input id="profile-city-input" class="profile-input" type="text" placeholder="Ex. Cotonou, Paris..." />
-              </div>
-              <div class="md:col-span-2">
-                <label class="profile-label" for="profile-photo-input">Photo de profil</label>
-                <div class="flex flex-col md:flex-row gap-3">
-                  <input id="profile-photo-input" class="profile-input" type="file" accept="image/*" />
-                  <input id="profile-photo-url" class="profile-input md:max-w-xs" type="text"
-                    placeholder="URL d'image (optionnel)" />
-                </div>
-                <p class="text-xs text-slate-500 mt-2">
-                  Tu peux téléverser un fichier ou coller une URL. L'image est envoyée vers Cloudinary puis enregistrée.
-                </p>
-              </div>
-              <div class="md:col-span-2">
-                <label class="profile-label" for="profile-bio-input">Bio</label>
-                <textarea id="profile-bio-input" class="profile-textarea"
-                  placeholder="Présente-toi en quelques lignes..."></textarea>
-              </div>
+            <div class="grid grid-cols-1 xl:grid-cols-[360px_minmax(0,1fr)] gap-6 items-start">
+                <aside class="profile-panel p-6 md:p-8">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="profile-avatar-frame">
+                            <div class="profile-avatar">
+                                <img id="profile-photo" alt="Photo de profil" />
+                                <span id="profile-initials" class="avatar-initials">GM</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-avatar-meta">
+                            <div id="profile-name" class="profile-name">Chargement...</div>
+                            <p id="profile-role" class="profile-subtitle mt-2">Membre du réseau GREC</p>
+                        </div>
+
+                        <div id="profile-badges" class="flex flex-wrap justify-center gap-2 mt-5"></div>
+                    </div>
+
+                    <div class="soft-divider my-7"></div>
+
+                    <div class="space-y-3">
+                        <a href="profil-public.html" class="profile-action btn btn-outline w-full">Voir mon profil
+                            public</a>
+                        <a href="chat.html" class="profile-action btn btn-gold w-full">Ouvrir la messagerie</a>
+                        <button type="button" onclick="logout()"
+                            class="profile-action w-full text-slate-700 border border-slate-200 bg-white">
+                            Déconnexion
+                        </button>
+                    </div>
+                </aside>
+
+                <section class="space-y-6">
+                    <form id="profile-form" class="profile-panel p-6 md:p-8 space-y-7">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                            <div>
+                                <h2 class="profile-section-title">Modifier mes informations</h2>
+                                <p class="text-slate-600 text-sm mt-2 max-w-2xl">
+                                    Les champs visibles publiquement servent à la recherche dans la communauté. Les
+                                    autres restent dans
+                                    ta fiche privée.
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span id="profile-save-state" class="profile-badge">Aucune modification</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div class="md:col-span-2">
+                                <label class="profile-label" for="profile-name-input">Nom complet (public)</label>
+                                <input id="profile-name-input" class="profile-input" type="text"
+                                    placeholder="Ex. Aïssatou Kéïta" />
+                                <p class="text-xs text-slate-500 mt-2">Ce nom correspond à celui saisi lors de la
+                                    création du compte et apparaît sur ton profil public.</p>
+                            </div>
+                            <div>
+                                <label class="profile-label" for="profile-poste-input">Poste / fonction</label>
+                                <input id="profile-poste-input" class="profile-input" type="text"
+                                    placeholder="Ex. Fondatrice, CEO..." />
+                            </div>
+                            <div>
+                                <label class="profile-label" for="profile-sector-input">Secteur</label>
+                                <input id="profile-sector-input" class="profile-input" type="text"
+                                    placeholder="Ex. Commerce, Tech..." />
+                            </div>
+                            <div>
+                                <label class="profile-label" for="profile-phone-input">Téléphone</label>
+                                <input id="profile-phone-input" class="profile-input" type="tel"
+                                    placeholder="+229..." />
+                            </div>
+                            <div>
+                                <label class="profile-label" for="profile-email-input">Email</label>
+                                <input id="profile-email-input" class="profile-input" type="email" readonly />
+                            </div>
+                            <div>
+                                <label class="profile-label" for="profile-country-input">Pays</label>
+                                <input id="profile-country-input" class="profile-input" type="text"
+                                    placeholder="Ex. Bénin, France..." />
+                            </div>
+                            <div>
+                                <label class="profile-label" for="profile-city-input">Ville</label>
+                                <input id="profile-city-input" class="profile-input" type="text"
+                                    placeholder="Ex. Cotonou, Paris..." />
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="profile-label" for="profile-photo-input">Photo de profil</label>
+                                <div class="flex flex-col md:flex-row gap-3">
+                                    <input id="profile-photo-input" class="profile-input" type="file"
+                                        accept="image/*" />
+                                    <input id="profile-photo-url" class="profile-input md:max-w-xs" type="text"
+                                        placeholder="URL d'image (optionnel)" />
+                                </div>
+                                <p class="text-xs text-slate-500 mt-2">
+                                    Tu peux téléverser un fichier ou coller une URL. L'image est envoyée vers Cloudinary
+                                    puis enregistrée.
+                                </p>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="profile-label" for="profile-bio-input">Bio</label>
+                                <textarea id="profile-bio-input" class="profile-textarea"
+                                    placeholder="Présente-toi en quelques lignes..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="soft-divider"></div>
+
+                        <div>
+                            <h3 class="profile-section-title text-xl mb-3">Paramètres de visibilité</h3>
+                            <div
+                                class="profile-panel bg-white/70 border border-slate-200/80 rounded-2xl p-5 shadow-none">
+                                <div class="switch-row">
+                                    <div>
+                                        <p class="font-semibold text-navy">Profil public activé</p>
+                                        <p class="text-sm text-slate-500">Permet aux membres de retrouver ta fiche
+                                            publique dans la communauté.</p>
+                                    </div>
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input id="profile-public-enabled" type="checkbox" class="sr-only peer"
+                                            checked />
+                                        <span
+                                            class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+                                    </label>
+                                </div>
+                                <div class="switch-row">
+                                    <div>
+                                        <p class="font-semibold text-navy">Afficher la photo</p>
+                                        <p class="text-sm text-slate-500">Ta photo apparaît sur le profil public et dans
+                                            la communauté.</p>
+                                    </div>
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input id="profile-show-photo" type="checkbox" class="sr-only peer" checked />
+                                        <span
+                                            class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+                                    </label>
+                                </div>
+                                <div class="switch-row">
+                                    <div>
+                                        <p class="font-semibold text-navy">Afficher la bio</p>
+                                        <p class="text-sm text-slate-500">Ta présentation peut aider les autres à te
+                                            découvrir plus vite.</p>
+                                    </div>
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input id="profile-show-bio" type="checkbox" class="sr-only peer" checked />
+                                        <span
+                                            class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+                                    </label>
+                                </div>
+                                <div class="switch-row">
+                                    <div>
+                                        <p class="font-semibold text-navy">Afficher la localisation</p>
+                                        <p class="text-sm text-slate-500">Ville et pays peuvent apparaître dans les
+                                            résultats publics.</p>
+                                    </div>
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input id="profile-show-location" type="checkbox" class="sr-only peer"
+                                            checked />
+                                        <span
+                                            class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button id="profile-save-btn" type="submit"
+                                class="profile-action btn btn-gold flex-1">Enregistrer les changements</button>
+                            <button id="profile-reset-btn" type="button"
+                                class="profile-action btn btn-outline flex-1">Réinitialiser</button>
+                        </div>
+                    </form>
+
+                    <section class="profile-panel p-6 md:p-8">
+                        <div
+                            class="flex flex-col items-center text-center md:flex-row md:items-start md:justify-between md:text-left gap-4">
+                            <div class="max-w-2xl">
+                                <h2 class="profile-section-title">Aperçu public</h2>
+                                <p class="text-slate-600 text-sm mt-2 mx-auto md:mx-0">
+                                    C’est la version visible par les autres membres. Le nom affiché correspond à celui
+                                    utilisé lors de la création de ton compte.
+                                </p>
+                            </div>
+                            <a href="profil-public.html" id="profile-preview-link"
+                                class="profile-action btn btn-outline shrink-0">Ouvrir la vue publique</a>
+                        </div>
+
+                        <div class="soft-divider my-6"></div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] gap-6 items-start">
+                            <div class="flex flex-col items-center text-center mx-auto lg:mx-0">
+                                <div class="profile-avatar-frame w-[240px] h-[240px] max-w-full">
+                                    <div class="profile-avatar">
+                                        <img id="preview-photo" alt="Aperçu public" />
+                                        <span id="preview-initials" class="avatar-initials">GM</span>
+                                    </div>
+                                </div>
+                                <div class="profile-avatar-meta">
+                                    <div id="preview-name" class="profile-name text-2xl">Ton nom public</div>
+                                    <p id="preview-poste" class="profile-subtitle mt-2">Ton poste public</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4 text-center lg:text-left">
+                                <div class="flex flex-wrap gap-2 justify-center lg:justify-start" id="preview-badges">
+                                </div>
+                                <p id="preview-bio" class="text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                    Ta bio publique apparaîtra ici.
+                                </p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="profile-info-value rounded-2xl border border-slate-200 bg-white/80 p-4">
+                                        <span
+                                            class="block text-xs uppercase tracking-[0.16em] text-slate-400 font-bold mb-2">Secteur</span>
+                                        <span id="preview-sector" class="font-semibold text-navy">-</span>
+                                    </div>
+                                    <div class="profile-info-value rounded-2xl border border-slate-200 bg-white/80 p-4">
+                                        <span
+                                            class="block text-xs uppercase tracking-[0.16em] text-slate-400 font-bold mb-2">Localisation</span>
+                                        <span id="preview-location" class="font-semibold text-navy">-</span>
+                                    </div>
+                                </div>
+                                <div class="profile-info-value rounded-2xl border border-slate-200 bg-white/80 p-4">
+                                    <span
+                                        class="block text-xs uppercase tracking-[0.16em] text-slate-400 font-bold mb-2">Visibilité</span>
+                                    <span id="preview-visibility" class="font-semibold text-navy">Profil public
+                                        activé</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
             </div>
-
-            <div class="soft-divider"></div>
-
-            <div>
-              <h3 class="profile-section-title text-xl mb-3">Paramètres de visibilité</h3>
-              <div class="profile-panel bg-white/70 border border-slate-200/80 rounded-2xl p-5 shadow-none">
-                <div class="switch-row">
-                  <div>
-                    <p class="font-semibold text-navy">Profil public activé</p>
-                    <p class="text-sm text-slate-500">Permet aux membres de retrouver ta fiche publique dans la communauté.</p>
-                  </div>
-                  <label class="inline-flex items-center cursor-pointer">
-                    <input id="profile-public-enabled" type="checkbox" class="sr-only peer" checked />
-                    <span
-                      class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
-                  </label>
-                </div>
-                <div class="switch-row">
-                  <div>
-                    <p class="font-semibold text-navy">Afficher la photo</p>
-                    <p class="text-sm text-slate-500">Ta photo apparaît sur le profil public et dans la communauté.</p>
-                  </div>
-                  <label class="inline-flex items-center cursor-pointer">
-                    <input id="profile-show-photo" type="checkbox" class="sr-only peer" checked />
-                    <span
-                      class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
-                  </label>
-                </div>
-                <div class="switch-row">
-                  <div>
-                    <p class="font-semibold text-navy">Afficher la bio</p>
-                    <p class="text-sm text-slate-500">Ta présentation peut aider les autres à te découvrir plus vite.</p>
-                  </div>
-                  <label class="inline-flex items-center cursor-pointer">
-                    <input id="profile-show-bio" type="checkbox" class="sr-only peer" checked />
-                    <span
-                      class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
-                  </label>
-                </div>
-                <div class="switch-row">
-                  <div>
-                    <p class="font-semibold text-navy">Afficher la localisation</p>
-                    <p class="text-sm text-slate-500">Ville et pays peuvent apparaître dans les résultats publics.</p>
-                  </div>
-                  <label class="inline-flex items-center cursor-pointer">
-                    <input id="profile-show-location" type="checkbox" class="sr-only peer" checked />
-                    <span
-                      class="relative w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-gold after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-3">
-              <button id="profile-save-btn" type="submit" class="profile-action btn btn-gold flex-1">Enregistrer les changements</button>
-              <button id="profile-reset-btn" type="button" class="profile-action btn btn-outline flex-1">Réinitialiser</button>
-            </div>
-          </form>
-
-          <section class="profile-panel p-6 md:p-8">
-            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-              <div>
-                <h2 class="profile-section-title">Aperçu public</h2>
-                <p class="text-slate-600 text-sm mt-2">
-                  C’est la version visible par les autres membres lorsqu’ils cherchent ton nom dans la communauté.
-                </p>
-              </div>
-              <a href="profil-public.html" id="profile-preview-link" class="profile-action btn btn-outline">Ouvrir la vue publique</a>
-            </div>
-
-            <div class="soft-divider my-6"></div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] gap-6 items-start">
-              <div class="flex flex-col items-center text-center">
-                <div class="profile-avatar-frame w-[240px] h-[240px] max-w-full">
-                  <div class="profile-avatar">
-                    <img id="preview-photo" alt="Aperçu public" />
-                    <span id="preview-initials" class="avatar-initials">GM</span>
-                  </div>
-                </div>
-                <div class="profile-avatar-meta">
-                  <div id="preview-name" class="profile-name text-2xl">Ton nom public</div>
-                  <p id="preview-poste" class="profile-subtitle mt-2">Ton poste public</p>
-                </div>
-              </div>
-
-              <div class="space-y-4">
-                <div class="flex flex-wrap gap-2" id="preview-badges"></div>
-                <p id="preview-bio" class="text-slate-600 leading-relaxed">
-                  Ta bio publique apparaîtra ici.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="profile-info-value rounded-2xl border border-slate-200 bg-white/80 p-4">
-                    <span class="block text-xs uppercase tracking-[0.16em] text-slate-400 font-bold mb-2">Secteur</span>
-                    <span id="preview-sector" class="font-semibold text-navy">-</span>
-                  </div>
-                  <div class="profile-info-value rounded-2xl border border-slate-200 bg-white/80 p-4">
-                    <span class="block text-xs uppercase tracking-[0.16em] text-slate-400 font-bold mb-2">Localisation</span>
-                    <span id="preview-location" class="font-semibold text-navy">-</span>
-                  </div>
-                </div>
-                <div class="profile-info-value rounded-2xl border border-slate-200 bg-white/80 p-4">
-                  <span class="block text-xs uppercase tracking-[0.16em] text-slate-400 font-bold mb-2">Visibilité</span>
-                  <span id="preview-visibility" class="font-semibold text-navy">Profil public activé</span>
-                </div>
-              </div>
-            </div>
-          </section>
         </section>
-      </div>
-    </section>
-  </main>
+    </main>
 
-  <div id="toast-container"></div>
+    <div id="toast-container"></div>
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="../js/firebase-config.js"></script>
-  <script src="../js/utils.js"></script>
-  <script>
-    const profileState = {
-      uid: null,
-      photoURL: '',
-      loaded: false,
-      saving: false
-    };
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script>
+        const profileState = {
+            uid: null,
+            photoURL: '',
+            loaded: false,
+            saving: false,
+            authorName: 'Membre'
+        };
 
-    const els = {};
+        const els = {};
 
-    function getInitials(name = 'Membre') {
-      const parts = String(name).trim().split(/\s+/).filter(Boolean);
-      const initials = parts.slice(0, 2).map(part => part[0] || '').join('');
-      return (initials || 'GM').toUpperCase();
-    }
-
-    function setAvatar(photoEl, initialsEl, name, photoURL) {
-      initialsEl.textContent = getInitials(name);
-      if (photoURL) {
-        photoEl.src = photoURL;
-        photoEl.style.display = 'block';
-        initialsEl.style.display = 'none';
-      } else {
-        photoEl.removeAttribute('src');
-        photoEl.style.display = 'none';
-        initialsEl.style.display = 'block';
-      }
-    }
-
-    function safeText(value, fallback = '-') {
-      const text = String(value || '').trim();
-      return text || fallback;
-    }
-
-    function setDirtyState(isDirty) {
-      els.saveState.textContent = isDirty ? 'Modifications en attente' : 'Aucune modification';
-      els.saveState.style.background = isDirty ? 'rgba(200, 137, 58, 0.12)' : '';
-      els.saveState.style.color = isDirty ? '#9a6121' : '';
-    }
-
-    function currentFormData() {
-      return {
-        nom: els.nameInput.value.trim(),
-        poste: els.posteInput.value.trim(),
-        secteur: els.sectorInput.value.trim(),
-        telephone: els.phoneInput.value.trim(),
-        email: els.emailInput.value.trim(),
-        pays: els.countryInput.value.trim(),
-        ville: els.cityInput.value.trim(),
-        bio: els.bioInput.value.trim(),
-        photoURL: profileState.photoURL || els.photoUrlInput.value.trim(),
-        publicProfileEnabled: els.publicEnabled.checked,
-        showPhoto: els.showPhoto.checked,
-        showBio: els.showBio.checked,
-        showLocation: els.showLocation.checked,
-        slug: slugify(els.nameInput.value || 'membre'),
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-    }
-
-    function updatePreview() {
-      const data = currentFormData();
-      const name = data.nom || 'Ton nom public';
-      const photoURL = data.showPhoto ? data.photoURL : '';
-      setAvatar(els.previewPhoto, els.previewInitials, name, photoURL);
-      els.profileName.textContent = name;
-      els.profileRole.textContent = data.poste || data.secteur || 'Membre du réseau GREC';
-      els.previewName.textContent = name;
-      els.previewPoste.textContent = data.poste || 'Ton poste public';
-      els.previewSector.textContent = data.secteur || '-';
-      els.previewLocation.textContent = data.showLocation
-        ? [data.ville, data.pays].filter(Boolean).join(', ') || '-'
-        : 'Masqué';
-      els.previewBio.textContent = data.showBio
-        ? (data.bio || 'Ta bio publique apparaîtra ici.')
-        : 'Bio masquée dans le profil public.';
-      els.previewVisibility.textContent = data.publicProfileEnabled
-        ? 'Profil public activé'
-        : 'Profil public masqué';
-      els.previewBadges.innerHTML = '';
-      const badges = [];
-      if (data.secteur) badges.push(data.secteur);
-      if (data.showLocation && (data.ville || data.pays)) badges.push([data.ville, data.pays].filter(Boolean).join(' · '));
-      badges.push(data.publicProfileEnabled ? 'Visible dans la communauté' : 'Profil masqué');
-      badges.forEach(text => {
-        const badge = document.createElement('span');
-        badge.className = 'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-white border border-slate-200 text-slate-700 shadow-sm';
-        badge.textContent = text;
-        els.previewBadges.appendChild(badge);
-      });
-    }
-
-    function populateForm(doc, user) {
-      const data = doc || {};
-      profileState.photoURL = data.photoURL || data.photoDataURL || user.photoURL || '';
-      els.nameInput.value = data.nom || user.displayName || '';
-      els.posteInput.value = data.poste || '';
-      els.sectorInput.value = data.secteur || '';
-      els.phoneInput.value = data.telephone || '';
-      els.emailInput.value = data.email || user.email || '';
-      els.countryInput.value = data.pays || '';
-      els.cityInput.value = data.ville || '';
-      els.bioInput.value = data.bio || '';
-      els.photoUrlInput.value = profileState.photoURL;
-      els.publicEnabled.checked = data.publicProfileEnabled !== false;
-      els.showPhoto.checked = data.showPhoto !== false;
-      els.showBio.checked = data.showBio !== false;
-      els.showLocation.checked = data.showLocation !== false;
-      setAvatar(els.avatarPhoto, els.avatarInitials, els.nameInput.value || user.displayName || user.email, profileState.photoURL);
-      els.profileName.textContent = els.nameInput.value || user.displayName || user.email || 'Membre';
-      els.profileRole.textContent = data.poste || data.secteur || 'Membre du réseau GREC';
-      els.badges.innerHTML = '';
-      const badges = [];
-      if (data.secteur) badges.push(data.secteur);
-      if (data.pays) badges.push(data.pays);
-      if (data.publicProfileEnabled !== false) badges.push('Profil public');
-      badges.forEach(text => {
-        const badge = document.createElement('span');
-        badge.className = 'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-white border border-slate-200 text-slate-700 shadow-sm';
-        badge.textContent = text;
-        els.badges.appendChild(badge);
-      });
-      updatePreview();
-      setDirtyState(false);
-    }
-
-    async function loadProfile(user) {
-      const snap = await db.collection(COLLECTIONS.MEMBRES).doc(user.uid).get();
-      const data = snap.exists ? (snap.data() || {}) : {};
-      populateForm(data, user);
-      els.sessionState.textContent = `Connecté en tant que ${safeText(data.nom || user.displayName || user.email, 'Membre')}.`;
-      els.saveState.textContent = 'Aucune modification';
-      els.previewLink.href = `profil-public.html?uid=${encodeURIComponent(user.uid)}`;
-    }
-
-    async function handlePhotoUpload(file) {
-      if (!file) return;
-      els.saveBtn.disabled = true;
-      els.saveBtn.textContent = 'Upload de la photo...';
-      try {
-        const url = await uploadFile(file, STORAGE_PATHS.MEMBRES);
-        profileState.photoURL = url;
-        els.photoUrlInput.value = url;
-        setAvatar(els.avatarPhoto, els.avatarInitials, els.nameInput.value || 'Membre', url);
-        updatePreview();
-        setDirtyState(true);
-        showToast('Photo préparée avec succès.', 'success');
-      } catch (err) {
-        showToast(err.message || 'Upload impossible.', 'error');
-      } finally {
-        els.saveBtn.disabled = false;
-        els.saveBtn.textContent = 'Enregistrer les changements';
-      }
-    }
-
-    async function saveProfile(e) {
-      e.preventDefault();
-      if (!profileState.uid) return;
-      els.saveBtn.disabled = true;
-      els.saveBtn.textContent = 'Enregistrement...';
-      const data = currentFormData();
-      try {
-        await db.collection(COLLECTIONS.MEMBRES).doc(profileState.uid).set(data, { merge: true });
-        if (auth.currentUser) {
-          await auth.currentUser.updateProfile({
-            displayName: data.nom || auth.currentUser.displayName || '',
-            photoURL: data.photoURL || null
-          });
+        function getInitials(name = 'Membre') {
+            const parts = String(name).trim().split(/\s+/).filter(Boolean);
+            const initials = parts.slice(0, 2).map(part => part[0] || '').join('');
+            return (initials || 'GM').toUpperCase();
         }
-        setDirtyState(false);
-        els.sessionState.textContent = `Profil enregistré pour ${safeText(data.nom, 'Membre')}.`;
-        showToast('Profil mis à jour avec succès.', 'success');
-      } catch (err) {
-        showToast(err.message || 'Enregistrement impossible.', 'error');
-      } finally {
-        els.saveBtn.disabled = false;
-        els.saveBtn.textContent = 'Enregistrer les changements';
-      }
-    }
 
-    function bindLivePreview() {
-      ['input', 'change'].forEach(evt => {
-        els.form.addEventListener(evt, () => {
-          updatePreview();
-          setDirtyState(true);
+        function setAvatar(photoEl, initialsEl, name, photoURL) {
+            initialsEl.textContent = getInitials(name);
+            if (photoURL) {
+                photoEl.src = photoURL;
+                photoEl.style.display = 'block';
+                initialsEl.style.display = 'none';
+            } else {
+                photoEl.removeAttribute('src');
+                photoEl.style.display = 'none';
+                initialsEl.style.display = 'block';
+            }
+        }
+
+        function safeText(value, fallback = '-') {
+            const text = String(value || '').trim();
+            return text || fallback;
+        }
+
+        function setDirtyState(isDirty) {
+            els.saveState.textContent = isDirty ? 'Modifications en attente' : 'Aucune modification';
+            els.saveState.style.background = isDirty ? 'rgba(200, 137, 58, 0.12)' : '';
+            els.saveState.style.color = isDirty ? '#9a6121' : '';
+        }
+
+        function currentFormData() {
+            return {
+                nom: els.nameInput.value.trim(),
+                poste: els.posteInput.value.trim(),
+                secteur: els.sectorInput.value.trim(),
+                telephone: els.phoneInput.value.trim(),
+                email: els.emailInput.value.trim(),
+                pays: els.countryInput.value.trim(),
+                ville: els.cityInput.value.trim(),
+                bio: els.bioInput.value.trim(),
+                photoURL: profileState.photoURL || els.photoUrlInput.value.trim(),
+                publicProfileEnabled: els.publicEnabled.checked,
+                showPhoto: els.showPhoto.checked,
+                showBio: els.showBio.checked,
+                showLocation: els.showLocation.checked,
+                slug: slugify(els.nameInput.value || 'membre'),
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+        }
+
+        function updatePreview() {
+            const data = currentFormData();
+            const name = data.nom || getMemberDisplayName(data, auth.currentUser) || 'Ton nom public';
+            const photoURL = data.showPhoto ? data.photoURL : '';
+            setAvatar(els.previewPhoto, els.previewInitials, name, photoURL);
+            els.profileName.textContent = name;
+            els.profileRole.textContent = data.poste || data.secteur || 'Membre du réseau GREC';
+            els.previewName.textContent = name;
+            els.previewPoste.textContent = data.poste || 'Ton poste public';
+            els.previewSector.textContent = data.secteur || '-';
+            els.previewLocation.textContent = data.showLocation
+                ? [data.ville, data.pays].filter(Boolean).join(', ') || '-'
+                : 'Masqué';
+            els.previewBio.textContent = data.showBio
+                ? (data.bio || 'Ta bio publique apparaîtra ici.')
+                : 'Bio masquée dans le profil public.';
+            els.previewVisibility.textContent = data.publicProfileEnabled
+                ? 'Profil public activé'
+                : 'Profil public masqué';
+            els.previewBadges.innerHTML = '';
+            const badges = [];
+            if (data.secteur) badges.push(data.secteur);
+            if (data.showLocation && (data.ville || data.pays)) badges.push([data.ville, data.pays].filter(Boolean).join(' · '));
+            badges.push(data.publicProfileEnabled ? 'Visible dans la communauté' : 'Profil masqué');
+            badges.forEach(text => {
+                const badge = document.createElement('span');
+                badge.className = 'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-white border border-slate-200 text-slate-700 shadow-sm';
+                badge.textContent = text;
+                els.previewBadges.appendChild(badge);
+            });
+        }
+
+        function populateForm(doc, user) {
+            const data = doc || {};
+            profileState.photoURL = data.photoURL || data.photoDataURL || user.photoURL || '';
+            els.nameInput.value = getMemberDisplayName(data, user);
+            els.posteInput.value = data.poste || '';
+            els.sectorInput.value = data.secteur || '';
+            els.phoneInput.value = data.telephone || '';
+            els.emailInput.value = data.email || user.email || '';
+            els.countryInput.value = data.pays || '';
+            els.cityInput.value = data.ville || '';
+            els.bioInput.value = data.bio || '';
+            els.photoUrlInput.value = profileState.photoURL;
+            els.publicEnabled.checked = data.publicProfileEnabled !== false;
+            els.showPhoto.checked = data.showPhoto !== false;
+            els.showBio.checked = data.showBio !== false;
+            els.showLocation.checked = data.showLocation !== false;
+            setAvatar(els.avatarPhoto, els.avatarInitials, els.nameInput.value || user.displayName || user.email, profileState.photoURL);
+            els.profileName.textContent = els.nameInput.value || user.displayName || user.email || 'Membre';
+            els.profileRole.textContent = data.poste || data.secteur || 'Membre du réseau GREC';
+            els.badges.innerHTML = '';
+            const badges = [];
+            if (data.secteur) badges.push(data.secteur);
+            if (data.pays) badges.push(data.pays);
+            if (data.publicProfileEnabled !== false) badges.push('Profil public');
+            badges.forEach(text => {
+                const badge = document.createElement('span');
+                badge.className = 'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-white border border-slate-200 text-slate-700 shadow-sm';
+                badge.textContent = text;
+                els.badges.appendChild(badge);
+            });
+            updatePreview();
+            setDirtyState(false);
+        }
+
+        async function loadProfile(user) {
+            const snap = await db.collection(COLLECTIONS.MEMBRES).doc(user.uid).get();
+            const data = snap.exists ? (snap.data() || {}) : {};
+            profileState.authorName = getMemberDisplayName(data, user);
+            populateForm(data, user);
+            els.sessionState.textContent = `Connecté en tant que ${safeText(getMemberDisplayName(data, user), 'Membre')}.`;
+            els.saveState.textContent = 'Aucune modification';
+            els.previewLink.href = `profil-public.html?uid=${encodeURIComponent(user.uid)}`;
+        }
+
+        async function handlePhotoUpload(file) {
+            if (!file) return;
+            els.saveBtn.disabled = true;
+            els.saveBtn.textContent = 'Upload de la photo...';
+            try {
+                const url = await uploadFile(file, STORAGE_PATHS.MEMBRES);
+                profileState.photoURL = url;
+                els.photoUrlInput.value = url;
+                setAvatar(els.avatarPhoto, els.avatarInitials, els.nameInput.value || 'Membre', url);
+                updatePreview();
+                setDirtyState(true);
+                showToast('Photo préparée avec succès.', 'success');
+            } catch (err) {
+                showToast(err.message || 'Upload impossible.', 'error');
+            } finally {
+                els.saveBtn.disabled = false;
+                els.saveBtn.textContent = 'Enregistrer les changements';
+            }
+        }
+
+        async function saveProfile(e) {
+            e.preventDefault();
+            if (!profileState.uid) return;
+            els.saveBtn.disabled = true;
+            els.saveBtn.textContent = 'Enregistrement...';
+            const data = currentFormData();
+            try {
+                await db.collection(COLLECTIONS.MEMBRES).doc(profileState.uid).set(data, { merge: true });
+                if (auth.currentUser) {
+                    await auth.currentUser.updateProfile({
+                        displayName: data.nom || auth.currentUser.displayName || '',
+                        photoURL: data.photoURL || null
+                    });
+                }
+                setDirtyState(false);
+                els.sessionState.textContent = `Profil enregistré pour ${safeText(data.nom, 'Membre')}.`;
+                showToast('Profil mis à jour avec succès.', 'success');
+            } catch (err) {
+                showToast(err.message || 'Enregistrement impossible.', 'error');
+            } finally {
+                els.saveBtn.disabled = false;
+                els.saveBtn.textContent = 'Enregistrer les changements';
+            }
+        }
+
+        function bindLivePreview() {
+            ['input', 'change'].forEach(evt => {
+                els.form.addEventListener(evt, () => {
+                    updatePreview();
+                    setDirtyState(true);
+                });
+            });
+            els.photoInput.addEventListener('change', (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (file) handlePhotoUpload(file);
+            });
+            els.photoUrlInput.addEventListener('input', () => {
+                profileState.photoURL = els.photoUrlInput.value.trim();
+                updatePreview();
+                setDirtyState(true);
+            });
+            els.resetBtn.addEventListener('click', () => {
+                if (auth.currentUser) loadProfile(auth.currentUser);
+            });
+            els.publicEnabled.addEventListener('change', updatePreview);
+            els.showPhoto.addEventListener('change', updatePreview);
+            els.showBio.addEventListener('change', updatePreview);
+            els.showLocation.addEventListener('change', updatePreview);
+        }
+
+        function cacheElements() {
+            els.form = document.getElementById('profile-form');
+            els.sessionState = document.getElementById('profile-session-state');
+            els.saveState = document.getElementById('profile-save-state');
+            els.saveBtn = document.getElementById('profile-save-btn');
+            els.resetBtn = document.getElementById('profile-reset-btn');
+            els.nameInput = document.getElementById('profile-name-input');
+            els.posteInput = document.getElementById('profile-poste-input');
+            els.sectorInput = document.getElementById('profile-sector-input');
+            els.phoneInput = document.getElementById('profile-phone-input');
+            els.emailInput = document.getElementById('profile-email-input');
+            els.countryInput = document.getElementById('profile-country-input');
+            els.cityInput = document.getElementById('profile-city-input');
+            els.photoInput = document.getElementById('profile-photo-input');
+            els.photoUrlInput = document.getElementById('profile-photo-url');
+            els.bioInput = document.getElementById('profile-bio-input');
+            els.publicEnabled = document.getElementById('profile-public-enabled');
+            els.showPhoto = document.getElementById('profile-show-photo');
+            els.showBio = document.getElementById('profile-show-bio');
+            els.showLocation = document.getElementById('profile-show-location');
+            els.avatarPhoto = document.getElementById('profile-photo');
+            els.avatarInitials = document.getElementById('profile-initials');
+            els.profileName = document.getElementById('profile-name');
+            els.profileRole = document.getElementById('profile-role');
+            els.badges = document.getElementById('profile-badges');
+            els.previewLink = document.getElementById('profile-preview-link');
+            els.previewPhoto = document.getElementById('preview-photo');
+            els.previewInitials = document.getElementById('preview-initials');
+            els.previewName = document.getElementById('preview-name');
+            els.previewPoste = document.getElementById('preview-poste');
+            els.previewBadges = document.getElementById('preview-badges');
+            els.previewBio = document.getElementById('preview-bio');
+            els.previewSector = document.getElementById('preview-sector');
+            els.previewLocation = document.getElementById('preview-location');
+            els.previewVisibility = document.getElementById('preview-visibility');
+        }
+
+        cacheElements();
+        bindLivePreview();
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                // Redirect guests to home (not the auth page)
+                window.location.href = getHomeHref();
+                return;
+            }
+            profileState.uid = user.uid;
+            const immediateName = user.displayName || user.email || 'Membre';
+            els.profileName.textContent = immediateName;
+            setAvatar(els.avatarPhoto, els.avatarInitials, immediateName, user.photoURL || '');
+            els.sessionState.textContent = `Connecté en tant que ${immediateName}.`;
+            await loadProfile(user);
         });
-      });
-      els.photoInput.addEventListener('change', (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (file) handlePhotoUpload(file);
-      });
-      els.photoUrlInput.addEventListener('input', () => {
-        profileState.photoURL = els.photoUrlInput.value.trim();
-        updatePreview();
-        setDirtyState(true);
-      });
-      els.resetBtn.addEventListener('click', () => {
-        if (auth.currentUser) loadProfile(auth.currentUser);
-      });
-      els.publicEnabled.addEventListener('change', updatePreview);
-      els.showPhoto.addEventListener('change', updatePreview);
-      els.showBio.addEventListener('change', updatePreview);
-      els.showLocation.addEventListener('change', updatePreview);
-    }
 
-    function cacheElements() {
-      els.form = document.getElementById('profile-form');
-      els.sessionState = document.getElementById('profile-session-state');
-      els.saveState = document.getElementById('profile-save-state');
-      els.saveBtn = document.getElementById('profile-save-btn');
-      els.resetBtn = document.getElementById('profile-reset-btn');
-      els.nameInput = document.getElementById('profile-name-input');
-      els.posteInput = document.getElementById('profile-poste-input');
-      els.sectorInput = document.getElementById('profile-sector-input');
-      els.phoneInput = document.getElementById('profile-phone-input');
-      els.emailInput = document.getElementById('profile-email-input');
-      els.countryInput = document.getElementById('profile-country-input');
-      els.cityInput = document.getElementById('profile-city-input');
-      els.photoInput = document.getElementById('profile-photo-input');
-      els.photoUrlInput = document.getElementById('profile-photo-url');
-      els.bioInput = document.getElementById('profile-bio-input');
-      els.publicEnabled = document.getElementById('profile-public-enabled');
-      els.showPhoto = document.getElementById('profile-show-photo');
-      els.showBio = document.getElementById('profile-show-bio');
-      els.showLocation = document.getElementById('profile-show-location');
-      els.avatarPhoto = document.getElementById('profile-photo');
-      els.avatarInitials = document.getElementById('profile-initials');
-      els.profileName = document.getElementById('profile-name');
-      els.profileRole = document.getElementById('profile-role');
-      els.badges = document.getElementById('profile-badges');
-      els.previewLink = document.getElementById('profile-preview-link');
-      els.previewPhoto = document.getElementById('preview-photo');
-      els.previewInitials = document.getElementById('preview-initials');
-      els.previewName = document.getElementById('preview-name');
-      els.previewPoste = document.getElementById('preview-poste');
-      els.previewBadges = document.getElementById('preview-badges');
-      els.previewBio = document.getElementById('preview-bio');
-      els.previewSector = document.getElementById('preview-sector');
-      els.previewLocation = document.getElementById('preview-location');
-      els.previewVisibility = document.getElementById('preview-visibility');
-    }
-
-    cacheElements();
-    bindLivePreview();
-
-    auth.onAuthStateChanged(async (user) => {
-      if (!user) {
-        window.location.href = 'auth.html';
-        return;
-      }
-      profileState.uid = user.uid;
-      const immediateName = user.displayName || user.email || 'Membre';
-      els.profileName.textContent = immediateName;
-      setAvatar(els.avatarPhoto, els.avatarInitials, immediateName, user.photoURL || '');
-      els.sessionState.textContent = `Connecté en tant que ${immediateName}.`;
-      await loadProfile(user);
-    });
-
-    els.form.addEventListener('submit', saveProfile);
-  </script>
+        els.form.addEventListener('submit', saveProfile);
+    </script>
 </body>
 
 </html>

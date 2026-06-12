@@ -180,12 +180,19 @@
         <a href="pages/partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
       </div>
       <div class="hidden lg:flex items-center gap-3">
-        <a href="pages/auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
+        <a href="pages/auth.html" class="auth-login-link hidden btn btn-outline text-sm py-2 px-4">Se connecter</a>
+        <a href="pages/register.html" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir
           membre</a>
         <a href="pages/profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
         <a href="pages/chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
         <button onclick="logout()"
-          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors"
+          aria-label="Déconnexion" title="Déconnexion">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+          </svg>
+        </button>
       </div>
       <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -206,12 +213,18 @@
         <a href="pages/partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
         <div class="pt-3 flex flex-col gap-2">
           <a href="pages/auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
-          <a href="pages/auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
+          <a href="pages/register.html" class="auth-register-link btn btn-gold text-center text-sm">Devenir
             membre</a>
           <a href="pages/profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
           <a href="pages/chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
           <button onclick="logout()"
-            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
+            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors"
+            aria-label="Déconnexion" title="Déconnexion">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
@@ -245,7 +258,7 @@
 
 
       <div class="opacity-0 animate-fade-up delay-4 flex flex-wrap gap-4 mb-20">
-        <a href="pages/auth.html?tab=register" class="btn btn-gold px-6 py-3 text-base">
+        <a href="pages/register.html" class="btn btn-gold px-6 py-3 text-base">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -896,8 +909,8 @@
       <div>
         <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-widest">Notre communauté</h3>
         <ul class="space-y-3">
-          <li><a href="pages/auth.html?tab=register"
-              class="text-white/50 hover:text-gold text-sm transition-colors">Devenir membre</a></li>
+          <li><a href="pages/register.html" class="text-white/50 hover:text-gold text-sm transition-colors">Devenir
+              membre</a></li>
           <li><a href="pages/auth.html" class="text-white/50 hover:text-gold text-sm transition-colors">Connexion</a>
           </li>
           <li><a href="pages/profil.html"

@@ -448,11 +448,17 @@
       </div>
       <div class="hidden lg:flex items-center gap-3">
         <a href="auth.html" class="auth-login-link hidden btn btn-outline text-sm py-2 px-4">Se connecter</a>
-        <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
+        <a href="register.html" class="auth-register-link btn btn-gold text-sm py-2 px-4">Devenir membre</a>
         <a href="profil.html" class="auth-member-link hidden btn btn-outline text-sm py-2 px-4">Mon profil</a>
         <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-sm py-2 px-4">Messagerie</a>
         <button onclick="logout()"
-          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors">Déconnexion</button>
+          class="auth-logout-link hidden text-white/60 hover:text-white text-sm transition-colors"
+          aria-label="Déconnexion" title="Déconnexion">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+          </svg>
+        </button>
       </div>
       <button id="mobile-menu-btn" class="lg:hidden text-navy p-2 rounded-lg hover:bg-slate-200/70 transition-colors">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -473,12 +479,18 @@
         <a href="partenaires.html" class="nav-link text-sm font-medium transition-colors">Nos partenaires</a>
         <div class="pt-3 flex flex-col gap-2">
           <a href="auth.html" class="auth-login-link hidden btn btn-outline text-center text-sm">Se connecter</a>
-          <a href="auth.html?tab=register" class="auth-register-link btn btn-gold text-center text-sm">Devenir
+          <a href="register.html" class="auth-register-link btn btn-gold text-center text-sm">Devenir
             membre</a>
           <a href="profil.html" class="auth-member-link hidden btn btn-outline text-center text-sm">Mon profil</a>
           <a href="chat.html" class="auth-chat-link hidden btn btn-outline text-center text-sm">Messagerie</a>
           <button onclick="logout()"
-            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors">Déconnexion</button>
+            class="auth-logout-link hidden text-slate-600 hover:text-slate-900 text-sm transition-colors"
+            aria-label="Déconnexion" title="Déconnexion">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8v8" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
@@ -997,7 +1009,7 @@
               <span class="text-slate-600 text-sm">Formations, masterclasses et accès aux ressources du réseau</span>
             </li>
           </ul>
-          <a href="auth.html?tab=register" class="btn btn-gold inline-flex">Demander mon adhésion ?</a>
+          <a href="register.html" class="btn btn-gold inline-flex">Demander mon adhésion ?</a>
         </div>
         <div class="grid grid-cols-2 gap-5">
           <!-- Mosaïque réseau: images locales cohérentes avec l'activité GREC, avec fallback sur hero.jpg. -->
@@ -1087,7 +1099,8 @@
         <div class="flex flex-col sm:flex-row gap-3">
           <a href="auth.html" id="modal-contact-link" class="btn btn-gold flex-1 text-center text-sm">Contacter ce
             membre</a>
-          <a href="profil-public.html" id="modal-profile-link" class="btn btn-outline-gold flex-1 text-center text-sm">Voir le
+          <a href="profil-public.html" id="modal-profile-link"
+            class="btn btn-outline-gold flex-1 text-center text-sm">Voir le
             profil public</a>
         </div>
         <p class="text-xs text-slate-400 text-center mt-3">Le contact direct est réservé aux membres connectés</p>
@@ -1145,8 +1158,8 @@
           <li><a href="profil.html"
               class="auth-member-link hidden text-white/45 hover:text-gold text-sm transition-colors">Mon profil</a>
           </li>
-          <li><a href="auth.html?tab=register"
-              class="text-white/45 hover:text-gold text-sm transition-colors">S'inscrire</a></li>
+          <li><a href="register.html" class="text-white/45 hover:text-gold text-sm transition-colors">S'inscrire</a>
+          </li>
         </ul>
       </div>
       <div>

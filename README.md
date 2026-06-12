@@ -60,6 +60,13 @@ grec-group/
 3. Enregistrer l'app → copier la config
 4. Coller dans `js/firebase-config.js`
 
+### 3.1. Configuration Cloudinary
+1. Aller sur https://cloudinary.com/console/settings/upload
+2. Créer un preset d'upload non signé
+3. Nommer le preset : `grec-upload`
+4. Vérifier que le preset est en mode **unsigned**
+5. Le preset doit être utilisé dans `js/firebase-config.js`
+
 ### 4. Premier admin
 Dans Firestore, créer manuellement :
 ```
@@ -137,3 +144,21 @@ firebase deploy
   "ordre": "number"
 }
 ```
+
+---
+
+## Migration des membres Firebase Auth vers Firestore
+
+Si certains comptes existent dans Firebase Auth mais pas encore dans `membres`, lance le script de migration :
+
+```bash
+npm install
+npm run migrate:membres -- --service-account C:\chemin\vers\serviceAccount.json
+```
+
+Options utiles :
+- `--dry-run` pour simuler sans écrire
+- `--upsert` pour mettre à jour aussi les documents déjà présents
+- `--skip-disabled` pour ignorer les comptes Auth désactivés
+
+Le script lit `.firebaserc` par défaut, ou tu peux forcer `--project-id savplus-school`.

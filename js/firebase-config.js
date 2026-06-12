@@ -30,7 +30,9 @@ const COLLECTIONS = {
   ADMINS:      "admins",
   ACTUALITES:  "actualites",
   EVENEMENTS:  "evenements",
+  CONTRIBUTIONS: "contributions",
   GALERIE:     "galerie",
+  PARTENAIRES: "partenaires",
   NEWSLETTER:  "newsletter",
   CONTACTS:    "contacts",
   CHATS:       "chats"
@@ -42,6 +44,19 @@ const ROLES = {
   MEMBRE:  "membre"
 };
 
+// ── Validation des contributions membres ─────────────────────
+const VALIDATION_STATUS = {
+  PENDING:  "en_attente",
+  APPROVED: "valide",
+  REJECTED: "refuse"
+};
+
+const VALIDATION_LABELS = {
+  en_attente: "En attente",
+  valide:     "Validé",
+  refuse:     "Refusé"
+};
+
 // ── Admin Allowlist ──────────────────────────────────────────
 const ADMIN_EMAILS = [
   "admin@grec.com"
@@ -49,9 +64,12 @@ const ADMIN_EMAILS = [
 
 // ── Storage Paths ────────────────────────────────────────────
 const STORAGE_PATHS = {
-  MEMBRES:    "membres/photos/",
-  ACTUALITES: "actualites/images/",
-  GALERIE:    "galerie/"
+  MEMBRES:        "membres/photos/",
+  ACTUALITES:     "actualites/images/",
+  EVENEMENTS:     "evenements/images/",
+  CONTRIBUTIONS:  "contributions/",
+  GALERIE:        "galerie/"
+  ,PARTENAIRES:    "partenaires/logos/"
 };
 
 // ── Cloudinary (uploads images depuis le navigateur) ───────
